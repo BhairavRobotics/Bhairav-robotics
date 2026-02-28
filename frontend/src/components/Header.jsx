@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import logo from "../assets/header/brlogo.png";
+
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -17,17 +19,13 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="#" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-sm flex items-center justify-center">
-              <span className="font-heading font-bold text-lg text-primary-foreground">BR</span>
-            </div>
-            <div className="hidden sm:block">
-              <span className="font-heading font-bold text-lg tracking-wide text-foreground">
-                BHAIRAV ROBOTICS
-              </span>
-              <span className="block text-[10px] tracking-[0.25em] uppercase text-muted-foreground -mt-1">
-                Pvt Ltd
-              </span>
+          <a href="#" className="flex items-center">
+            <div className="h-30 w-40 flex items-center justify-center overflow-hidden">
+              <img
+                src={logo}
+                alt="Bhairav Robotics logo"
+                className="max-h-full max-w-full object-contain"
+              />
             </div>
           </a>
 
@@ -43,7 +41,6 @@ const Header = () => {
             ))}
           </nav>
 
-          <div className="hidden lg:block"></div>
 
           <button
             onClick={() => setIsOpen(!isOpen)}
