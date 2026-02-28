@@ -5,7 +5,6 @@ import logo from "../assets/header/brlogo.png";
 
 
 const navLinks = [
-  { label: "Home", href: "#" },
   { label: "Products", href: "#products" },
   { label: "Careers", href: "#careers" },
   { label: "About Us", href: "#about" },
