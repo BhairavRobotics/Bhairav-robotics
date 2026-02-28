@@ -2,10 +2,8 @@ import Header from "@/components/Header";
 import Hero from "@/sections/Hero";
 import StatsStrip from "@/sections/StatsStrip";
 import ProductShowcase from "@/sections/ProductShowcase";
-import TechnologySection from "@/sections/TechnologySection";
 import TechSpecs from "@/sections/TechSpecs";
 import Partners from "@/sections/Partners";
-import GlobalPresence from "@/sections/GlobalPresence";
 import Testimonials from "@/sections/Testimonials";
 import NewsSection from "@/sections/NewsSection";
 import Footer from "@/sections/Footer";
@@ -16,11 +14,9 @@ const Index = () => {
       <Header />
       <Hero />
       <StatsStrip />
-      <ProductShowcase />
-      <TechnologySection />
       <TechSpecs />
+      <ProductShowcase />
       <Partners />
-      <GlobalPresence />
       <Testimonials />
       <NewsSection />
       <Footer />
