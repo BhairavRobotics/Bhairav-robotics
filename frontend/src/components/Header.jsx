@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Palette } from "lucide-react";
 import logo from "../assets/header/brlogo.png";
-
 
 const navLinks = [
   { label: "Products", href: "#products" },
@@ -11,8 +10,33 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const themes = [
+  { value: "dark", label: "Dark" },
+  { value: "light", label: "Light" },
+  { value: "sunset", label: "Sunset" },
+];
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [themeIndex, setThemeIndex] = useState(0);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const savedThemeIndex = themes.findIndex((theme) => theme.value === savedTheme);
+    const initialThemeIndex = savedThemeIndex >= 0 ? savedThemeIndex : 0;
+
+    setThemeIndex(initialThemeIndex);
+    document.documentElement.setAttribute("data-theme", themes[initialThemeIndex].value);
+  }, []);
+
+  const cycleTheme = () => {
+    const nextIndex = (themeIndex + 1) % themes.length;
+    const nextTheme = themes[nextIndex].value;
+
+    setThemeIndex(nextIndex);
+    document.documentElement.setAttribute("data-theme", nextTheme);
+    localStorage.setItem("theme", nextTheme);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -40,14 +64,24 @@ const Header = () => {
             ))}
           </nav>
 
+          <div className="flex items-center gap-2">
+            <button
+              onClick={cycleTheme}
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary px-3 py-2 text-xs font-heading font-semibold uppercase tracking-wider text-secondary-foreground transition-colors hover:bg-muted"
+              aria-label={`Switch theme. Current theme is ${themes[themeIndex].label}`}
+            >
+              <Palette size={16} />
+              <span>{themes[themeIndex].label}</span>
+            </button>
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-foreground p-2"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden text-foreground p-2"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
