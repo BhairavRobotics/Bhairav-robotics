@@ -1,16 +1,20 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroPoster from "@/assets/hero-poster.jpg";
+import heroPoster from "@/assets/Vrishabh.mp4";
 
 const Hero = () => {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        <img
-          src={heroPoster}
-          alt="Defense robotics background"
-          className="w-full h-full object-cover"
-        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-fill"
+        >
+          <source src={heroPoster} type="video/mp4" />
+        </video>
       </div>
 
       <div className="absolute inset-0 hero-overlay" />
@@ -22,7 +26,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-foreground mb-4">
-            Next-Gen Robotics for{" "}
+            Born for the battlefield,{" "}
             <span className="text-gradient">Defense & Industry</span>
           </h1>
         </motion.div>
