@@ -19,6 +19,7 @@ const themes = [
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [themeIndex, setThemeIndex] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -27,6 +28,12 @@ const Header = () => {
 
     setThemeIndex(initialThemeIndex);
     document.documentElement.setAttribute("data-theme", themes[initialThemeIndex].value);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const cycleTheme = () => {
@@ -39,7 +46,13 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/90 backdrop-blur-md border-b border-border"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <a href="#" className="flex items-center">
@@ -57,7 +70,7 @@ const Header = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="font-heading font-medium text-sm tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-200"
+                className="font-heading font-medium text-sm tracking-wider uppercase text-foreground/70 hover:text-primary transition-colors duration-200"
               >
                 {link.label}
               </a>
@@ -67,7 +80,7 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={cycleTheme}
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary px-3 py-2 text-xs font-heading font-semibold uppercase tracking-wider text-secondary-foreground transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-2 rounded-md border border-border/50 bg-background/30 backdrop-blur-sm px-3 py-2 text-xs font-heading font-semibold uppercase tracking-wider text-foreground/80 transition-colors hover:bg-background/50"
               aria-label={`Switch theme. Current theme is ${themes[themeIndex].label}`}
             >
               <Palette size={16} />
@@ -91,7 +104,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-b border-border overflow-hidden"
+            className="lg:hidden bg-background/95 backdrop-blur-md border-b border-border overflow-hidden"
           >
             <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
               {navLinks.map((link) => (
