@@ -62,27 +62,27 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Stats overlay at bottom */}
-      <div className="absolute bottom-16 left-0 right-0 z-10">
+      {/* Floating stats over hero */}
+      <div className="absolute bottom-20 left-0 right-0 z-10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 + i * 0.1 }}
+                transition={{ duration: 0.6, delay: 1.0 + i * 0.12 }}
                 className="text-center"
               >
-                <div className="font-heading font-bold text-2xl md:text-3xl text-foreground">
+                <div className="font-heading font-bold text-3xl md:text-4xl text-foreground drop-shadow-lg">
                   {stat.value}
                   {stat.unit && (
-                    <span className="text-sm font-medium ml-1 text-muted-foreground">
+                    <span className="text-base font-medium ml-1 text-foreground/50">
                       {stat.unit}
                     </span>
                   )}
                 </div>
-                <div className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground/70 font-heading mt-1">
+                <div className="text-[10px] tracking-[0.25em] uppercase text-foreground/40 font-heading font-medium mt-1.5">
                   {stat.label}
                 </div>
               </motion.div>
@@ -91,14 +91,13 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="flex flex-col items-center gap-1"
         >
-          <ChevronDown size={18} className="text-primary animate-scroll-indicator" />
+          <ChevronDown size={18} className="text-primary animate-bounce" />
         </motion.div>
       </div>
     </section>
