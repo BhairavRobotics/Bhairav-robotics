@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { products } from "@/data/products";
+import heroVideo from "@/assets/Vrishabh.mp4";
 
 const ProductShowcase = () => {
   const [current, setCurrent] = useState(0);
@@ -31,13 +32,13 @@ const ProductShowcase = () => {
         <div className="relative max-w-5xl mx-auto">
           <button
             onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-16 z-10 w-12 h-12 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-16 z-10 w-12 h-12 rounded-full border border-border bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-16 z-10 w-12 h-12 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-16 z-10 w-12 h-12 rounded-full border border-border bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors"
           >
             <ChevronRight size={20} />
           </button>
@@ -52,12 +53,17 @@ const ProductShowcase = () => {
               className="bg-card border border-border rounded-lg overflow-hidden shadow-card"
             >
               <div className="grid md:grid-cols-2 gap-0">
-                <div className="aspect-square bg-secondary flex items-center justify-center p-8">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-contain"
-                  />
+                <div className="aspect-square bg-secondary flex items-center justify-center overflow-hidden relative group">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  >
+                    <source src={heroVideo} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/40 to-transparent pointer-events-none" />
                 </div>
                 <div className="p-8 lg:p-12 flex flex-col justify-center">
                   <span className="text-[11px] tracking-[0.2em] uppercase text-primary font-heading font-semibold mb-2">
