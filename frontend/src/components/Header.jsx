@@ -22,24 +22,28 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg"
-          : "bg-transparent border-b border-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+        ? "bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg"
+        : "bg-transparent border-b border-transparent"
+        }`}
     >
       <div className="container mx-auto px-6 lg:px-10">
-        <div className="flex items-center justify-between h-18 lg:h-22">
-          <a href="#" className="flex items-center">
-            <div className="h-30 w-40 flex items-center justify-center overflow-hidden">
-              <img
-                src={logo}
-                alt="Bhairav Robotics logo"
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
+        <div className="flex items-center justify-between h-16 lg:h-20">
+
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-4">
+            <img
+              src={logo}
+              alt="Bhairav Robotics logo"
+              className="h-12 object-contain"
+            />
+
+            <h1 className="font-heading font-bold text-2xl tracking-tight text-foreground">
+              Born for the Battlefield
+            </h1>
           </a>
 
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
@@ -48,10 +52,11 @@ const Header = () => {
                 className="font-heading font-semibold text-[15px] tracking-[0.12em] uppercase text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </nav>
+
         </div>
       </div>
 
@@ -74,6 +79,7 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
+
               <a
                 href="#contact"
                 onClick={() => setIsOpen(false)}
