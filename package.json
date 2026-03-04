@@ -3,10 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build",
-    "build:dev": "cd frontend && npm run build:dev",
-    "test": "cd frontend && npm run test",
-    "lint": "cd frontend && npm run lint"
+    "dev": "npx vite --root frontend",
+    "build": "npx vite build --root frontend",
+    "build:dev": "npx vite build --mode development --root frontend",
+    "test": "cd frontend && npx vitest run",
+    "lint": "cd frontend && npx eslint ."
   }
 }
