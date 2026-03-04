@@ -3,9 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "npx vite --root frontend",
-    "build": "npx vite build --root frontend",
-    "build:dev": "npx vite build --mode development --root frontend",
+    "dev": "cd frontend && node_modules/.bin/vite",
+    "build": "cd frontend && node_modules/.bin/vite build",
+    "build:dev": "cd frontend && node_modules/.bin/vite build --mode development",
     "test": "cd frontend && npx vitest run",
     "lint": "cd frontend && npx eslint ."
   }
