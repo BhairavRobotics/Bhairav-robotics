@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Palette } from "lucide-react";
+import { useTheme } from "next-themes";
 import logo from "../assets/header/brlogo.png";
 
 const navLinks = [
@@ -18,29 +19,26 @@ const themes = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [themeIndex, setThemeIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const savedThemeIndex = themes.findIndex((theme) => theme.value === savedTheme);
-    const initialThemeIndex = savedThemeIndex >= 0 ? savedThemeIndex : 0;
-    setThemeIndex(initialThemeIndex);
-    document.documentElement.setAttribute("data-theme", themes[initialThemeIndex].value);
-  }, []);
-
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const activeThemeIndex = useMemo(
+    () => themes.findIndex((item) => item.value === theme),
+    [theme],
+  );
+
+  const currentTheme = themes[activeThemeIndex >= 0 ? activeThemeIndex : 0];
+
   const cycleTheme = () => {
-    const nextIndex = (themeIndex + 1) % themes.length;
-    const nextTheme = themes[nextIndex].value;
-    setThemeIndex(nextIndex);
-    document.documentElement.setAttribute("data-theme", nextTheme);
-    localStorage.setItem("theme", nextTheme);
+    const nextIndex = (activeThemeIndex >= 0 ? activeThemeIndex : 0) + 1;
+    setTheme(themes[nextIndex % themes.length].value);
   };
 
   return (
@@ -78,15 +76,18 @@ const Header = () => {
 
           <div className="flex items-center gap-3">
             <button
+              type="button"
               onClick={cycleTheme}
-              className="inline-flex items-center gap-2 rounded-md border border-foreground/10 bg-foreground/5 backdrop-blur-sm px-3 py-2 text-xs font-heading font-semibold uppercase tracking-wider text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground"
-              aria-label={`Switch theme. Current theme is ${themes[themeIndex].label}`}
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary px-3 py-2 text-xs font-heading font-semibold uppercase tracking-wider text-secondary-foreground transition-colors hover:bg-muted"
+              aria-label={`Switch theme. Current theme is ${currentTheme.label}`}
+              title={`Theme: ${currentTheme.label}`}
             >
               <Palette size={16} />
-              <span>{themes[themeIndex].label}</span>
+              <span>{currentTheme.label}</span>
             </button>
 
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden text-foreground p-2"
               aria-label="Toggle menu"
