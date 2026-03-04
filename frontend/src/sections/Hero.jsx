@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroPoster from "@/assets/Vrishabh.mp4";
+import heroPoster from "@/assets/ProductVideos/Vrishabh.mp4";
 import { stats } from "@/data/siteData";
 
 const Hero = () => {
