@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cd frontend && node_modules/.bin/vite",
     "build": "cd frontend && node_modules/.bin/vite build",
-    "build:dev": "cd frontend && node_modules/.bin/vite build --mode development",
+    "build:dev": "npm --prefix frontend install --no-package-lock && npm --prefix frontend run build:dev",
     "test": "cd frontend && npx vitest run",
     "lint": "cd frontend && npx eslint ."
   }
