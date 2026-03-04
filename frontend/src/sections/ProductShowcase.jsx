@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { products } from "@/data/products";
-import heroVideo from "@/assets/Vrishabh.mp4";
 
 const ProductShowcase = () => {
   const [current, setCurrent] = useState(0);
@@ -61,7 +60,7 @@ const ProductShowcase = () => {
                     playsInline
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   >
-                    <source src={heroVideo} type="video/mp4" />
+                    <source src={product.video} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-gradient-to-t from-card/40 to-transparent pointer-events-none" />
                 </div>
