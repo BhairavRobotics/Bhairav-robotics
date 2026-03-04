@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/header/brlogo.png";
 
-
 const navLinks = [
   { label: "Products", href: "#products" },
   { label: "Careers", href: "#careers" },
@@ -40,8 +39,8 @@ const Header = () => {
             ))}
           </nav>
 
-
           <button
+            type="button"
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden text-foreground p-2"
             aria-label="Toggle menu"
