@@ -1,19 +1,42 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
-import heroPoster from "@/assets/ProductVideos/Vrishabh.mp4";
+import { ChevronDown, X } from "lucide-react";
+import heroPoster from "@/assets/Vrishabh.mp4";
 import { stats } from "@/data/siteData";
 
 const Hero = () => {
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const demoVideoRef = useRef(null);
+
+  useEffect(() => {
+    if (!isDemoOpen) return;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsDemoOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleEscape);
+
+    if (demoVideoRef.current) {
+      demoVideoRef.current.currentTime = 0;
+      demoVideoRef.current.play().catch(() => {
+        // Ignore autoplay policy interruptions.
+      });
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isDemoOpen]);
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-fill"
-        >
+        <video autoPlay loop muted playsInline className="w-full h-full object-fill">
           <source src={heroPoster} type="video/mp4" />
         </video>
       </div>
@@ -53,14 +76,39 @@ const Hero = () => {
           >
             Explore Products
           </a>
-          <a
-            href="#technology"
+          <button
+            type="button"
+            onClick={() => setIsDemoOpen(true)}
             className="border border-border px-8 py-3.5 rounded-sm font-heading font-semibold text-sm tracking-wider uppercase text-foreground hover:border-primary hover:text-primary transition-colors"
           >
             Watch Demo
-          </a>
+          </button>
         </motion.div>
       </div>
+
+      {isDemoOpen && (
+        <div className="fixed inset-0 z-50 bg-black">
+          <video
+            ref={demoVideoRef}
+            autoPlay
+            loop
+            playsInline
+            controls
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            <source src={heroPoster} type="video/mp4" />
+          </video>
+          <div className="pointer-events-none absolute inset-0 bg-black/30" />
+          <button
+            type="button"
+            onClick={() => setIsDemoOpen(false)}
+            className="absolute right-4 top-4 z-10 rounded-full bg-background/20 p-2 text-foreground backdrop-blur-sm transition hover:bg-background/35"
+            aria-label="Close demo"
+          >
+            <X size={20} />
+          </button>
+        </div>
+      )}
 
       {/* Floating stats over hero */}
       <div className="absolute bottom-20 left-0 right-0 z-10">
