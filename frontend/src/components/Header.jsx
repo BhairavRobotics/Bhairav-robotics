@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Palette } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -6,8 +6,8 @@ import logo from "../assets/header/brlogo.png";
 
 const navLinks = [
   { label: "Products", href: "#products" },
-  { label: "Careers", href: "#careers" },
   { label: "About Us", href: "#about" },
+  { label: "Careers", href: "#careers" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -19,7 +19,15 @@ const themes = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const activeThemeIndex = useMemo(
     () => themes.findIndex((item) => item.value === theme),
@@ -34,9 +42,15 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-lg"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-6 lg:px-10">
+        <div className="flex items-center justify-between h-18 lg:h-22">
           <a href="#" className="flex items-center">
             <div className="h-30 w-40 flex items-center justify-center overflow-hidden">
               <img
@@ -47,19 +61,20 @@ const Header = () => {
             </div>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="font-heading font-medium text-sm tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-200"
+                className="font-heading font-semibold text-[15px] tracking-[0.12em] uppercase text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={cycleTheme}
@@ -89,15 +104,15 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-b border-border overflow-hidden"
+            className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
           >
-            <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
+            <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="font-heading font-medium text-base tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors py-2"
+                  className="font-heading font-semibold text-base tracking-[0.12em] uppercase text-muted-foreground hover:text-primary transition-colors py-2"
                 >
                   {link.label}
                 </a>
