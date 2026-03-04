@@ -1,7 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Palette } from "lucide-react";
-import { useTheme } from "next-themes";
 import logo from "../assets/header/brlogo.png";
 
 const navLinks = [
@@ -11,16 +9,9 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const themes = [
-  { value: "dark", label: "Dark" },
-  { value: "light", label: "Light" },
-  { value: "sunset", label: "Sunset" },
-];
-
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   // Handle scroll effect
   useEffect(() => {
@@ -28,18 +19,6 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const activeThemeIndex = useMemo(
-    () => themes.findIndex((item) => item.value === theme),
-    [theme],
-  );
-
-  const currentTheme = themes[activeThemeIndex >= 0 ? activeThemeIndex : 0];
-
-  const cycleTheme = () => {
-    const nextIndex = (activeThemeIndex >= 0 ? activeThemeIndex : 0) + 1;
-    setTheme(themes[nextIndex % themes.length].value);
-  };
 
   return (
     <header
@@ -73,28 +52,6 @@ const Header = () => {
               </a>
             ))}
           </nav>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={cycleTheme}
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary px-3 py-2 text-xs font-heading font-semibold uppercase tracking-wider text-secondary-foreground transition-colors hover:bg-muted"
-              aria-label={`Switch theme. Current theme is ${currentTheme.label}`}
-              title={`Theme: ${currentTheme.label}`}
-            >
-              <Palette size={16} />
-              <span>{currentTheme.label}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden text-foreground p-2"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
         </div>
       </div>
 
