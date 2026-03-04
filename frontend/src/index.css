@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root, [data-theme="dark"] {
+  :root {
     --background: 220 20% 7%;
     --foreground: 210 20% 92%;
 
@@ -55,99 +55,6 @@
     --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
   }
 
-  [data-theme="light"] {
-    --background: 210 40% 98%;
-    --foreground: 224 40% 12%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 224 40% 12%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 40% 12%;
-
-    --primary: 25 95% 48%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 33% 93%;
-    --secondary-foreground: 224 30% 20%;
-
-    --muted: 210 32% 95%;
-    --muted-foreground: 220 15% 40%;
-
-    --accent: 25 95% 48%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 50%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 18% 84%;
-    --input: 220 18% 84%;
-    --ring: 25 95% 48%;
-
-    --sidebar-background: 210 40% 96%;
-    --sidebar-foreground: 224 40% 12%;
-    --sidebar-primary: 25 95% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 30% 91%;
-    --sidebar-accent-foreground: 224 40% 12%;
-    --sidebar-border: 220 18% 84%;
-    --sidebar-ring: 25 95% 48%;
-
-    --surface: 0 0% 100%;
-    --surface-foreground: 224 30% 20%;
-    --hero-overlay: 0 0% 100%;
-    --gradient-primary: linear-gradient(135deg, hsl(25, 90%, 52%), hsl(35, 100%, 56%));
-    --gradient-dark: linear-gradient(180deg, hsl(210, 40%, 98%), hsl(210, 35%, 95%));
-    --shadow-glow: 0 0 30px hsl(25 90% 50% / 0.2);
-    --shadow-card: 0 4px 20px hsl(220 20% 70% / 0.25);
-  }
-
-  [data-theme="sunset"] {
-    --background: 16 35% 12%;
-    --foreground: 32 80% 92%;
-
-    --card: 16 33% 16%;
-    --card-foreground: 32 80% 92%;
-
-    --popover: 16 33% 16%;
-    --popover-foreground: 32 80% 92%;
-
-    --primary: 35 100% 60%;
-    --primary-foreground: 16 40% 12%;
-
-    --secondary: 17 30% 24%;
-    --secondary-foreground: 32 70% 90%;
-
-    --muted: 16 28% 20%;
-    --muted-foreground: 30 35% 70%;
-
-    --accent: 335 82% 62%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 90% 62%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 16 22% 30%;
-    --input: 16 22% 30%;
-    --ring: 35 100% 60%;
-
-    --sidebar-background: 16 35% 10%;
-    --sidebar-foreground: 32 80% 92%;
-    --sidebar-primary: 35 100% 60%;
-    --sidebar-primary-foreground: 16 40% 12%;
-    --sidebar-accent: 17 30% 24%;
-    --sidebar-accent-foreground: 32 80% 92%;
-    --sidebar-border: 16 22% 30%;
-    --sidebar-ring: 35 100% 60%;
-
-    --surface: 16 33% 18%;
-    --surface-foreground: 32 80% 92%;
-    --hero-overlay: 16 45% 10%;
-    --gradient-primary: linear-gradient(135deg, hsl(334, 84%, 62%), hsl(35, 100%, 60%));
-    --gradient-dark: linear-gradient(180deg, hsl(16, 35%, 12%), hsl(16, 45%, 8%));
-    --shadow-glow: 0 0 30px hsl(335 84% 62% / 0.2);
-    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.35);
-  }
 }
 
 @layer base {
