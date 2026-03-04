@@ -9,22 +9,33 @@ Clean repository layout with clear separation between frontend and backend servi
 
 ## Run locally
 
+To start the backend and frontend servers locally, you can use the commands specified in the package.json files for each folder.
+
 ```bash
+# In the backend directory
+cd backend
 npm install
-npm run dev:frontend
-npm run dev:backend
+npm run dev
+
+# In the frontend directory
+cd frontend
+npm install
+npm run dev
 ```
 
-## Root scripts
+## Available Scripts
 
-- `npm run dev` → frontend dev server
-- `npm run dev:frontend` → frontend dev server
-- `npm run dev:backend` → backend dev server
-- `npm run build` → frontend production build
-- `npm run test` → frontend tests
-- `npm run test:backend` → backend unit tests
-- `npm run test:all` → backend + frontend tests
-- `npm run lint` → frontend lint checks
+### Backend (`backend/package.json`)
+- `npm run dev` → Runs the backend server with watch mode
+- `npm run start` → Starts the backend server
+- `npm run test` → Runs backend tests
+
+### Frontend (`frontend/package.json`)
+- `npm run dev` → Starts the Vite React frontend
+- `npm run build` → Builds the frontend for production
+- `npm run preview` → Previews the production build
+- `npm run lint` → Runs ESLint checks
+- `npm run test` → Runs frontend tests using Vitest
 
 ## JSX migration status
 
