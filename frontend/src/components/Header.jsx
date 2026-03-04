@@ -38,7 +38,7 @@ const Header = () => {
               className="h-12 object-contain"
             />
 
-            <h1 className="font-heading font-bold text-2xl tracking-tight text-foreground">
+            <h1 className="font-heading font-bold text-2xl tracking-tight text-foreground text-gray-500">
               Born for the Battlefield
             </h1>
           </a>
