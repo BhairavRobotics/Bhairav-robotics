@@ -3,10 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "cd frontend && node_modules/.bin/vite",
-    "build": "cd frontend && node_modules/.bin/vite build",
+    "dev": "npm --prefix frontend install --no-package-lock && npm --prefix frontend run dev",
+    "build": "npm --prefix frontend install --no-package-lock && npm --prefix frontend run build",
     "build:dev": "npm --prefix frontend install --no-package-lock && npm --prefix frontend run build:dev",
-    "test": "cd frontend && npx vitest run",
-    "lint": "cd frontend && npx eslint ."
+    "test": "npm --prefix frontend run test",
+    "lint": "npm --prefix frontend run lint"
   }
 }
