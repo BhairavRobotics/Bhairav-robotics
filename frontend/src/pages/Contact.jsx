@@ -119,25 +119,22 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Map Section - Simplified as a placeholder matching the style */}
+        {/* Map Section - Integrated Google Maps */}
         <section className="container mx-auto px-6 mt-20">
-          <div className="w-full h-[400px] bg-muted/30 border border-border/50 rounded-lg overflow-hidden relative group">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <MapPin size={48} className="text-primary mx-auto animate-bounce" />
-                <p className="font-heading font-bold text-xl text-foreground/60">Kakinada, Andhra Pradesh</p>
-                <a 
-                  href="https://www.google.com/maps?ll=16.95719,82.235232&z=13&t=m&hl=en&gl=IN&mapclient=embed&cid=6917901327255648213" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-primary/50 text-primary hover:bg-primary/10 rounded-md transition-colors"
-                >
-                  Open in Google Maps
-                </a>
-              </div>
-            </div>
-            {/* Overlay to match theme */}
-            <div className="absolute inset-0 bg-background/20 pointer-events-none" />
+          <div className="w-full h-[450px] bg-muted/30 border border-border/50 rounded-lg overflow-hidden relative group shadow-glow">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3816.123456789!2d82.2352324!3d16.9571896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3829fbe8d3c213%3A0x6001529ac246b7d5!2sBhairav%20Robotics%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2) brightness(0.9)" }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Bhairav Robotics Location"
+              className="grayscale brightness-[0.8] contrast-[1.2] hover:grayscale-0 transition-all duration-700"
+            ></iframe>
+            {/* Overlay to match theme - only visible on hover or as a subtle tint */}
+            <div className="absolute inset-0 bg-primary/5 pointer-events-none group-hover:opacity-0 transition-opacity" />
           </div>
         </section>
       </main>
