@@ -101,14 +101,14 @@ const Careers = () => {
 
                 <div className="space-y-4">
                   <Label className="text-xs uppercase tracking-widest text-muted-foreground block">Field: *</Label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <RadioGroup defaultValue="robotics" className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                     {['Robotics', 'Mechatronics', 'Electronics', 'Software', 'Mechanical', 'Other'].map((field) => (
                       <div key={field} className="flex items-center space-x-2">
-                        <RadioGroupItem value={field.toLowerCase()} id={field.toLowerCase()} name="field" />
+                        <RadioGroupItem value={field.toLowerCase()} id={field.toLowerCase()} />
                         <Label htmlFor={field.toLowerCase()} className="text-sm cursor-pointer">{field}</Label>
                       </div>
                     ))}
-                  </div>
+                  </RadioGroup>
                 </div>
 
                 <div className="space-y-2">
