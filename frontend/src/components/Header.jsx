@@ -46,16 +46,38 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                className="font-heading font-semibold text-[15px] tracking-[0.12em] uppercase text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isHashLink = link.href.includes("#");
+              if (isHashLink) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => {
+                      if (window.location.pathname === "/") {
+                        e.preventDefault();
+                        const id = link.href.split("#")[1];
+                        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="font-heading font-semibold text-[15px] tracking-[0.12em] uppercase text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="font-heading font-semibold text-[15px] tracking-[0.12em] uppercase text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -100,16 +122,38 @@ const Header = () => {
             className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
           >
             <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="font-heading font-semibold text-base tracking-[0.12em] uppercase text-muted-foreground hover:text-primary transition-colors py-2"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isHashLink = link.href.includes("#");
+                if (isHashLink) {
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      onClick={(e) => {
+                        setIsOpen(false);
+                        if (window.location.pathname === "/") {
+                          e.preventDefault();
+                          const id = link.href.split("#")[1];
+                          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                        }
+                      }}
+                      className="font-heading font-semibold text-base tracking-[0.12em] uppercase text-muted-foreground hover:text-primary transition-colors py-2"
+                    >
+                      {link.label}
+                    </a>
+                  );
+                }
+                return (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="font-heading font-semibold text-base tracking-[0.12em] uppercase text-muted-foreground hover:text-primary transition-colors py-2"
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
 
               <Link
                 to="/contact"
