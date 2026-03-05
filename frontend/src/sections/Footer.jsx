@@ -4,7 +4,7 @@ import logo from "../assets/header/brlogo.png";
 
 
 const quickLinks = [
-  { label: "Products", href: "/products" },
+  { label: "Products", href: "/#products" },
   { label: "About Us", href: "/about-us" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
@@ -13,7 +13,7 @@ const quickLinks = [
 
 const socialLinks = [
   { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/bhairavrobotics/"},
-  { name: "LinkedIn", icon: Linkedin, href: "https://www.instagram.com/bhairavrobotics/" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/bhairavrobotics/" },
   { name: "Twitter", icon: Twitter, href: "https://x.com/bhairavrobotics/" },
   { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@Bhairavrobotics" },
 ];

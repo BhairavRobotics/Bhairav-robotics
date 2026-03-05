@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/header/brlogo.png";
 
 const navLinks = [
-  { label: "Products", href: "/products" },
+  { label: "Products", href: "/#products" },
   { label: "About Us", href: "/about-us" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
