@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ChevronDown, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroBgVideo from "@/assets/ProductVideos/Vrishabh.mp4";
-import demoVideo from "@/assets/Vrishabh_Website.mp4";
+import demoVideo from "@/assets/ProductVideos/Vrishabh_Website.mp4";
 import { stats } from "@/data/siteData";
 
 const Hero = () => {
