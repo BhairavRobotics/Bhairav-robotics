@@ -54,6 +54,20 @@ const Careers = () => {
                   For students in final year of Engineering (Mechatronics/Robotics/Electronics/Computer Science/Mechanical), we offer internships for 6 months. Internships are on site at our office in Kakinada. Students seeking internships will be given tasks to evaluate their skills and aptitude as per requirements before we make an offer.
                 </p>
               </div>
+
+              <div className="bg-card/50 border border-border/50 p-8 rounded-lg">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-primary/10 rounded-full text-primary">
+                    <Briefcase size={24} />
+                  </div>
+                  <h2 className="font-heading font-bold text-2xl lg:text-3xl text-foreground">
+                    Full-Time Roles
+                  </h2>
+                </div>
+                <p className="text-muted-foreground leading-relaxed text-lg">
+                  We are looking for passionate engineers across multiple disciplines to help us build the next generation of tactical robotics. Currently, we have open positions for <strong>Robotics Engineers</strong>, <strong>Embedded Systems Developers</strong>, and <strong>Mechanical Design Specialists</strong>. Ideal candidates should have strong problem-solving skills and a desire to work on mission-critical technology.
+                </p>
+              </div>
             </motion.div>
 
             {/* Form Section */}

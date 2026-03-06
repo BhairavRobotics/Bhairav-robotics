@@ -72,12 +72,12 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4"
         >
-          <Link
-            to="/products"
+          <a
+            href="#products"
             className="bg-gradient-primary px-8 py-3.5 rounded-sm font-heading font-semibold text-sm tracking-wider uppercase text-primary-foreground hover:opacity-90 transition-opacity shadow-glow"
           >
             Explore Products
-          </Link>
+          </a>
           <button
             type="button"
             onClick={() => setIsDemoOpen(true)}

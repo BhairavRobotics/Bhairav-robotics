@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import { Users, Target, Eye, Cpu } from "lucide-react";
 import mohanraj from "../assets/team/mohanraj.png";
 import rama from "../assets/team/rama.jpg";
-import kishore from "../assets/team/kishore.jpeg";
-import shravanth from "../assets/team/shravanth.jpeg";
 
 const team = [
   {
@@ -21,16 +19,16 @@ const team = [
     image: rama
   },
   {
-    name: "B Ravi Kishore",
+    name: "Ravi Kishore",
     role: "Chief R&D Officer",
-    description: "B Ravi Kishore has decades of experience in research and development of advanced robotic systems. He spearheads innovation and R&D strategy at Bhairav Robotics, driving technical excellence across all projects.",
-    image: kishore
+    description: "Ravi Kishore has decades of experience in research and development of advanced robotic systems. He spearheads innovation and R&D strategy at Bhairav Robotics, driving technical excellence across all projects.",
+    image: null
   },
   {
     name: "Sai Shravanth O",
     role: "Lead - Controls & Automation",
     description: "Shravanth heads simulation, controls and automation team. He has hands on experience in Gazebo simulation, flight controls, Matlab, ROS and field testing.",
-    image: shravanth
+    image: null
   }
 ];
 
@@ -154,12 +152,16 @@ const AboutUs = () => {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="bg-card border border-border/50 rounded-lg overflow-hidden group hover:border-primary/40 transition-colors"
               >
-                <div className="aspect-[4/5] bg-secondary overflow-hidden relative">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                  />
+                <div className="aspect-[4/5] bg-secondary overflow-hidden relative flex items-center justify-center">
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                    />
+                  ) : (
+                    <Users size={64} className="text-muted-foreground/30" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
                 </div>
                 <div className="p-6">
