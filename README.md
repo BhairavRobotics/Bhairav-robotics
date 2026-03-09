@@ -1,4 +1,4 @@
-# Bhairav Robotics Monorepo
+# Bhairav Robotics
 
 Clean repository layout with clear separation between frontend and backend services.
 
