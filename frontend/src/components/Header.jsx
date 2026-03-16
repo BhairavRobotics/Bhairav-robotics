@@ -69,7 +69,7 @@ const Header = () => {
             />
             <div className="hidden sm:block border-l border-border/40 h-8 mx-2" />
             <h1 className="hidden sm:block font-heading font-bold text-lg lg:text-xl tracking-tight text-foreground/90 uppercase">
-              Bhairav <span className="text-primary">Robotics</span>
+              Born for the <span className="text-primary">battlefield</span>
             </h1>
           </Link>
 
