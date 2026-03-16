@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download, CheckCircle2 } from "lucide-react";
-import { products } from "@/data/products";
+import { products, categories } from "@/data/products";
 
 const ProductShowcase = () => {
   const [current, setCurrent] = useState(0);
@@ -19,7 +19,7 @@ const ProductShowcase = () => {
   const product = products[current];
 
   return (
-    <section id="products" className="py-12 lg:py-16 bg-background">
+    <section id="products" className="pt-4 pb-12 lg:pt-6 lg:pb-16 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -74,7 +74,7 @@ const ProductShowcase = () => {
                 </div>
                 <div className="p-8 lg:p-10 flex flex-col justify-center bg-card">
                   <span className="text-[11px] tracking-[0.2em] uppercase text-primary font-heading font-semibold mb-2">
-                    {product.category}
+                    {categories.find(c => c.id === product.category)?.name || product.category}
                   </span>
                   <h3 className="font-heading font-bold text-3xl lg:text-4xl text-foreground mb-4">
                     {product.name}

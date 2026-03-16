@@ -11,10 +11,10 @@ const tabs = [
 ];
 
 const productViews = [
-  { label: "Front View", angle: "rotate-0" },
-  { label: "Side View", angle: "-scale-x-100" },
-  { label: "Top View", angle: "rotate-12 scale-90" },
-  { label: "Action Shot", angle: "-rotate-6 scale-105" },
+  { label: "Front View", angle: "rotate-0 scale-110" },
+  { label: "Side View", angle: "-scale-x-100 scale-110" },
+  { label: "Top View", angle: "rotate-0 scale-110" },
+  { label: "Action Shot", angle: "rotate-0 scale-110" },
 ];
 
 const TechSpecs = () => {
@@ -23,7 +23,7 @@ const TechSpecs = () => {
   const specs = techSpecs[activeTab];
 
   return (
-    <section className="py-12 lg:py-16 bg-background relative overflow-hidden">
+    <section className="pt-12 pb-4 lg:pt-16 lg:pb-6 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-card/30 via-background to-card/20 pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
@@ -104,7 +104,7 @@ const TechSpecs = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-card/30 backdrop-blur-sm border border-border/20 rounded-lg p-6 lg:p-8">
+            <div className="bg-card/30 backdrop-blur-sm border border-border/20 rounded-lg p-2 lg:p-4">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeView}
@@ -112,7 +112,7 @@ const TechSpecs = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  className="aspect-square flex items-center justify-center mb-6"
+                  className="aspect-square flex items-center justify-center mb-4"
                 >
                   <img
                     src={vrishabhImg}
