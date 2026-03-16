@@ -97,12 +97,26 @@ export const products = [
     subCategory: "Armed Quadruped",
     description: "Bharat’s first armed quadruped designed for high-stakes reconnaissance and tactical operations.",
     features: [
-      "AI-powered vision & audio perception",
-      "Reinforcement learning for terrain adaptation",
-      "Advanced DSP for sound isolation",
-      "Compact and agile footprint"
+      "Speed: ~2-5 m/sec",
+      "Payload: 10 kg",
+      "Weight: 25 kg (minus payload)",
+      "Range: 8-10 km",
+      "Communication: LTE, RF",
+      "Endurance: ~120 mins."
     ],
     video: wheeledShvanaVideo,
+    specs: {
+      performance: [
+        { label: "Max Speed", value: "~2-5 m/sec" },
+        { label: "Payload Capacity", value: "10 kg" },
+        { label: "Weight", value: "25 kg (excluding payload)" },
+        { label: "Endurance", value: "~120 mins" }
+      ],
+      comms: [
+        { label: "Range", value: "8-10 km" },
+        { label: "Communication", value: "LTE, RF" }
+      ]
+    }
   },
   {
     id: "mini-shvana",
@@ -111,12 +125,26 @@ export const products = [
     subCategory: "Compact Quadruped",
     description: "Compact and portable quadruped robot for rapid deployment and indoor/tight-space operations.",
     features: [
-      "Ultra-portable design",
-      "Indoor navigation",
-      "Silent operation",
-      "Modular sensor head"
+      "Speed: ~2-5 m/sec",
+      "Payload: 10 kg",
+      "Weight: 25 kg (minus payload)",
+      "Range: 8-10 km",
+      "Communication: LTE, RF",
+      "Endurance: ~120 mins."
     ],
     video: wheeledShvanaVideo, // Placeholder
+    specs: {
+      performance: [
+        { label: "Max Speed", value: "~2-5 m/sec" },
+        { label: "Payload Capacity", value: "10 kg" },
+        { label: "Weight", value: "25 kg (excluding payload)" },
+        { label: "Endurance", value: "~120 mins" }
+      ],
+      comms: [
+        { label: "Range", value: "8-10 km" },
+        { label: "Communication", value: "LTE, RF" }
+      ]
+    }
   },
   {
     id: "rakshak",
