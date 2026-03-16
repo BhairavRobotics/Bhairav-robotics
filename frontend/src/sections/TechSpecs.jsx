@@ -23,7 +23,7 @@ const TechSpecs = () => {
   const specs = techSpecs[activeTab];
 
   return (
-    <section className="py-20 lg:py-28 bg-background relative overflow-hidden">
+    <section className="py-12 lg:py-16 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-card/30 via-background to-card/20 pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">

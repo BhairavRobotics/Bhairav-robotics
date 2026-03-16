@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, X } from "lucide-react";
-import heroPoster from "@/assets/ProductVideos/Vrishabh.mp4";
+import { Link } from "react-router-dom";
+import heroBgVideo from "@/assets/ProductVideos/Vrishabh.mp4";
+import demoVideo from "@/assets/Vrishabh_Website.mp4";
 import { stats } from "@/data/siteData";
 
 const Hero = () => {
@@ -37,7 +39,7 @@ const Hero = () => {
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
         <video autoPlay loop muted playsInline className="w-full h-full object-fill">
-          <source src={heroPoster} type="video/mp4" />
+          <source src={heroBgVideo} type="video/mp4" />
         </video>
       </div>
 
@@ -50,8 +52,8 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-foreground mb-4">
-            Born for the battlefield,{" "}
-            <span className="text-gradient">Defense & Industry</span>
+            Strength Through Technology,{" "}
+            <span className="text-gradient">Built for the Frontline</span>
           </h1>
         </motion.div>
 
@@ -96,7 +98,7 @@ const Hero = () => {
             controls
             className="absolute inset-0 h-full w-full object-cover"
           >
-            <source src={heroPoster} type="video/mp4" />
+            <source src={demoVideo} type="video/mp4" />
           </video>
           <div className="pointer-events-none absolute inset-0 bg-black/30" />
           <button

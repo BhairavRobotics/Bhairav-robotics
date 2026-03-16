@@ -9,35 +9,65 @@ export const products = [
     id: "vrishabh",
     name: "Vrishabh",
     category: "Heavy-duty Unmanned Ground Vehicle",
-    description: "Advanced autonomous robotic platform designed for defense logistics and tactical mobility.",
+    description: "Heavy-duty autonomous robotic platform engineered for logistics and tactical mobility in challenging terrains.",
+    features: [
+      "High payload capacity for logistics",
+      "Autonomous navigation & obstacle avoidance",
+      "All-terrain mobility",
+      "Modular mission payloads"
+    ],
     video: vrishabhVideo,
   },
   {
     id: "wheeled-shvana",
-    name: "Wheeled Shvana",
-    category: "High-speed Tactical Reconnaissance Robot",
-    description: "Agile wheeled robotic unit optimized for rapid deployment and real-time terrain mapping.",
+    name: "Shvana (श्वान)",
+    category: "Armed Quadruped",
+    description: "Bharat’s first armed quadruped designed for high-stakes reconnaissance and tactical operations.",
+    features: [
+      "AI-powered vision & audio perception",
+      "Reinforcement learning for terrain adaptation",
+      "Advanced DSP for sound isolation",
+      "Compact and agile footprint"
+    ],
     video: wheeledShvanaVideo,
   },
   {
     id: "Dhruv",
     name: "Dhruv",
-    category: "Compact Unmanned Surveillance Platform",
-    description: "This powered exoskeleton system is designed to augment human strength and endurance in high-intensity operational environments. Its ergonomic support structure and high-torque joint mechanisms improve load-bearing capability, reduce muscular strain, and enhance mobility across uneven terrain. Built for reliability and mission readiness, it supports prolonged field operations with improved safety and performance.",
+    category: "Powered Exoskeleton",
+    description: "Advanced powered exoskeleton designed to enhance human strength and endurance in demanding field operations.",
+    features: [
+      "Ergonomic load-bearing support",
+      "High-torque joint mechanisms",
+      "Reduces muscular strain & fatigue",
+      "Enhanced mobility on uneven terrain"
+    ],
     video: DhruvVideo,
   },
   {
     id: "prabal-qdds",
     name: "Prabal QDDs",
-    category: "High-performance Quadruped Drive Modules",
-    description: "Prabal Quasi Direct Drives (QDD) combine the strength of geared systems with the speed and precision of direct drives. Compact, highly responsive, and powerful, these actuators are engineered to deliver high torque performance for demanding applications. Designed, developed, and manufactured in India, the Prabal QDD series is built to meet the evolving needs of advanced robotics and motion systems.",
+    category: "High-performance Drive Modules",
+    description: "High-performance Quasi Direct Drives combining geared strength with direct-drive precision.",
+    features: [
+      "High torque density & responsiveness",
+      "Compact and lightweight design",
+      "Indigenous Indian engineering",
+      "Precise motion control for robotics"
+    ],
     video: prabalVideo,
   },
   {
     id: "rakshak",
     name: "Rakshak",
-    category: "Armored Robotic Defense Unit",
-    description: "Rakshak transforms MMGs, Assault Rifles into Autonomous Weapon Stations. It is fully compatible with standard MAG 2A1 MMG and Assault Rifles of various makes. Rakshak combines long range stereo vision, advanced autonomy, precision, and modularity and has significant advantages over remote controlled weapon stations (RCWS).",
+    category: "Autonomous Weapon Station",
+    description: "Autonomous weapon station that transforms standard firearms into precision robotic defense units.",
+    features: [
+      "Long-range stereo vision autonomy",
+      "Multi-firearm compatibility (MMG/Assault)",
+      "Enhanced precision & modularity",
+      "Superior to remote controlled stations"
+    ],
     video: rakshakVideo,
   },
 ];

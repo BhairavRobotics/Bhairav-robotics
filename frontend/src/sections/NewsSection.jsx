@@ -4,7 +4,7 @@ import { news } from "@/data/siteData";
 
 const NewsSection = () => {
   return (
-    <section className="py-20 lg:py-28 bg-background">
+    <section className="py-12 lg:py-16 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -1,17 +1,19 @@
 import { MapPin, Mail, Phone, Linkedin, Twitter, Youtube, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 import logo from "../assets/header/brlogo.png";
 
 
 const quickLinks = [
-  { label: "Products", href: "#products" },
-  { label: "About Us", href: "#about" },
-  { label: "Careers", href: "#" },
+  { label: "Products", href: "/#products" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact", href: "/contact" },
   { label: "Privacy Policy", href: "#" },
 ];
 
 const socialLinks = [
   { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/bhairavrobotics/"},
-  { name: "LinkedIn", icon: Linkedin, href: "https://www.instagram.com/bhairavrobotics/" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/bhairavrobotics/" },
   { name: "Twitter", icon: Twitter, href: "https://x.com/bhairavrobotics/" },
   { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@Bhairavrobotics" },
 ];
@@ -23,7 +25,7 @@ const Footer = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <a href="#" className="flex items-center">
+              <Link to="/" className="flex items-center">
                 <div className="h-30 w-40 flex items-center justify-center overflow-hidden">
                   <img
                     src={logo}
@@ -31,7 +33,7 @@ const Footer = () => {
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
-              </a>
+              </Link>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Pioneering autonomous robotic systems for defense and industrial applications.
@@ -62,13 +64,23 @@ const Footer = () => {
             </h4>
             <div className="space-y-2">
               {quickLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="block text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </a>
+                link.href.startsWith("/") ? (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
             </div>
           </div>
