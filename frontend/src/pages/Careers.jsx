@@ -1,13 +1,83 @@
+import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../sections/Footer";
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Send, Upload } from "lucide-react";
+import { Briefcase, GraduationCap, Send, Upload, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/hooks/use-toast";
 
 const Careers = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    type: "full-time",
+    field: "robotics",
+    resume: null,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      if (!formData.resume) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Please upload your resume.",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const data = new FormData();
+      data.append("fullName", formData.fullName);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("type", formData.type);
+      data.append("field", formData.field);
+      data.append("resume", formData.resume);
+
+      const response = await fetch("http://localhost:3001/api/apply", {
+        method: "POST",
+        body: data,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "Application Sent",
+          description: "Your application has been successfully submitted.",
+        });
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          type: "full-time",
+          field: "robotics",
+          resume: null,
+        });
+      } else {
+        throw new Error(result.error || "Submission failed");
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
@@ -77,16 +147,31 @@ const Careers = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="bg-card border border-border p-8 lg:p-10 rounded-lg shadow-glow"
             >
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="full-name" className="text-xs uppercase tracking-widest text-muted-foreground">Full Name *</Label>
-                  <Input id="full-name" placeholder="" className="bg-background/50 border-border/50 focus:border-primary transition-colors" required />
+                  <Input 
+                    id="full-name" 
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                    placeholder="" 
+                    className="bg-background/50 border-border/50 focus:border-primary transition-colors" 
+                    required 
+                  />
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-xs uppercase tracking-widest text-muted-foreground">Email Address *</Label>
-                    <Input id="email" type="email" placeholder="" className="bg-background/50 border-border/50 focus:border-primary transition-colors" required />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      placeholder="" 
+                      className="bg-background/50 border-border/50 focus:border-primary transition-colors" 
+                      required 
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-xs uppercase tracking-widest text-muted-foreground">Phone *</Label>
@@ -94,14 +179,26 @@ const Careers = () => {
                       <div className="flex items-center px-3 border border-border/50 rounded-md bg-background/50">
                         <span className="text-sm">🇮🇳</span>
                       </div>
-                      <Input id="phone" type="tel" placeholder="" className="bg-background/50 border-border/50 focus:border-primary transition-colors" required />
+                      <Input 
+                        id="phone" 
+                        type="tel" 
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        placeholder="" 
+                        className="bg-background/50 border-border/50 focus:border-primary transition-colors" 
+                        required 
+                      />
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <Label className="text-xs uppercase tracking-widest text-muted-foreground block">Application For: *</Label>
-                  <RadioGroup defaultValue="full-time" className="flex gap-6">
+                  <RadioGroup 
+                    value={formData.type}
+                    onValueChange={(val) => setFormData({...formData, type: val})}
+                    className="flex gap-6"
+                  >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="full-time" id="full-time" />
                       <Label htmlFor="full-time" className="text-sm cursor-pointer">Full-Time Role</Label>
@@ -115,7 +212,11 @@ const Careers = () => {
 
                 <div className="space-y-4">
                   <Label className="text-xs uppercase tracking-widest text-muted-foreground block">Field: *</Label>
-                  <RadioGroup defaultValue="robotics" className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <RadioGroup 
+                    value={formData.field}
+                    onValueChange={(val) => setFormData({...formData, field: val})}
+                    className="grid grid-cols-2 sm:grid-cols-3 gap-4"
+                  >
                     {['Robotics', 'Mechatronics', 'Electronics', 'Software', 'Mechanical', 'Other'].map((field) => (
                       <div key={field} className="flex items-center space-x-2">
                         <RadioGroupItem value={field.toLowerCase()} id={field.toLowerCase()} />
@@ -132,13 +233,29 @@ const Careers = () => {
                     <Button type="button" variant="secondary" size="sm" onClick={() => document.getElementById('resume').click()}>
                       Choose File
                     </Button>
-                    <span className="text-sm text-muted-foreground">No file chosen</span>
-                    <Input id="resume" type="file" accept=".pdf" className="hidden" required />
+                    <span className="text-sm text-muted-foreground">
+                      {formData.resume ? formData.resume.name : "No file chosen"}
+                    </span>
+                    <Input 
+                      id="resume" 
+                      type="file" 
+                      accept=".pdf" 
+                      onChange={(e) => setFormData({...formData, resume: e.target.files[0]})}
+                      className="hidden" 
+                    />
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full bg-primary text-primary-foreground font-heading font-bold uppercase tracking-widest py-6 shadow-glow hover:opacity-90 transition-opacity">
-                  Submit
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-primary text-primary-foreground font-heading font-bold uppercase tracking-widest py-6 shadow-glow hover:opacity-90 transition-opacity"
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    "Submit"
+                  )}
                 </Button>
               </form>
             </motion.div>
