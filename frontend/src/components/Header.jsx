@@ -150,23 +150,7 @@ const Header = () => {
                               })}
                             </div>
 
-                            <div className="mt-8 pt-6 border-t border-border/30 flex items-center justify-between">
-                              <div className="flex items-center gap-4">
-                                <div className="p-2 bg-primary/10 rounded-full text-primary">
-                                  <ArrowRight size={16} />
-                                </div>
-                                <span className="text-[11px] font-heading font-bold uppercase tracking-widest text-foreground/80">
-                                  Explore the complete range
-                                </span>
-                              </div>
-                              <Link 
-                                to="/products"
-                                onClick={() => setIsProductsOpen(false)}
-                                className="text-[10px] font-heading font-bold uppercase tracking-[0.2em] text-primary hover:underline underline-offset-4"
-                              >
-                                View All Products
-                              </Link>
-                            </div>
+                            {/* Removed: Explore the complete range section */}
                           </div>
                         </motion.div>
                       )}
