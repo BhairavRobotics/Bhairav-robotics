@@ -5,6 +5,7 @@ import DhruvVideo from "@/assets/ProductVideos/Dhruv_360°View.mp4";
 import prabalVideo from "@/assets/ProductVideos/DM90&DM70.mp4";
 import rakshakVideo from "@/assets/ProductVideos/Rakshak_Stereo1.mp4";
 import yugmaVideo from "@/assets/ProductVideos/Yugma_360view.mp4";
+import satelliteTrackerVideo from "@/assets/ProductVideos/Satellite_Tracker.mp4";
 
 export const categories = [
   {
@@ -216,6 +217,6 @@ export const products = [
       "Continuous tracking in motion",
       "Weather-resistant design"
     ],
-    video: prabalVideo, // Placeholder
+    video: satelliteTrackerVideo,
   },
 ];
