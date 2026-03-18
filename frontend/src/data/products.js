@@ -1,4 +1,4 @@
-import vrishabhVideo from "@/assets/ProductVideos/Vrishabh.mp4";
+import vrishabhVideo from "@/assets/Vrishabh_WhiteBG.mp4";
 import masterShvanaShoeVideo from "@/assets/ProductVideos/MasterShvana_Shoe.mp4";
 import masterShvanaWheeledVideo from "@/assets/ProductVideos/MasterShvanaWheeled.mp4";
 import DhruvVideo from "@/assets/ProductVideos/Dhruv_360°View.mp4";
