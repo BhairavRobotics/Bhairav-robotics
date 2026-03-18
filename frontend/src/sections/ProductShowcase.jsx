@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download, CheckCircle2 } from "lucide-react";
 import { products, categories } from "@/data/products";
+import { Link } from "react-router-dom";
 
 const ProductShowcase = () => {
   const [current, setCurrent] = useState(0);
@@ -101,13 +102,13 @@ const ProductShowcase = () => {
                     ))}
                   </div>
 
-                  <a
-                    href={`#download-${product.id}`}
+                  <Link
+                    to={`/download-brochure?id=${product.id}`}
                     className="inline-flex items-center gap-2 bg-gradient-primary px-6 py-3 rounded-sm font-heading font-semibold text-sm tracking-wider uppercase text-primary-foreground hover:opacity-90 transition-opacity self-start shadow-glow"
                   >
                     Download Brochure
                     <Download size={16} />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>

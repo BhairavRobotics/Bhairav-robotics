@@ -1,14 +1,16 @@
 import vrishabhVideo from "@/assets/ProductVideos/Vrishabh.mp4";
-import wheeledShvanaVideo from "@/assets/ProductVideos/Shvana_Wheeled+Shoe.mp4";
-import DhruvVideo from "@/assets/ProductVideos/Dhruv.mp4";
+import masterShvanaShoeVideo from "@/assets/ProductVideos/MasterShvana_Shoe.mp4";
+import masterShvanaWheeledVideo from "@/assets/ProductVideos/MasterShvanaWheeled.mp4";
+import DhruvVideo from "@/assets/ProductVideos/Dhruv_360°View.mp4";
 import prabalVideo from "@/assets/ProductVideos/DM90&DM70.mp4";
 import rakshakVideo from "@/assets/ProductVideos/Rakshak_Stereo1.mp4";
+import yugmaVideo from "@/assets/ProductVideos/Yugma_360view.mp4";
 
 export const categories = [
   {
     id: "quadruped",
     name: "Quadruped Robots",
-    products: ["vrishabh", "shvana", "wheeled-shvana", "mini-shvana"]
+    products: ["vrishabh", "shvana", "wheeled-shvana"]
   },
   {
     id: "defense",
@@ -76,7 +78,7 @@ export const products = [
       "Communication: LTE, RF",
       "Endurance: ~120 mins."
     ],
-    video: wheeledShvanaVideo, // Placeholder
+    video: masterShvanaShoeVideo,
     specs: {
       performance: [
         { label: "Max Speed", value: "~2-5 m/sec" },
@@ -104,35 +106,7 @@ export const products = [
       "Communication: LTE, RF",
       "Endurance: ~120 mins."
     ],
-    video: wheeledShvanaVideo,
-    specs: {
-      performance: [
-        { label: "Max Speed", value: "~2-5 m/sec" },
-        { label: "Payload Capacity", value: "10 kg" },
-        { label: "Weight", value: "25 kg (excluding payload)" },
-        { label: "Endurance", value: "~120 mins" }
-      ],
-      comms: [
-        { label: "Range", value: "8-10 km" },
-        { label: "Communication", value: "LTE, RF" }
-      ]
-    }
-  },
-  {
-    id: "mini-shvana",
-    name: "Mini Shvana",
-    category: "quadruped",
-    subCategory: "Compact Quadruped",
-    description: "Compact and portable quadruped robot for rapid deployment and indoor/tight-space operations.",
-    features: [
-      "Speed: ~2-5 m/sec",
-      "Payload: 10 kg",
-      "Weight: 25 kg (minus payload)",
-      "Range: 8-10 km",
-      "Communication: LTE, RF",
-      "Endurance: ~120 mins."
-    ],
-    video: wheeledShvanaVideo, // Placeholder
+    video: masterShvanaWheeledVideo,
     specs: {
       performance: [
         { label: "Max Speed", value: "~2-5 m/sec" },
@@ -214,7 +188,7 @@ export const products = [
       "Low-light capability",
       "AI-based object classification"
     ],
-    video: rakshakVideo, // Placeholder
+    video: yugmaVideo,
   },
   {
     id: "prabal-qdds",

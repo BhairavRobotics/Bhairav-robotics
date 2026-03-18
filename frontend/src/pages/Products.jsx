@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../sections/Footer";
 import { motion } from "framer-motion";
@@ -141,9 +141,12 @@ const Products = () => {
               </motion.div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                <button className="w-full bg-primary text-primary-foreground py-4 rounded-sm font-heading font-bold text-xs tracking-widest uppercase hover:bg-primary/90 transition-all shadow-glow">
+                <Link 
+                  to={`/download-brochure?id=${product.id}`}
+                  className="w-full bg-primary text-primary-foreground py-4 rounded-sm font-heading font-bold text-xs tracking-widest uppercase hover:bg-primary/90 transition-all shadow-glow text-center"
+                >
                   Download Technical Brochure
-                </button>
+                </Link>
               </div>
             </div>
 

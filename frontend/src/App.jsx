@@ -10,6 +10,7 @@ import AboutUs from "./pages/AboutUs";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import AdminDashboard from "./pages/AdminDashboard";
+import BrochureRequest from "./pages/BrochureRequest";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/download-brochure" element={<BrochureRequest />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
