@@ -87,7 +87,7 @@ const Header = () => {
                   >
                     <button
                       className={`flex items-center gap-1.5 font-heading font-semibold text-[13px] tracking-[0.15em] uppercase transition-colors duration-300 ${isProductsOpen || isCurrentPath(link.href) ? 'text-primary' : 'text-foreground/70 hover:text-primary'}`}
-                      onClick={() => navigate(link.href)}
+                      onClick={() => setIsProductsOpen(!isProductsOpen)}
                     >
                       {link.label}
                       <ChevronDown size={14} className={`transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
