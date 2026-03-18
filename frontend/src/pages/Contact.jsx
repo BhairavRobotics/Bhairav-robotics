@@ -1,13 +1,63 @@
+import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../sections/Footer";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Send, MessageSquare } from "lucide-react";
+import { MapPin, Phone, Mail, Send, MessageSquare, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      toast({
+        title: "Message Sent",
+        description: "Your message has been received. We'll get back to you soon.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "There was an issue sending your message. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
@@ -88,31 +138,72 @@ const Contact = () => {
                 </h2>
               </div>
 
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-xs uppercase tracking-widest text-muted-foreground">Full Name</Label>
-                    <Input id="name" placeholder="John Doe" className="bg-background/50 border-border/50 focus:border-primary transition-colors" />
+                    <Input 
+                      id="name" 
+                      placeholder="John Doe" 
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                      disabled={isSubmitting}
+                      className="bg-background/50 border-border/50 focus:border-primary transition-colors" 
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-xs uppercase tracking-widest text-muted-foreground">Email Address</Label>
-                    <Input id="email" type="email" placeholder="john@example.com" className="bg-background/50 border-border/50 focus:border-primary transition-colors" />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="john@example.com" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                      disabled={isSubmitting}
+                      className="bg-background/50 border-border/50 focus:border-primary transition-colors" 
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="subject" className="text-xs uppercase tracking-widest text-muted-foreground">Subject</Label>
-                  <Input id="subject" placeholder="Inquiry about Shvana" className="bg-background/50 border-border/50 focus:border-primary transition-colors" />
+                  <Input 
+                    id="subject" 
+                    placeholder="Inquiry about Shvana" 
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    required
+                    disabled={isSubmitting}
+                    className="bg-background/50 border-border/50 focus:border-primary transition-colors" 
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-xs uppercase tracking-widest text-muted-foreground">Your Message</Label>
-                  <Textarea id="message" placeholder="How can we help you?" className="min-h-[150px] bg-background/50 border-border/50 focus:border-primary transition-colors" />
+                  <Textarea 
+                    id="message" 
+                    placeholder="How can we help you?" 
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    disabled={isSubmitting}
+                    className="min-h-[150px] bg-background/50 border-border/50 focus:border-primary transition-colors" 
+                  />
                 </div>
 
-                <Button type="submit" className="w-full bg-gradient-primary text-primary-foreground font-heading font-bold uppercase tracking-widest py-6 shadow-glow hover:opacity-90 transition-opacity">
-                  <Send size={18} className="mr-2" />
-                  Send Message
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-primary text-primary-foreground font-heading font-bold uppercase tracking-widest py-6 shadow-glow hover:opacity-90 transition-opacity"
+                >
+                  {isSubmitting ? (
+                    <Loader2 size={18} className="mr-2 animate-spin" />
+                  ) : (
+                    <Send size={18} className="mr-2" />
+                  )}
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </motion.div>

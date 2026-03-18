@@ -6,6 +6,7 @@ import prabalVideo from "@/assets/ProductVideos/DM90&DM70.mp4";
 import rakshakVideo from "@/assets/ProductVideos/Rakshak_Stereo1.mp4";
 import yugmaVideo from "@/assets/ProductVideos/Yugma_360view.mp4";
 import satelliteTrackerVideo from "@/assets/ProductVideos/Satellite_Tracker.mp4";
+import twoDofVideo from "@/assets/ProductVideos/2DOF_360View.mp4";
 
 export const categories = [
   {
@@ -45,23 +46,34 @@ export const products = [
     id: "vrishabh",
     name: "Vrishabh",
     category: "quadruped",
-    subCategory: "Heavy-duty Unmanned Ground Vehicle",
-    description: "Heavy-duty autonomous robotic platform engineered for logistics and tactical mobility in challenging terrains.",
+    subCategory: "Combat Unmanned Ground Vehicle",
+    description: "High-performance autonomous robotic platform engineered for tactical mobility, weapons deployment, and heavy-duty operations.",
     features: [
-      "High payload capacity for logistics",
-      "Autonomous navigation & obstacle avoidance",
-      "All-terrain mobility",
-      "Modular mission payloads"
+      "Weapons platform support (MMG, LMG, NSVT, AGS 30)",
+      "2 Axis Stabilization system",
+      "High torque: 1000 Nm at wheels",
+      "0-50 kmph in just 4 seconds",
+      "Towing capacity: 300 kg (level ground)"
     ],
     video: vrishabhVideo,
     specs: {
-      mobility: [
-        { label: "Max Speed", value: "40 km/h" },
-        { label: "Gradient Capability", value: "45°" }
+      performance: [
+        { label: "Max Speed", value: "50 km/h" },
+        { label: "Acceleration (0-50)", value: "4 Seconds" },
+        { label: "Payload Capacity", value: "150 kg" },
+        { label: "Weight", value: "400 kg" },
+        { label: "Torque", value: "1000 Nm (at wheels)" }
       ],
       power: [
-        { label: "Battery Type", value: "Li-Ion 48V" },
-        { label: "Runtime", value: "12 Hours" }
+        { label: "Max Power", value: "60 HP" },
+        { label: "Battery", value: "16 kWh" },
+        { label: "Endurance", value: "6 Hours" },
+        { label: "Range", value: "~100 km" }
+      ],
+      dimensions: [
+        { label: "Dimensions (LxWxH)", value: "2250 x 1250 x 1420 mm" },
+        { label: "Towing (Level Ground)", value: "300 kg" },
+        { label: "Stabilization", value: "2 Axis" }
       ]
     }
   },
@@ -175,7 +187,7 @@ export const products = [
       "Compact integration",
       "Ruggedized for field use"
     ],
-    video: DhruvVideo, // Placeholder
+    video: twoDofVideo,
   },
   {
     id: "yugma",

@@ -95,40 +95,40 @@ const Header = () => {
                     <AnimatePresence>
                       {isProductsOpen && (
                         <motion.div
-                          initial={{ opacity: 0, y: 15 }}
+                          initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 15 }}
+                          exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[900px] bg-card/98 backdrop-blur-2xl border border-border/50 rounded-lg shadow-2xl overflow-hidden flex"
+                          className="fixed top-16 lg:top-20 left-1/2 -translate-x-1/2 w-[95vw] max-w-[1100px] max-h-[calc(100vh-120px)] bg-card/98 backdrop-blur-2xl border border-border/50 rounded-b-lg shadow-2xl flex flex-col md:flex-row z-50 overflow-hidden"
                         >
                           {/* Categories Sidebar */}
-                          <div className="w-1/3 bg-muted/30 border-r border-border/30 p-6 flex flex-col gap-1">
+                          <div className="w-full md:w-1/3 bg-muted/30 border-b md:border-b-0 md:border-r border-border/30 p-4 md:p-6 flex flex-row md:flex-col gap-1 overflow-x-auto md:overflow-y-auto custom-scrollbar shrink-0">
                             {categories.map((category) => (
                               <button
                                 key={category.id}
                                 onMouseEnter={() => setActiveCategory(category.id)}
-                                className={`text-left px-4 py-3 rounded-md transition-all duration-200 flex items-center justify-between group/cat ${activeCategory === category.id ? 'bg-primary/10 text-primary shadow-sm' : 'text-foreground/60 hover:bg-muted/50 hover:text-foreground'}`}
+                                className={`text-left px-4 py-2 md:py-3 rounded-md transition-all duration-200 flex items-center justify-between group/cat whitespace-nowrap md:whitespace-normal shrink-0 ${activeCategory === category.id ? 'bg-primary/10 text-primary shadow-sm' : 'text-foreground/60 hover:bg-muted/50 hover:text-foreground'}`}
                               >
-                                <span className="font-heading font-bold text-[11px] tracking-[0.15em] uppercase">
+                                <span className="font-heading font-bold text-[10px] md:text-[11px] tracking-[0.15em] uppercase">
                                   {category.name}
                                 </span>
-                                <ArrowRight size={14} className={`transition-transform duration-300 ${activeCategory === category.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`} />
+                                <ArrowRight size={14} className={`hidden md:block transition-transform duration-300 ${activeCategory === category.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`} />
                               </button>
                             ))}
                           </div>
 
                           {/* Products Grid */}
-                          <div className="w-2/3 p-8 bg-card">
-                            <div className="mb-6">
+                          <div className="w-full md:w-2/3 p-6 md:p-8 bg-card flex flex-col min-h-0 overflow-hidden">
+                            <div className="mb-4 md:mb-6 shrink-0">
                               <h3 className="font-heading font-bold text-[10px] tracking-[0.2em] uppercase text-primary mb-1">
                                 {activeCategoryData?.name}
                               </h3>
-                              <p className="text-muted-foreground text-[11px] tracking-wider uppercase opacity-60">
+                              <p className="text-muted-foreground text-[10px] md:text-[11px] tracking-wider uppercase opacity-60">
                                 Select a system to view technical details
                               </p>
                             </div>
                             
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-3 md:gap-4 overflow-y-auto pr-2 custom-scrollbar flex-1 min-h-0 pb-4 max-h-[350px]">
                               {activeCategoryData?.products.map(prodId => {
                                 const product = products.find(p => p.id === prodId);
                                 if (!product) return null;
@@ -136,20 +136,18 @@ const Header = () => {
                                   <button
                                     key={prodId}
                                     onClick={() => handleProductClick(prodId)}
-                                    className="text-left p-4 rounded-lg border border-border/30 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group/item flex flex-col gap-2 shadow-sm hover:shadow-md"
+                                    className="text-left p-4 rounded-lg border border-border/30 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group/item flex flex-col gap-2 shadow-sm hover:shadow-md h-fit shrink-0"
                                   >
-                                    <div className="font-heading font-bold text-[13px] tracking-wider uppercase text-foreground group-hover/item:text-primary transition-colors">
+                                    <div className="font-heading font-bold text-[12px] md:text-[13px] tracking-wider uppercase text-foreground group-hover/item:text-primary transition-colors">
                                       {product.name}
                                     </div>
-                                    <div className="text-[10px] text-muted-foreground line-clamp-1 uppercase tracking-[0.05em]">
+                                    <div className="text-[9px] md:text-[10px] text-muted-foreground line-clamp-1 uppercase tracking-[0.05em]">
                                       {product.subCategory}
                                     </div>
                                   </button>
                                 );
                               })}
                             </div>
-
-                            {/* Removed: Explore the complete range section */}
                           </div>
                         </motion.div>
                       )}
