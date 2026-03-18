@@ -9,7 +9,6 @@ const navLinks = [
   { label: "Products", href: "/products", hasDropdown: true },
   { label: "About Us", href: "/about-us" },
   { label: "Careers", href: "/careers" },
-  { label: "Contact", href: "/contact" },
 ];
 
 const Header = () => {
