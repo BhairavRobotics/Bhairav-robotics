@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import brochurePdf from "@/assets/Vrishabh -Combat ATV_Broucher.pdf";
+import brochurePdf from "@/assets/Vrishabh_Combat_UGV_Flyer.pdf";
 
 const BrochureRequest = () => {
   const [searchParams] = useSearchParams();
@@ -24,17 +24,12 @@ const BrochureRequest = () => {
 
     try {
       // Store in DB - using the established backend port
-      const response = await fetch("http://localhost:3001/api/brochure-requests", {
+      const response = await fetch("http://localhost:3001/api/brochure", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          name, 
-          email, 
-          productId,
-          requestedAt: new Date().toISOString() 
-        }),
+        body: JSON.stringify({ name, email }),
       });
 
       if (!response.ok) {
@@ -49,7 +44,7 @@ const BrochureRequest = () => {
       // Trigger download
       const link = document.createElement("a");
       link.href = brochurePdf;
-      link.download = "Bhairav_Robotics_Brochure.pdf";
+      link.download = "Bhairav_Robotics_Vrishabh_Specification.pdf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -63,7 +58,7 @@ const BrochureRequest = () => {
       // Still trigger download as a fallback for the user experience
       const link = document.createElement("a");
       link.href = brochurePdf;
-      link.download = "Bhairav_Robotics_Brochure.pdf";
+      link.download = "Bhairav_Robotics_Vrishabh_Specification.pdf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -79,7 +74,7 @@ const BrochureRequest = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
       
       <main className="pt-24 lg:pt-32 pb-20">
@@ -104,8 +99,8 @@ const BrochureRequest = () => {
               </h2>
             </div>
 
-            <p className="text-muted-foreground mb-8">
-              Please provide your details to receive the product brochure directly in your inbox.
+            <p className="text-muted-foreground mb-8 font-body text-sm leading-relaxed">
+              Please provide your details to receive the official technical specifications brochure directly.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -149,7 +144,7 @@ const BrochureRequest = () => {
                 ) : (
                   <>
                     <Send size={18} className="mr-2" />
-                    Submit
+                    Submit & Download
                   </>
                 )}
               </Button>

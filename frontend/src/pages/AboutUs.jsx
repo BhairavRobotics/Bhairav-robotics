@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Users, Target, Eye, Cpu } from "lucide-react";
 import mohanraj from "../assets/team/mohanraj.png";
 import rama from "../assets/team/rama.jpg";
+import kishore from "../assets/team/kishore.jpeg";
+import shravanth from "../assets/team/shravanth.jpeg";
 
 const team = [
   {
@@ -22,19 +24,19 @@ const team = [
     name: "Ravi Kishore",
     role: "Chief R&D Officer",
     description: "Ravi Kishore has decades of experience in research and development of advanced robotic systems. He spearheads innovation and R&D strategy at Bhairav Robotics, driving technical excellence across all projects.",
-    image: null
+    image: kishore
   },
   {
     name: "Sai Shravanth O",
     role: "Lead - Controls & Automation",
     description: "Shravanth heads simulation, controls and automation team. He has hands on experience in Gazebo simulation, flight controls, Matlab, ROS and field testing.",
-    image: null
+    image: shravanth
   }
 ];
 
 const AboutUs = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
       
       <main className="pt-24 lg:pt-32 pb-20">
@@ -51,7 +53,7 @@ const AboutUs = () => {
             <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
               About <span className="text-gradient">Bhairav Robotics</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-body">
               Leading the evolution of tactical robotics and autonomous systems for mission-critical operations.
             </p>
           </motion.div>
@@ -73,7 +75,7 @@ const AboutUs = () => {
                 <Target className="text-primary" size={24} />
                 Our <span className="text-primary">Mission</span>
               </h2>
-              <p className="text-muted-foreground leading-relaxed text-lg">
+              <p className="text-muted-foreground leading-relaxed text-lg font-body">
                 &ldquo;Our mission is to create innovative robotic solutions that enhance efficiency, safety, and productivity across various sectors and transform the way we work and live.&rdquo;
               </p>
             </motion.div>
@@ -91,7 +93,7 @@ const AboutUs = () => {
                 <Eye className="text-primary" size={24} />
                 Our <span className="text-primary">Vision</span>
               </h2>
-              <p className="text-muted-foreground leading-relaxed text-lg">
+              <p className="text-muted-foreground leading-relaxed text-lg font-body">
                 &ldquo;We envision a world where our robotic solutions seamlessly integrate into everyday life from defense, manufacturing to education.&rdquo;
               </p>
             </motion.div>
@@ -113,7 +115,7 @@ const AboutUs = () => {
                 <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-8">
                   Our Expertise in <span className="text-gradient">Engineering and Innovation</span>
                 </h2>
-                <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+                <div className="space-y-6 text-lg text-muted-foreground leading-relaxed font-body">
                   <p>
                     We are a team of diverse group of engineers with experience in design, manufacturing, simulation & analytics of mechanical systems, product development and program management in various industries including defense.
                   </p>
@@ -137,7 +139,7 @@ const AboutUs = () => {
             <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
               Meet Our <span className="text-gradient">Leadership</span>
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-muted-foreground font-body max-w-xl mx-auto">
               A collective of veterans and innovators driving the future of robotics.
             </p>
           </motion.div>
@@ -157,7 +159,7 @@ const AboutUs = () => {
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                     />
                   ) : (
                     <Users size={64} className="text-muted-foreground/30" />
@@ -171,7 +173,7 @@ const AboutUs = () => {
                   <p className="text-xs tracking-[0.1em] uppercase text-primary font-semibold mb-4">
                     {member.role}
                   </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed font-body">
                     {member.description}
                   </p>
                 </div>

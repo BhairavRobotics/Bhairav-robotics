@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T72 Autonomous Operations Suite - Mockup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #0a0c0a;
+            color: #e2e8f0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rugged-frame {
+            background-color: #1a1c1a;
+            border: 12px solid #2a2c2a;
+            border-radius: 40px;
+            box-shadow: 0 0 100px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.05);
+            position: relative;
+            width: 1280px;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rugged-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.15;
+            z-index: 50;
+        }
+
+        /* Scanlines and CRT effect */
+        .screen-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 3px 100%;
+            z-index: 40;
+        }
+
+        .target-box {
+            position: absolute;
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .target-box.active {
+            border-color: #ef4444;
+            width: 120px;
+            height: 180px;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .target-box.active .corner { border-color: #ef4444; }
+        .target-box.active .label { color: #ef4444; }
+
+        .corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: #10b981;
+            border-style: solid;
+        }
+        .top-l { top: -2px; left: -2px; border-width: 4px 0 0 4px; }
+        .top-r { top: -2px; right: -2px; border-width: 4px 4px 0 0; }
+        .bot-l { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; }
+        .bot-r { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; }
+
+        .fire-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(239, 68, 68, 0.2);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.2; }
+        }
+
+        .joystick-base {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .joystick-knob {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #4a4c4a, #1a1c1a);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        input[type=range][orient=vertical] {
+            writing-mode: bt-lr; /* IE */
+            -webkit-appearance: slider-vertical; /* WebKit */
+            width: 8px;
+            height: 100%;
+            padding: 0 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="rugged-frame">
+        <!-- Physical Buttons Emulation -->
+        <div class="absolute left-[-10px] top-1/4 flex flex-col gap-4 z-50">
+            <div class="w-[8px] h-12 bg-[#3a3c3a] rounded-l-md border-y border-l border-[#4a4c4a]"></div>
+            <div class="w-[8px] h-12 bg-[#3a3c3a] rounded-l-md border-y border-l border-[#4a4c4a]"></div>
+        </div>
+        <div class="absolute right-[-10px] top-1/3 flex flex-col gap-6 z-50">
+            <div class="w-[8px] h-16 bg-[#3a3c3a] rounded-r-md border-y border-r border-[#4a4c4a]"></div>
+            <div class="w-[8px] h-8 bg-[#3a3c3a] rounded-r-md border-y border-r border-[#4a4c4a]"></div>
+        </div>
+
+        <!-- Top Navigation Bar -->
+        <div class="h-16 bg-[#121412]/95 border-b border-[#2a2c2a] flex items-center px-6 gap-4 z-30">
+            <div class="flex items-center gap-3 mr-8">
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-emerald-500 w-6 h-6 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <h1 class="text-xl font-bold tracking-wider text-emerald-50 glow-text uppercase">
+                    T72 Autonomous Operations Suite
+                </h1>
+            </div>
+
+            <nav class="flex items-center gap-1 h-full text-xs font-bold tracking-widest uppercase">
+                <div class="px-4 py-5 border-b-2 border-transparent text-gray-500 hover:text-gray-300">Live View</div>
+                <div class="px-4 py-5 border-b-2 border-transparent text-gray-500 hover:text-gray-300">Health</div>
+                <div class="px-4 py-5 border-b-2 border-transparent text-gray-500 hover:text-gray-300">Calibration</div>
+                <div class="px-4 py-5 border-b-2 border-transparent text-gray-500 hover:text-gray-300">Alerts</div>
+                <div class="px-4 py-5 border-b-2 border-transparent text-gray-500 hover:text-gray-300">Mission</div>
+                <div class="px-4 py-5 border-b-2 border-orange-500 text-orange-500 bg-orange-500/10">Fire Control</div>
+            </nav>
+
+            <div class="ml-auto flex items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                    <span class="text-[10px] font-bold text-emerald-500 uppercase">OBC: NOMINAL</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+        </div>
+
+        <!-- Main Viewport -->
+        <div class="flex-1 relative bg-black overflow-hidden">
+            <!-- Camera Feed -->
+            <img src="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80&w=2000" 
+                 class="absolute inset-0 w-full h-full object-cover grayscale brightness-50 contrast-125 opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+            
+            <div class="screen-overlay"></div>
+
+            <!-- Left Icons -->
+            <div class="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-30">
+                <div class="flex flex-col items-center gap-1 group">
+                    <div class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                    </div>
+                    <span class="text-[9px] font-bold text-white/40 uppercase">CAM</span>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                    <div class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+                    </div>
+                    <span class="text-[9px] font-bold text-white/40 uppercase">REC</span>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                    <div class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <span class="text-[9px] font-bold text-white/40 uppercase">COM</span>
+                </div>
+            </div>
+
+            <!-- Target Overlays -->
+            <div class="target-box" style="left: 20%; top: 40%; width: 80px; height: 120px;">
+                <div class="corner top-l"></div><div class="corner top-r"></div><div class="corner bot-l"></div><div class="corner bot-r"></div>
+                <div class="absolute -top-10 left-0 bg-black/60 px-1 py-0.5">
+                    <div class="text-[10px] font-bold text-emerald-500 uppercase">HUMAN T1</div>
+                    <div class="text-[8px] font-bold text-emerald-500/80">DIST: 25M</div>
+                </div>
+            </div>
+
+            <div class="target-box active" style="left: 45%; top: 50%;">
+                <div class="corner top-l"></div><div class="corner top-r"></div><div class="corner bot-l"></div><div class="corner bot-r"></div>
+                <div class="absolute -top-10 left-0 bg-black/80 px-1 py-0.5 border-l-2 border-red-500">
+                    <div class="text-[10px] font-black text-red-500 uppercase">HUMAN T2</div>
+                    <div class="text-[8px] font-bold text-red-500/80">DIST: 18M</div>
+                </div>
+                
+                <button onclick="engageFire()" class="absolute -bottom-16 left-1/2 -translate-x-1/2 px-6 py-2 bg-red-600 text-white font-black text-sm rounded shadow-[0_0_15px_rgba(220,38,38,0.6)] border border-red-400 uppercase tracking-widest active:scale-95 transition-transform">
+                    FIRE
+                </button>
+            </div>
+
+            <div class="target-box" style="left: 70%; top: 45%; width: 80px; height: 120px;">
+                <div class="corner top-l"></div><div class="corner top-r"></div><div class="corner bot-l"></div><div class="corner bot-r"></div>
+                <div class="absolute -top-10 left-0 bg-black/60 px-1 py-0.5">
+                    <div class="text-[10px] font-bold text-emerald-500 uppercase">HUMAN T3</div>
+                    <div class="text-[8px] font-bold text-emerald-500/80">DIST: 32M</div>
+                </div>
+            </div>
+
+            <!-- Central Crosshair -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+                <div class="w-64 h-64 border border-emerald-500/20 rounded-full flex items-center justify-center">
+                    <div class="absolute w-1 h-12 bg-emerald-500 top-0"></div>
+                    <div class="absolute w-1 h-12 bg-emerald-500 bottom-0"></div>
+                    <div class="absolute w-12 h-1 bg-emerald-500 left-0"></div>
+                    <div class="absolute w-12 h-1 bg-emerald-500 right-0"></div>
+                    <div class="w-2 h-2 bg-red-500 rounded-full shadow-[0_0_10px_#f00]"></div>
+                </div>
+            </div>
+
+            <!-- Zoom Slider (Right) -->
+            <div class="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 z-30 h-64">
+                <span class="text-[10px] font-bold text-white/50 uppercase">ZOOM</span>
+                <input type="range" orient="vertical" min="0" max="100" value="50" class="h-full bg-emerald-500">
+                <div class="flex flex-col justify-between h-full absolute -right-6 py-4 text-[8px] font-bold text-white/20">
+                    <span>X10</span><span>X8</span><span>X6</span><span>X4</span><span>X2</span><span>X0</span>
+                </div>
+            </div>
+
+            <!-- Joystick (Bottom Left) -->
+            <div class="absolute bottom-8 left-8 z-30 flex flex-col items-center gap-2">
+                <div class="joystick-base">
+                    <div class="absolute inset-4 border border-white/5 rounded-full"></div>
+                    <div class="joystick-knob"></div>
+                    <div class="absolute top-1 text-[8px] text-white/20 font-bold uppercase">FWD</div>
+                    <div class="absolute bottom-1 text-[8px] text-white/20 font-bold uppercase">REV</div>
+                </div>
+                <span class="text-[10px] font-bold text-white/30 uppercase tracking-tighter">MOVEMENT</span>
+            </div>
+        </div>
+
+        <!-- Bottom Status Bar -->
+        <div class="h-14 bg-[#121412]/95 border-t border-[#2a2c2a] flex items-center px-6 gap-8 z-30">
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="text-xs font-mono font-bold text-emerald-100 tracking-wider">34°03'N 118°15'W</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span id="time-display" class="text-xs font-mono font-bold text-emerald-100 tracking-wider">00:00:00</span>
+                </div>
+            </div>
+
+            <div class="flex items-center bg-black/60 rounded p-1 border border-white/10 ml-8">
+                <div id="mode-manual" onclick="setMode('manual')" class="px-4 py-1 text-[10px] font-black uppercase tracking-widest rounded cursor-pointer text-gray-500 transition-colors">Manual</div>
+                <div id="mode-auto" onclick="setMode('auto')" class="px-4 py-1 text-[10px] font-black uppercase tracking-widest rounded cursor-pointer bg-emerald-600 text-white transition-colors">Auto</div>
+            </div>
+
+            <div class="ml-auto flex items-center gap-6">
+                <div class="flex flex-col items-end gap-0.5">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-[9px] font-bold text-gray-500 uppercase">SIGNAL</span>
+                        <div class="flex gap-0.5 items-end h-3">
+                            <div class="w-1 h-1.5 bg-emerald-500 rounded-full"></div>
+                            <div class="w-1 h-2 bg-emerald-500 rounded-full"></div>
+                            <div class="w-1 h-2.5 bg-emerald-500 rounded-full"></div>
+                            <div class="w-1 h-3 bg-emerald-500 rounded-full"></div>
+                            <div class="w-1 h-3 bg-gray-700 rounded-full"></div>
+                        </div>
+                    </div>
+                    <span class="text-[8px] font-bold text-emerald-500 uppercase">LATENCY: 24MS</span>
+                </div>
+                
+                <button class="px-6 h-10 bg-red-900/30 border border-red-600/50 hover:bg-red-800/50 transition-all text-red-500 font-black text-sm uppercase tracking-widest rounded flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                    STOP
+                </button>
+            </div>
+        </div>
+
+        <!-- Fire Feedback Overlay -->
+        <div id="fire-overlay" class="fire-overlay">
+            <h2 class="text-6xl font-black text-red-500 tracking-[0.5em] uppercase">Engaging Target</h2>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + 
+                          now.getMinutes().toString().padStart(2, '0') + ':' + 
+                          now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('time-display').textContent = timeStr;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function setMode(mode) {
+            const manual = document.getElementById('mode-manual');
+            const auto = document.getElementById('mode-auto');
+            if (mode === 'manual') {
+                manual.classList.add('bg-emerald-600', 'text-white');
+                manual.classList.remove('text-gray-500');
+                auto.classList.remove('bg-emerald-600', 'text-white');
+                auto.classList.add('text-gray-500');
+            } else {
+                auto.classList.add('bg-emerald-600', 'text-white');
+                auto.classList.remove('text-gray-500');
+                manual.classList.remove('bg-emerald-600', 'text-white');
+                manual.classList.add('text-gray-500');
+            }
+        }
+
+        function engageFire() {
+            const overlay = document.getElementById('fire-overlay');
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

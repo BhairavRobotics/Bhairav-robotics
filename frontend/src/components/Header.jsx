@@ -1,12 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import logo from "../assets/header/brlogo.png";
-import { products, categories } from "@/data/products";
 
 const navLinks = [
-  { label: "Products", href: "/products", hasDropdown: true },
   { label: "About Us", href: "/about-us" },
   { label: "Careers", href: "/careers" },
 ];
@@ -14,10 +12,6 @@ const navLinks = [
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(categories[0].id);
-  const dropdownRef = useRef(null);
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -26,167 +20,63 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsProductsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleProductClick = (productId) => {
-    setIsProductsOpen(false);
-    setIsOpen(false);
-    navigate(`/products?id=${productId}`);
-  };
-
-  const isCurrentPath = (path) => {
-    if (path.startsWith("/#")) return location.pathname === "/" && location.hash === path.substring(1);
-    return location.pathname === path;
-  };
-
-  const activeCategoryData = categories.find(c => c.id === activeCategory);
+  const isCurrentPath = (path) => location.pathname === path;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-        ? "bg-background/95 backdrop-blur-xl border-b border-border/40 shadow-xl"
-        : "bg-transparent border-b border-transparent"
-        }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-background/95 backdrop-blur-xl border-b border-border/40 shadow-xl"
+          : "bg-background/80 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border-b border-border/20 lg:border-transparent"
+      }`}
     >
       <div className="container mx-auto px-6 lg:px-10">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-4 group">
-            <img
-              src={logo}
-              alt="Bhairav Robotics logo"
-              className="h-10 lg:h-12 object-contain transition-transform duration-300 group-hover:scale-105"
-            />
-            <div className="hidden sm:block border-l border-border/40 h-8 mx-2" />
-            <h1 className="hidden sm:block font-heading font-bold text-lg lg:text-xl tracking-tight text-foreground/90 uppercase">
+        <div className="flex h-16 items-center justify-between lg:h-20">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="logo-glow-wrapper relative flex items-center justify-center">
+              <img
+                src={logo}
+                alt="Bhairav Robotics logo"
+                className="h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-105 sm:h-11 lg:h-12"
+              />
+            </div>
+            <div className="mx-1 hidden h-8 border-l border-border/40 sm:block" />
+            <h1 className="hidden font-heading text-xl font-bold uppercase tracking-tight text-foreground/90 sm:block lg:text-2xl xl:text-3xl">
               Born for the <span className="text-primary">battlefield</span>
             </h1>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => {
-              if (link.hasDropdown) {
-                return (
-                  <div
-                    key={link.label}
-                    className="relative h-full flex items-center"
-                    ref={dropdownRef}
-                    onMouseEnter={() => setIsProductsOpen(true)}
-                    onMouseLeave={() => setIsProductsOpen(false)}
-                  >
-                    <button
-                      className={`flex items-center gap-1.5 font-heading font-semibold text-[13px] tracking-[0.15em] uppercase transition-colors duration-300 ${isProductsOpen || isCurrentPath(link.href) ? 'text-primary' : 'text-foreground/70 hover:text-primary'}`}
-                      onClick={() => setIsProductsOpen(!isProductsOpen)}
-                    >
-                      {link.label}
-                      <ChevronDown size={14} className={`transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
-                    </button>
+          <nav className="hidden items-center gap-8 lg:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.href}
+                className={`font-heading text-[13px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 ${
+                  isCurrentPath(link.href) ? "text-primary" : "text-foreground/75 hover:text-primary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
 
-                    <AnimatePresence>
-                      {isProductsOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="fixed top-16 lg:top-20 left-1/2 -translate-x-1/2 w-[95vw] max-w-[1100px] max-h-[calc(100vh-120px)] bg-card/98 backdrop-blur-2xl border border-border/50 rounded-b-lg shadow-2xl flex flex-col md:flex-row z-50 overflow-hidden"
-                        >
-                          {/* Categories Sidebar */}
-                          <div className="w-full md:w-1/3 bg-muted/30 border-b md:border-b-0 md:border-r border-border/30 p-4 md:p-6 flex flex-row md:flex-col gap-1 overflow-x-auto md:overflow-y-auto custom-scrollbar shrink-0">
-                            {categories.map((category) => (
-                              <button
-                                key={category.id}
-                                onMouseEnter={() => setActiveCategory(category.id)}
-                                className={`text-left px-4 py-2 md:py-3 rounded-md transition-all duration-200 flex items-center justify-between group/cat whitespace-nowrap md:whitespace-normal shrink-0 ${activeCategory === category.id ? 'bg-primary/10 text-primary shadow-sm' : 'text-foreground/60 hover:bg-muted/50 hover:text-foreground'}`}
-                              >
-                                <span className="font-heading font-bold text-[10px] md:text-[11px] tracking-[0.15em] uppercase">
-                                  {category.name}
-                                </span>
-                                <ArrowRight size={14} className={`hidden md:block transition-transform duration-300 ${activeCategory === category.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`} />
-                              </button>
-                            ))}
-                          </div>
-
-                          {/* Products Grid */}
-                          <div className="w-full md:w-2/3 p-6 md:p-8 bg-card flex flex-col min-h-0 overflow-hidden">
-                            <div className="mb-4 md:mb-6 shrink-0">
-                              <h3 className="font-heading font-bold text-[10px] tracking-[0.2em] uppercase text-primary mb-1">
-                                {activeCategoryData?.name}
-                              </h3>
-                              <p className="text-muted-foreground text-[10px] md:text-[11px] tracking-wider uppercase opacity-60">
-                                Select a system to view technical details
-                              </p>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 gap-3 md:gap-4 overflow-y-auto pr-2 custom-scrollbar flex-1 min-h-0 pb-4 max-h-[350px]">
-                              {activeCategoryData?.products.map(prodId => {
-                                const product = products.find(p => p.id === prodId);
-                                if (!product) return null;
-                                return (
-                                  <button
-                                    key={prodId}
-                                    onClick={() => handleProductClick(prodId)}
-                                    className="text-left p-4 rounded-lg border border-border/30 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group/item flex flex-col gap-2 shadow-sm hover:shadow-md h-fit shrink-0"
-                                  >
-                                    <div className="font-heading font-bold text-[12px] md:text-[13px] tracking-wider uppercase text-foreground group-hover/item:text-primary transition-colors">
-                                      {product.name}
-                                    </div>
-                                    <div className="text-[9px] md:text-[10px] text-muted-foreground line-clamp-1 uppercase tracking-[0.05em]">
-                                      {product.subCategory}
-                                    </div>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              }
-              return (
-                <Link
-                  key={link.label}
-                  to={link.href}
-                  className={`font-heading font-semibold text-[13px] tracking-[0.15em] uppercase transition-colors duration-300 ${isCurrentPath(link.href) ? 'text-primary' : 'text-foreground/70 hover:text-primary'}`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-            
             <Link
               to="/contact"
-              className="bg-primary text-primary-foreground px-6 py-2 rounded-sm font-heading font-bold text-[11px] tracking-[0.2em] uppercase hover:bg-primary/90 transition-all shadow-glow active:scale-95"
+              className="rounded-sm bg-primary px-6 py-2 font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-glow transition-all hover:bg-primary/90 active:scale-95"
             >
               Get in Touch
             </Link>
           </nav>
 
-          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-foreground/80 hover:text-primary transition-colors"
+            className="p-2 text-foreground/80 transition-colors hover:text-primary lg:hidden"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -194,81 +84,24 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 top-16 lg:hidden bg-background/98 backdrop-blur-xl z-40 overflow-y-auto"
+            className="fixed inset-0 top-16 z-40 overflow-y-auto bg-background/98 backdrop-blur-xl lg:hidden"
           >
-            <nav className="container mx-auto px-8 py-10 flex flex-col gap-6">
-              {navLinks.map((link) => {
-                if (link.hasDropdown) {
-                  return (
-                    <div key={link.label} className="flex flex-col gap-4">
-                      <div className="flex items-center justify-between">
-                        <Link 
-                          to={link.href} 
-                          onClick={() => setIsOpen(false)}
-                          className="font-heading font-bold text-2xl tracking-[0.1em] uppercase text-foreground"
-                        >
-                          {link.label}
-                        </Link>
-                        <button 
-                          onClick={() => setIsProductsOpen(!isProductsOpen)}
-                          className="p-2 bg-secondary rounded-full"
-                        >
-                          <ChevronDown size={20} className={`transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
-                        </button>
-                      </div>
-                      
-                      <AnimatePresence>
-                        {isProductsOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="flex flex-col gap-6 pl-4 border-l-2 border-primary/20"
-                          >
-                            {categories.map((cat) => (
-                              <div key={cat.id} className="space-y-3">
-                                <h4 className="font-heading font-bold text-[10px] tracking-[0.2em] uppercase text-primary">
-                                  {cat.name}
-                                </h4>
-                                <div className="flex flex-col gap-3">
-                                  {cat.products.map(pId => {
-                                    const p = products.find(prod => prod.id === pId);
-                                    if (!p) return null;
-                                    return (
-                                      <button
-                                        key={pId}
-                                        onClick={() => handleProductClick(pId)}
-                                        className="text-left font-heading font-medium text-base text-foreground/70 hover:text-primary transition-colors"
-                                      >
-                                        {p.name}
-                                      </button>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                }
-                return (
-                  <Link
-                    key={link.label}
-                    to={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="font-heading font-bold text-2xl tracking-[0.1em] uppercase text-foreground hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
+            <nav className="container mx-auto flex flex-col gap-6 px-8 py-10">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="font-heading text-2xl font-bold uppercase tracking-[0.1em] text-foreground transition-colors hover:text-primary"
+                >
+                  {link.label}
+                </Link>
+              ))}
 
               <Link
                 to="/contact"
                 onClick={() => setIsOpen(false)}
-                className="bg-primary text-primary-foreground px-8 py-4 rounded-sm font-heading font-bold text-base tracking-[0.2em] uppercase text-center mt-6 shadow-glow"
+                className="mt-6 rounded-sm bg-primary px-8 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-glow"
               >
                 Get in Touch
               </Link>

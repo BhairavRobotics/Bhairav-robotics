@@ -79,7 +79,7 @@ const Careers = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
       
       <main className="pt-24 lg:pt-32 pb-20">

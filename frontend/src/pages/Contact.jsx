@@ -59,7 +59,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
       
       <main className="pt-24 lg:pt-32 pb-20">
@@ -171,7 +171,7 @@ const Contact = () => {
                   <Label htmlFor="subject" className="text-xs uppercase tracking-widest text-muted-foreground">Subject</Label>
                   <Input 
                     id="subject" 
-                    placeholder="Inquiry about Shvana" 
+                    placeholder="Inquiry about Shvana"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     required
