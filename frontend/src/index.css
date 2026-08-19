@@ -329,32 +329,3 @@ header img[alt*="logo"] {
   background: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
 }
-
-/* ── Template 1: Military Defence Styles ── */
-
-.t1-scanline {
-  background:
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.12) 50%),
-    linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(255, 0, 0, 0.01), rgba(255, 0, 0, 0.02));
-  background-size: 100% 3px, 3px 100%;
-}
-
-.t1-grid-lines {
-  background-image:
-    linear-gradient(hsl(var(--border) / 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--border) / 0.08) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-.t1-glow-line {
-  position: relative;
-}
-.t1-glow-line::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent);
-}
