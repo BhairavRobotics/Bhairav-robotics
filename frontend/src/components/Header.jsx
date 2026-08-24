@@ -135,8 +135,8 @@ const Header = () => {
               />
             </div>
             <div className="mx-1 hidden h-8 border-l border-border/40 sm:block" />
-            <h1 className="hidden min-w-0 font-heading text-lg font-bold uppercase tracking-tight text-foreground/90 sm:block md:text-xl lg:text-2xl xl:text-3xl">
-              Born for the <span className="text-primary">battlefield</span>
+            <h1 className="hidden min-w-0 font-heading text-base font-bold uppercase tracking-tight text-foreground/90 sm:block md:text-lg lg:text-xl xl:text-2xl">
+              Born for the <span className="text-primary">frontline</span>
             </h1>
           </Link>
 
