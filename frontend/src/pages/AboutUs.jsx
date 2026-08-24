@@ -10,7 +10,7 @@ import shravanth from "../assets/team/shravanth.jpeg";
 const team = [
   {
     name: "MohanRaj Gangadharan",
-    role: "Director - Design and Manufacturing",
+    role: "Director - Lead Design and Manufacturing",
     description: "Mohan has 25+ years of experience in design and manufacturing of numerous products for defense industry including hydraulic systems, launchers, small gas turbines.",
     image: mohanraj
   },
