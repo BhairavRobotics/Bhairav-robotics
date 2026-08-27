@@ -8,6 +8,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { apiUrl } from "@/lib/api";
+
+const getSubmitErrorMessage = (error) => {
+  if (error instanceof TypeError && error.message === "Failed to fetch") {
+    return "Cannot reach the backend email service. Please start the backend with npm start inside the backend folder, then submit again.";
+  }
+
+  return error.message || "There was an issue sending your message. Please try again later.";
+};
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +33,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:3001/api/contact", {
+      const response = await fetch(apiUrl("/api/contact"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +42,8 @@ const Contact = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        const result = await response.json().catch(() => ({}));
+        throw new Error(result.error || "Failed to send message");
       }
 
       toast({
@@ -51,7 +61,7 @@ const Contact = () => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "There was an issue sending your message. Please try again later.",
+        description: getSubmitErrorMessage(error),
       });
     } finally {
       setIsSubmitting(false);
@@ -62,9 +72,9 @@ const Contact = () => {
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
       
-      <main className="pt-24 lg:pt-32 pb-20">
+      <main className="pb-16 pt-24 sm:pb-20 lg:pt-32">
         {/* Hero Section */}
-        <section className="container mx-auto px-6 mb-16 text-center">
+        <section className="responsive-container mb-12 text-center sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -73,17 +83,17 @@ const Contact = () => {
             <span className="text-[11px] tracking-[0.3em] uppercase text-primary font-heading font-semibold mb-3 block">
               Reach Out
             </span>
-            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
+            <h1 className="safe-break mb-5 font-heading text-4xl font-bold md:text-5xl lg:text-6xl">
               Get In <span className="text-gradient">Touch</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               Contact us for inquiries, customization options, technical support, or any questions you have regarding our solutions.
             </p>
           </motion.div>
         </section>
 
-        <section className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-3 gap-12">
+        <section className="responsive-container">
+          <div className="grid gap-8 lg:grid-cols-3 lg:gap-12">
             {/* Contact Info Cards */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -91,7 +101,7 @@ const Contact = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:col-span-1 space-y-6"
             >
-              <div className="bg-card border border-border/50 p-8 rounded-lg shadow-glow group hover:border-primary/30 transition-colors">
+              <div className="rounded-lg border border-border/50 bg-card p-5 shadow-glow transition-colors group hover:border-primary/30 sm:p-8">
                 <div className="p-3 bg-primary/10 rounded-full text-primary w-fit mb-6 group-hover:scale-110 transition-transform">
                   <MapPin size={24} />
                 </div>
@@ -101,7 +111,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="bg-card border border-border/50 p-8 rounded-lg shadow-glow group hover:border-primary/30 transition-colors">
+              <div className="rounded-lg border border-border/50 bg-card p-5 shadow-glow transition-colors group hover:border-primary/30 sm:p-8">
                 <div className="p-3 bg-primary/10 rounded-full text-primary w-fit mb-6 group-hover:scale-110 transition-transform">
                   <Phone size={24} />
                 </div>
@@ -111,7 +121,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="bg-card border border-border/50 p-8 rounded-lg shadow-glow group hover:border-primary/30 transition-colors">
+              <div className="rounded-lg border border-border/50 bg-card p-5 shadow-glow transition-colors group hover:border-primary/30 sm:p-8">
                 <div className="p-3 bg-primary/10 rounded-full text-primary w-fit mb-6 group-hover:scale-110 transition-transform">
                   <Mail size={24} />
                 </div>
@@ -127,19 +137,19 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="lg:col-span-2 bg-card border border-border p-8 lg:p-10 rounded-lg shadow-glow"
+              className="rounded-lg border border-border bg-card p-5 shadow-glow sm:p-8 lg:col-span-2 lg:p-10"
             >
               <div className="flex items-center gap-4 mb-8">
                 <div className="p-3 bg-primary/10 rounded-full text-primary">
                   <MessageSquare size={24} />
                 </div>
-                <h2 className="font-heading font-bold text-2xl lg:text-3xl text-foreground">
+                <h2 className="safe-break font-heading text-2xl font-bold text-foreground lg:text-3xl">
                   Send us a <span className="text-primary">Message</span>
                 </h2>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-xs uppercase tracking-widest text-muted-foreground">Full Name</Label>
                     <Input 
@@ -196,7 +206,7 @@ const Contact = () => {
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-primary text-primary-foreground font-heading font-bold uppercase tracking-widest py-6 shadow-glow hover:opacity-90 transition-opacity"
+                  className="touch-target w-full bg-gradient-primary py-6 font-heading font-bold uppercase tracking-widest text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
                 >
                   {isSubmitting ? (
                     <Loader2 size={18} className="mr-2 animate-spin" />
@@ -211,8 +221,8 @@ const Contact = () => {
         </section>
 
         {/* Map Section - Integrated Google Maps */}
-        <section className="container mx-auto px-6 mt-20">
-          <div className="w-full h-[450px] bg-muted/30 border border-border/50 rounded-lg overflow-hidden relative group shadow-glow">
+        <section className="responsive-container mt-14 sm:mt-20">
+          <div className="relative h-[320px] w-full overflow-hidden rounded-lg border border-border/50 bg-muted/30 shadow-glow group sm:h-[450px]">
             <iframe 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3816.123456789!2d82.2352324!3d16.9571896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3829fbe8d3c213%3A0x6001529ac246b7d5!2sBhairav%20Robotics%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
               width="100%" 

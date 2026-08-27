@@ -44,9 +44,9 @@ const T72Mockup = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0c0a] flex items-center justify-center p-4 font-heading overflow-hidden">
+    <div className="min-h-[100svh] overflow-x-hidden bg-[#0a0c0a] p-2 font-heading sm:flex sm:items-center sm:justify-center sm:p-4">
       {/* Rugged Tablet Frame */}
-      <div className="relative w-full max-w-[1280px] aspect-video bg-[#1a1c1a] rounded-[40px] border-[12px] border-[#2a2c2a] shadow-[0_0_100px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] overflow-hidden ring-offset-4 ring-offset-black ring-4 ring-[#151715]">
+      <div className="relative mx-auto aspect-[9/16] w-full max-w-[1280px] overflow-hidden rounded-[24px] border-[8px] border-[#2a2c2a] bg-[#1a1c1a] shadow-[0_0_100px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] ring-2 ring-[#151715] ring-offset-2 ring-offset-black sm:aspect-video sm:rounded-[40px] sm:border-[12px] sm:ring-4 sm:ring-offset-4">
         
         {/* Hardware Texture Overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] z-10" />
@@ -73,21 +73,21 @@ const T72Mockup = () => {
         <div className="relative w-full h-full bg-[#050705] flex flex-col select-none">
           
           {/* Top Navigation Bar */}
-          <div className="h-16 bg-[#121412]/90 border-b border-[#2a2c2a] flex items-center px-6 gap-4 z-30">
-            <div className="flex items-center gap-3 mr-8">
-              <Shield className="text-emerald-500 w-6 h-6 animate-pulse" />
-              <h1 className="text-xl font-bold tracking-wider text-emerald-50 text-shadow-glow uppercase">
+          <div className="z-30 flex h-auto min-h-14 flex-wrap items-center gap-2 border-b border-[#2a2c2a] bg-[#121412]/90 px-3 py-2 sm:h-16 sm:flex-nowrap sm:gap-4 sm:px-6 sm:py-0">
+            <div className="mr-0 flex min-w-0 items-center gap-2 sm:mr-4 sm:gap-3 lg:mr-8">
+              <Shield className="h-5 w-5 shrink-0 animate-pulse text-emerald-500 sm:h-6 sm:w-6" />
+              <h1 className="safe-break text-sm font-bold uppercase tracking-wider text-emerald-50 text-shadow-glow sm:text-base lg:text-xl">
                 T72 Autonomous Operations Suite
               </h1>
             </div>
 
-            <nav className="flex items-center gap-1 h-full">
+            <nav className="flex h-auto w-full items-center gap-1 overflow-x-auto sm:h-full sm:w-auto">
               {['Live View', 'Health', 'Calibration', 'Alerts', 'Mission', 'Fire Control'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={cn(
-                    "px-4 h-full text-sm font-semibold tracking-widest transition-all uppercase border-b-2",
+                    "touch-target whitespace-nowrap px-3 text-xs font-semibold uppercase tracking-widest transition-all border-b-2 sm:h-full sm:px-4 sm:text-sm",
                     activeTab === tab 
                       ? tab === 'Fire Control' ? "border-orange-500 text-orange-500 bg-orange-500/10" : "border-emerald-500 text-emerald-500 bg-emerald-500/10"
                       : "border-transparent text-gray-500 hover:text-gray-300 hover:bg-white/5"
@@ -98,7 +98,7 @@ const T72Mockup = () => {
               ))}
             </nav>
 
-            <div className="ml-auto flex items-center gap-6">
+            <div className="ml-auto hidden items-center gap-4 md:flex lg:gap-6">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
                 <span className="text-xs font-bold text-emerald-500 uppercase tracking-tighter">OBC: NOMINAL</span>
@@ -125,15 +125,15 @@ const T72Mockup = () => {
             </div>
 
             {/* Left Vertical Icon Panel */}
-            <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-6 z-20">
+            <div className="absolute left-3 top-1/2 z-20 flex -translate-y-1/2 flex-col gap-3 sm:left-6 sm:gap-6">
               {[
                 { icon: Camera, label: 'CAM' },
                 { icon: Video, label: 'REC', color: 'text-red-500' },
                 { icon: MessageSquare, label: 'COM' }
               ].map((item, idx) => (
                 <button key={idx} className="group flex flex-col items-center gap-1">
-                  <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md group-hover:bg-white/20 transition-all">
-                    <item.icon className={cn("w-6 h-6 text-white/70 group-hover:text-white", item.color)} />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 backdrop-blur-md transition-all group-hover:bg-white/20 sm:h-14 sm:w-14">
+                    <item.icon className={cn("h-5 w-5 text-white/70 group-hover:text-white sm:h-6 sm:w-6", item.color)} />
                   </div>
                   <span className="text-[10px] font-bold text-white/50 tracking-tighter uppercase">{item.label}</span>
                 </button>
@@ -141,7 +141,7 @@ const T72Mockup = () => {
             </div>
 
             {/* Right Zoom Slider */}
-            <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 z-20 h-64">
+            <div className="absolute right-3 top-1/2 z-20 hidden h-48 -translate-y-1/2 flex-col items-center gap-4 sm:right-6 sm:flex sm:h-64">
               <span className="text-[10px] font-bold text-white/50 tracking-tighter uppercase">Zoom</span>
               <div className="relative h-full py-4">
                 <Slider 
@@ -172,7 +172,7 @@ const T72Mockup = () => {
                 >
                   <div className={cn(
                     "relative border-2 transition-all duration-300",
-                    tgt.active ? "border-red-500 w-32 h-48" : "border-emerald-500/50 w-24 h-36"
+                    tgt.active ? "border-red-500 w-20 h-32 sm:w-32 sm:h-48" : "border-emerald-500/50 w-16 h-24 sm:w-24 sm:h-36"
                   )}>
                     {/* Corners */}
                     <div className={cn("absolute -top-1 -left-1 w-4 h-4 border-t-4 border-l-4", tgt.active ? "border-red-500" : "border-emerald-500")} />
@@ -197,7 +197,7 @@ const T72Mockup = () => {
                           whileTap={{ scale: 0.95 }}
                           onClick={() => setIsFiring(true)}
                           className={cn(
-                            "px-8 py-2 bg-red-600 hover:bg-red-500 text-white font-black text-lg rounded-md shadow-[0_0_20px_rgba(220,38,38,0.5)] border-2 border-red-400 transition-all uppercase tracking-[0.2em]",
+                            "px-5 py-2 bg-red-600 hover:bg-red-500 text-white font-black text-sm sm:text-lg rounded-md shadow-[0_0_20px_rgba(220,38,38,0.5)] border-2 border-red-400 transition-all uppercase tracking-[0.16em] sm:tracking-[0.2em]",
                             isFiring && "animate-ping"
                           )}
                         >
@@ -210,7 +210,7 @@ const T72Mockup = () => {
               ))}
 
               {/* Central Crosshair */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-white/10 rounded-full flex items-center justify-center">
+              <div className="absolute left-1/2 top-1/2 flex h-40 w-40 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 sm:h-64 sm:w-64">
                 <div className="w-1 h-12 bg-emerald-500/30 absolute top-0" />
                 <div className="w-1 h-12 bg-emerald-500/30 absolute bottom-0" />
                 <div className="w-12 h-1 bg-emerald-500/30 absolute left-0" />
@@ -221,8 +221,8 @@ const T72Mockup = () => {
             </div>
 
             {/* Bottom Left Joystick */}
-            <div className="absolute bottom-8 left-8 z-20 flex flex-col gap-2 items-center">
-              <div className="w-32 h-32 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center justify-center relative shadow-inner">
+            <div className="absolute bottom-4 left-4 z-20 flex flex-col items-center gap-2 sm:bottom-8 sm:left-8">
+              <div className="relative flex h-24 w-24 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-inner backdrop-blur-xl sm:h-32 sm:w-32">
                 <div className="absolute inset-4 border border-white/5 rounded-full" />
                 <motion.div 
                   drag
@@ -251,15 +251,15 @@ const T72Mockup = () => {
                   onAnimationComplete={() => setIsFiring(false)}
                   className="absolute inset-0 bg-red-500/20 z-50 pointer-events-none flex items-center justify-center"
                 >
-                  <div className="text-6xl font-black text-red-500 animate-pulse tracking-[1em]">ENGAGING TARGET</div>
+                <div className="safe-break text-center text-3xl font-black tracking-[0.4em] text-red-500 animate-pulse sm:text-6xl sm:tracking-[1em]">ENGAGING TARGET</div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
           {/* Bottom Status Bar */}
-          <div className="h-14 bg-[#121412]/90 border-t border-[#2a2c2a] flex items-center px-6 gap-8 z-30">
-            <div className="flex items-center gap-6">
+          <div className="z-30 flex min-h-14 flex-wrap items-center gap-3 border-t border-[#2a2c2a] bg-[#121412]/90 px-3 py-2 sm:flex-nowrap sm:gap-8 sm:px-6 sm:py-0">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-6">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-emerald-500" />
                 <span className="text-xs font-mono font-bold text-emerald-100 tracking-wider">
@@ -289,7 +289,7 @@ const T72Mockup = () => {
               ))}
             </div>
 
-            <div className="ml-auto flex items-center gap-4">
+            <div className="ml-auto flex items-center gap-3 sm:gap-4">
               <div className="flex flex-col items-end gap-0.5">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold text-gray-500 uppercase">Signal</span>
@@ -302,7 +302,7 @@ const T72Mockup = () => {
                 <span className="text-[8px] font-bold text-emerald-500 uppercase tracking-tighter">Latency: 24ms</span>
               </div>
               
-              <button className="px-6 h-10 bg-red-900/40 border border-red-600/50 hover:bg-red-800/60 transition-all text-red-500 font-black text-sm uppercase tracking-[0.2em] rounded flex items-center gap-2 group">
+              <button className="flex h-10 items-center gap-2 rounded border border-red-600/50 bg-red-900/40 px-4 text-sm font-black uppercase tracking-[0.18em] text-red-500 transition-all hover:bg-red-800/60 sm:px-6 sm:tracking-[0.2em] group">
                 <Power className="w-4 h-4 group-hover:animate-pulse" />
                 STOP
               </button>

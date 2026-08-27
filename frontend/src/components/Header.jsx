@@ -121,7 +121,7 @@ const Header = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-background/95 backdrop-blur-xl border-b border-border/40 shadow-xl"
-            : "bg-background/80 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none border-b border-border/20 lg:border-transparent"
+            : "bg-transparent"
         }`}
       >
       <div className="responsive-container">
@@ -131,12 +131,12 @@ const Header = () => {
               <img
                 src={logo}
                 alt="Bhairav Robotics logo"
-                className="h-9 object-contain relative z-10 transition-transform duration-300 group-hover:scale-105 sm:h-11 lg:h-12"
+                className="h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-105 sm:h-12 lg:h-[52px]"
               />
             </div>
             <div className="mx-1 hidden h-8 border-l border-border/40 sm:block" />
             <h1 className="hidden min-w-0 font-heading text-base font-bold uppercase tracking-tight text-foreground/90 sm:block md:text-lg lg:text-xl xl:text-2xl">
-              Born for the <span className="text-primary">frontline</span>
+              Born to Defend
             </h1>
           </Link>
 

@@ -4,6 +4,7 @@ import { ChevronDown, X } from "lucide-react";
 import heroBgVideo from "@/assets/ProductVideos/Vrishabh.mp4";
 import demoVideo from "@/assets/Vrishabh_Website.mp4";
 import { stats } from "@/data/siteData";
+import { smoothScrollToId } from "@/lib/utils";
 
 const AnimatedStatNumber = ({ value, duration = 1.2 }) => {
   const [displayValue, setDisplayValue] = useState(0);
@@ -40,10 +41,7 @@ const Hero = () => {
   const demoVideoRef = useRef(null);
 
   const scrollToTechSpecs = () => {
-    document.getElementById("tech-specs")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    smoothScrollToId("tech-specs");
   };
 
   useEffect(() => {
@@ -72,10 +70,16 @@ const Hero = () => {
   }, [isDemoOpen]);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between">
+    <section className="relative flex min-h-[100svh] w-full flex-col justify-between overflow-hidden">
       {/* Video Background */}
-      <div className="absolute inset-0">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-[55vh] w-full object-cover object-center sm:h-full sm:object-cover"
+        >
           <source src={heroBgVideo} type="video/mp4" />
         </video>
       </div>
@@ -84,14 +88,14 @@ const Hero = () => {
       <div className="absolute inset-0 hero-overlay transition-all duration-500" />
 
       {/* Main Hero Center Content - Perfectly Centered in Viewport */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 w-full">
+      <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-center px-4 py-20 text-center sm:px-6 sm:py-24 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full max-w-none mx-auto"
+          className="mx-auto w-full max-w-6xl"
         >
-          <h1 className="font-heading font-bold text-[clamp(1.35rem,2.65vw,3.15rem)] tracking-tight text-foreground mb-6 drop-shadow-lg text-center leading-[1.05] w-full mx-auto whitespace-nowrap">
+          <h1 className="safe-break mx-auto mb-5 w-full text-center font-heading text-[clamp(2rem,1rem+4.5vw,5.1rem)] font-bold leading-[1.05] tracking-tight text-foreground drop-shadow-lg sm:mb-6">
             Strength Through Technology,{" "}
             <span className="text-gradient">Built for the Frontline</span>
           </h1>
@@ -101,7 +105,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-[0.16em] uppercase text-foreground mb-10 drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] text-center"
+          className="mb-8 max-w-4xl text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-foreground drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] sm:mb-10 sm:text-2xl sm:tracking-[0.16em] md:text-3xl lg:text-4xl"
         >
           Power. Precision. Reliability.
         </motion.p>
@@ -110,19 +114,19 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4 items-center justify-center"
+          className="flex w-full max-w-md flex-col items-stretch justify-center gap-3 sm:max-w-none sm:flex-row sm:items-center sm:gap-4"
         >
           <button
             type="button"
             onClick={scrollToTechSpecs}
-            className="bg-gradient-primary px-8 py-3.5 rounded-sm font-heading font-semibold text-sm tracking-wider uppercase text-primary-foreground hover:opacity-90 transition-opacity shadow-glow active:scale-95 text-center min-w-[190px]"
+            className="touch-target rounded-sm bg-gradient-primary px-6 py-3.5 text-center font-heading text-sm font-semibold uppercase tracking-wider text-primary-foreground shadow-glow transition-opacity hover:opacity-90 active:scale-95 sm:min-w-[190px] sm:px-8"
           >
             Explore Products
           </button>
           <button
             type="button"
             onClick={() => setIsDemoOpen(true)}
-            className="border border-border/80 bg-background/30 backdrop-blur-sm px-8 py-3.5 rounded-sm font-heading font-semibold text-sm tracking-wider uppercase text-foreground hover:border-primary hover:text-primary transition-colors active:scale-95 min-w-[190px]"
+            className="touch-target rounded-sm border border-border/80 bg-background/30 px-6 py-3.5 font-heading text-sm font-semibold uppercase tracking-wider text-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-primary active:scale-95 sm:min-w-[190px] sm:px-8"
           >
             Watch Demo
           </button>
@@ -156,9 +160,9 @@ const Hero = () => {
       )}
 
       {/* Floating stats strip over bottom of hero */}
-      <div className="relative z-10 pb-8 pt-4 bg-background/30 backdrop-blur-[4px] border-t border-border/20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-6 lg:gap-x-8 items-stretch">
+      <div className="relative z-10 border-t border-border/20 bg-background/30 pb-6 pt-4 backdrop-blur-[4px] sm:pb-8">
+        <div className="responsive-container">
+          <div className="grid grid-cols-2 items-stretch gap-x-3 gap-y-4 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-5 lg:gap-x-8">
             {stats.map((stat, i) => {
               const isNumeric = !Number.isNaN(parseInt(stat.value, 10));
 
@@ -168,13 +172,13 @@ const Hero = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 1.0 + i * 0.12 }}
-                  className="text-center flex min-h-[88px] flex-col items-center justify-start p-2"
+                  className="flex min-h-[78px] flex-col items-center justify-start p-1 text-center sm:min-h-[88px] sm:p-2"
                 >
                   <div
                     className={`font-heading font-bold text-foreground drop-shadow-md flex min-h-[48px] items-center justify-center text-center leading-tight ${
                       isNumeric
-                        ? "text-2xl sm:text-3xl lg:text-4xl"
-                        : "max-w-[230px] text-sm sm:text-base lg:text-lg"
+                        ? "text-xl sm:text-3xl lg:text-4xl"
+                        : "safe-break max-w-[230px] text-xs sm:text-base lg:text-lg"
                     }`}
                   >
                     <AnimatedStatNumber value={stat.value} />
@@ -184,7 +188,7 @@ const Hero = () => {
                       </span>
                     )}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-foreground/80 font-heading font-semibold mt-1 max-w-[200px] leading-tight">
+                  <div className="safe-break mt-1 max-w-[200px] font-heading text-[9px] font-semibold uppercase leading-tight tracking-[0.12em] text-foreground/80 sm:text-[11px] sm:tracking-[0.15em]">
                     {stat.label}
                   </div>
                 </motion.div>

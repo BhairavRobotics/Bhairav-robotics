@@ -8,6 +8,8 @@
   html {
     scroll-behavior: smooth;
     transition: background-color 0.3s ease, color 0.3s ease;
+    /* clip (not hidden): hidden creates a scroll container and breaks position: sticky */
+    overflow-x: clip;
   }
 
   /* Theme 1: Current Dark (Default) */
@@ -220,6 +222,7 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -252,6 +255,32 @@
       var(--hero-overlay-mid) 50%,
       var(--hero-overlay-end) 100%
     );
+  }
+
+  .responsive-container {
+    width: min(100% - 1.5rem, 1400px);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .responsive-container {
+      width: min(100% - 3rem, 1400px);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .responsive-container {
+      width: min(100% - 5rem, 1400px);
+    }
+  }
+
+  .touch-target {
+    min-height: 44px;
+  }
+
+  .safe-break {
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 }
 
@@ -301,7 +330,8 @@ header img[alt*="logo"] {
 
 [data-theme="dark"] header img[alt*="logo"],
 [data-theme="dark-pro"] header img[alt*="logo"] {
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.28))
+    drop-shadow(0 0 22px rgba(255, 125, 45, 0.18));
 }
 
 [data-theme="light"] header img[alt*="logo"],

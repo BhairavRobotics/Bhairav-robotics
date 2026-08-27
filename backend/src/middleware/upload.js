@@ -9,7 +9,9 @@ const upload = multer({
     if (file.mimetype === "application/pdf") {
       cb(null, true);
     } else {
-      cb(new Error("Only PDF files are allowed!"), false);
+      const error = new Error("Only PDF files are allowed");
+      error.statusCode = 400;
+      cb(error, false);
     }
   },
 });

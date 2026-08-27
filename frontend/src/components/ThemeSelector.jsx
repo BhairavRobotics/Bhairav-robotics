@@ -2,6 +2,19 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Palette, Check, X } from "lucide-react";
 
+// ─────────────────────────────────────────────────────────────
+// THEME VISIBILITY SWITCH
+// Set SHOW_THEME_SELECTOR to true to show the floating theme
+// selector button again (bottom-right corner of every page).
+// While false, DEFAULT_THEME is applied to the whole site and
+// any previously saved visitor preference is ignored.
+// ─────────────────────────────────────────────────────────────
+const SHOW_THEME_SELECTOR = false;
+
+// Site-wide theme used while the selector is hidden,
+// and the fallback when a visitor has no saved preference.
+const DEFAULT_THEME = "light";
+
 export const themes = [
   {
     id: "dark",
@@ -47,7 +60,8 @@ export const themes = [
 
 const ThemeSelector = () => {
   const [currentTheme, setCurrentTheme] = useState(() => {
-    return localStorage.getItem("br_theme") || "dark";
+    if (!SHOW_THEME_SELECTOR) return DEFAULT_THEME;
+    return localStorage.getItem("br_theme") || DEFAULT_THEME;
   });
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -73,20 +87,23 @@ const ThemeSelector = () => {
 
   const activeThemeObj = themes.find((t) => t.id === currentTheme) || themes[0];
 
+  // Hidden mode: still apply the theme above, but render no UI.
+  if (!SHOW_THEME_SELECTOR) return null;
+
   return (
-    <div ref={containerRef} className="fixed bottom-6 right-6 z-50 font-heading">
+    <div ref={containerRef} className="fixed bottom-4 right-4 z-40 font-heading sm:bottom-6 sm:right-6">
       {/* Floating Toggle Button */}
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-card/95 backdrop-blur-md border border-border/80 shadow-2xl text-foreground hover:border-primary/60 transition-all duration-300 group"
+        className="touch-target flex max-w-[calc(100vw-2rem)] items-center gap-2.5 rounded-full border border-border/80 bg-card/95 px-3 py-2.5 text-foreground shadow-2xl backdrop-blur-md transition-all duration-300 hover:border-primary/60 sm:px-4 group"
         aria-label="Toggle theme selector"
       >
         <div className="w-5 h-5 rounded-full flex items-center justify-center bg-primary/15 text-primary group-hover:rotate-45 transition-transform duration-300">
           <Palette size={14} />
         </div>
-        <span className="text-xs font-semibold tracking-wider uppercase pr-1">
+        <span className="max-w-[9rem] truncate text-xs font-semibold uppercase tracking-wider pr-1 sm:max-w-none">
           {activeThemeObj.name}
         </span>
         <div className="flex items-center gap-1 border-l border-border/60 pl-2">
@@ -103,7 +120,7 @@ const ThemeSelector = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute bottom-14 right-0 w-[320px] sm:w-[350px] bg-card/98 backdrop-blur-xl border border-border rounded-xl shadow-2xl p-5 text-foreground overflow-hidden"
+          className="absolute bottom-14 right-0 w-[calc(100vw-2rem)] max-w-[350px] overflow-hidden rounded-xl border border-border bg-card/98 p-4 text-foreground shadow-2xl backdrop-blur-xl sm:p-5"
           >
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-border/50">
               <div>

@@ -2,12 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, Download, PlayCircle } from "lucide-react";
 import { products } from "@/data/products";
+import { smoothScrollToId } from "@/lib/utils";
 
 const scrollToProduct = (productId) => {
-  document.getElementById(`product-${productId}`)?.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
+  smoothScrollToId(`product-${productId}`);
 };
 
 const ProductSection = ({ product, index }) => {
@@ -29,15 +27,15 @@ const ProductSection = ({ product, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="scroll-mt-16 border-t border-border/50 pt-10 pb-14 lg:pt-14 lg:pb-20"
+      className="scroll-mt-24 border-t border-border/50 pb-12 pt-10 sm:pb-14 lg:scroll-mt-32 lg:pb-20 lg:pt-14"
     >
       <div
-        className={`grid lg:grid-cols-12 gap-8 lg:gap-12 items-start ${
+        className={`grid items-start gap-7 md:gap-8 lg:grid-cols-12 lg:gap-12 ${
           isReversed ? "lg:[&>*:first-child]:order-2" : ""
         }`}
       >
         {/* ── Left: Image / Video + View Selector ── */}
-        <div className="lg:col-span-5 space-y-4">
+        <div className="space-y-4 lg:col-span-5">
           <div className="relative aspect-video overflow-hidden rounded-lg border border-border/70 bg-black shadow-2xl">
             {product.video ? (
               <video
@@ -70,13 +68,13 @@ const ProductSection = ({ product, index }) => {
           </div>
 
           {!product.video && views.length > 1 && (
-            <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2">
               {views.map((view, vi) => (
                 <button
                   key={view.label}
                   type="button"
                   onClick={() => setActiveView(vi)}
-                  className={`rounded-md px-3 py-1.5 font-heading text-[10px] font-bold uppercase tracking-wider transition-all ${
+                  className={`touch-target rounded-md px-3 py-1.5 font-heading text-[10px] font-bold uppercase tracking-wider transition-all ${
                     activeView === vi
                       ? "border border-primary bg-primary/10 text-primary"
                       : "border border-border/60 bg-background/50 text-muted-foreground hover:text-foreground"
@@ -89,7 +87,7 @@ const ProductSection = ({ product, index }) => {
           )}
 
           {product.features && product.features.length > 0 && (
-            <div className="rounded-lg border border-border/60 bg-card/70 p-5 shadow-sm">
+            <div className="rounded-lg border border-border/60 bg-card/70 p-4 shadow-sm sm:p-5">
               <h4 className="mb-4 border-l-2 border-primary pl-3 font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-foreground">
                 Key Capabilities
               </h4>
@@ -113,12 +111,12 @@ const ProductSection = ({ product, index }) => {
         </div>
 
         {/* ── Right: Info ── */}
-        <div className="lg:col-span-7 space-y-5">
+        <div className="space-y-5 lg:col-span-7">
           <div>
             <p className="mb-2 text-[11px] font-heading font-bold uppercase tracking-[0.28em] text-primary">
               {product.subCategory}
             </p>
-            <h3 className="font-heading text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+            <h3 className="safe-break font-heading text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
               {product.name}
             </h3>
             <p className="mt-3 max-w-3xl font-heading text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
@@ -141,7 +139,7 @@ const ProductSection = ({ product, index }) => {
                       key={tab}
                       type="button"
                       onClick={() => setActiveSpecTab(tab)}
-                      className={`rounded-full px-4 py-1.5 font-heading text-[11px] font-bold uppercase tracking-wider transition-all ${
+                      className={`touch-target rounded-full px-4 py-1.5 font-heading text-[11px] font-bold uppercase tracking-wider transition-all ${
                         activeSpecTab === tab
                           ? "border border-primary bg-primary text-primary-foreground shadow-glow"
                           : "border border-border/60 bg-background/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
@@ -153,15 +151,15 @@ const ProductSection = ({ product, index }) => {
                 </div>
               )}
 
-              <div className="rounded-lg border border-border/60 bg-card/70 p-5 shadow-sm">
+              <div className="rounded-lg border border-border/60 bg-card/70 p-4 shadow-sm sm:p-5">
                 <h4 className="mb-4 border-l-2 border-primary pl-3 font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-foreground">
-                  {specTabKeys.length > 1 ? activeSpecTab : "Specifications"}
+                  Specifications
                 </h4>
                 <div className="overflow-hidden rounded-md border border-border/50 bg-background/50">
                   {currentSpecs.map((spec, specIndex) => (
                     <div
                       key={`${spec.label}-${specIndex}`}
-                      className={`flex items-start justify-between gap-4 px-4 py-3 ${
+                      className={`flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4 ${
                         specIndex < currentSpecs.length - 1
                           ? "border-b border-border/30"
                           : ""
@@ -170,7 +168,7 @@ const ProductSection = ({ product, index }) => {
                       <span className="text-xs font-heading font-semibold uppercase tracking-[0.08em] text-muted-foreground">
                         {spec.label}
                       </span>
-                      <span className="max-w-[58%] text-right text-xs font-heading font-bold text-foreground sm:text-sm">
+                      <span className="safe-break text-left text-xs font-heading font-bold text-foreground sm:max-w-[58%] sm:text-right sm:text-sm">
                         {spec.value}
                       </span>
                     </div>
@@ -180,21 +178,13 @@ const ProductSection = ({ product, index }) => {
             </div>
           )}
 
-          {/* Brochure Buttons */}
+          {/* Brochure Button */}
           {product.brochure && (
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={product.brochure}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-sm border border-border/80 bg-secondary/30 px-5 py-3 font-heading text-xs font-bold uppercase tracking-widest text-foreground transition-colors hover:border-primary hover:text-primary"
-              >
-                View Brochure
-              </a>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href={product.brochure}
                 download={product.brochureName}
-                className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-primary px-5 py-3 font-heading text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
+                className="touch-target inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-primary px-5 py-3 text-center font-heading text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
               >
                 <Download size={15} />
                 Download Brochure
@@ -213,11 +203,11 @@ const TechSpecs = () => {
   return (
     <section
       id="tech-specs"
-      className="relative bg-background py-16 transition-colors duration-300 lg:py-24"
+      className="relative bg-background py-14 transition-colors duration-300 sm:py-16 lg:py-24"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-card/20 via-background to-card/20 pointer-events-none" />
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-10">
+      <div className="responsive-container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -236,20 +226,23 @@ const TechSpecs = () => {
           </p>
         </motion.div>
 
-        {/* ── Pill Tab Bar ── */}
-        <div className="sticky top-16 z-20 mb-6 rounded-lg border border-border/70 bg-background/90 p-2 shadow-lg backdrop-blur-xl lg:top-20">
-          <div className="flex gap-2 overflow-x-auto custom-scrollbar">
+        {/* ── Pill Tab Bar (frozen under the header on all screens) ── */}
+        <div
+          id="product-tab-bar"
+          className="sticky top-16 z-20 mb-6 rounded-lg border border-border/70 bg-background/90 p-2 shadow-lg backdrop-blur-xl lg:top-20"
+        >
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
             {products.map((product, i) => (
               <button
                 key={product.id}
                 type="button"
                 onClick={() => scrollToProduct(product.id)}
-                className="group shrink-0 rounded-full border border-border/60 bg-background/50 px-5 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
+                className="touch-target group min-w-0 rounded-full border border-border/60 bg-background/50 px-2.5 py-2.5 font-heading text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground transition-all hover:border-primary/50 hover:text-primary sm:px-3 sm:text-[11px] lg:px-5 lg:text-xs"
               >
-                <span className="mr-2 text-[10px] text-muted-foreground/60">
+                <span className="mr-1.5 text-[9px] text-muted-foreground/60 sm:mr-2 sm:text-[10px]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                {product.name}
+                <span className="safe-break align-middle">{product.name}</span>
               </button>
             ))}
           </div>

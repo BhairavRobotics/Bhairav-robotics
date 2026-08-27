@@ -19,8 +19,8 @@ const socialLinks = [
 const Footer = () => {
   return (
     <footer id="contact" className="bg-card border-t border-border pt-16 pb-8 transition-colors duration-300">
-      <div className="container mx-auto px-6 lg:px-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      <div className="responsive-container">
+        <div className="mb-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Link to="/" className="flex items-center">
@@ -43,7 +43,7 @@ const Footer = () => {
               Contact Us
             </h4>
             <div className="space-y-3 font-body">
-              <a href="mailto:contact@bhairavrobotics.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:contact@bhairavrobotics.com" className="safe-break flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary">
                 <Mail size={14} className="text-primary shrink-0" /> contact@bhairavrobotics.com
               </a>
               <a href="tel:+918341082589" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
