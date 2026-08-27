@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT ARES-72: T-72 Autonomous Operations Suite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --r-main-font: 'Rajdhani', sans-serif;
+            --r-heading-font: 'Rajdhani', sans-serif;
+            --r-heading-color: #10b981; /* Emerald 500 */
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        .reveal .slides section {
+            text-align: left;
+        }
+        .highlight-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .spec-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 0;
+        }
+        .spec-label {
+            color: #94a3b8;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .spec-value {
+            color: #f8fafc;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        /* Military Overlay */
+        .mil-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 4px 100%;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="mil-overlay"></div>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section data-background-image="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80&w=2000" data-background-opacity="0.3">
+                <div class="mt-20">
+                    <h1 class="text-7xl font-bold">Project ARES-72</h1>
+                    <h3 class="text-3xl text-emerald-400">T-72 Autonomous Operations Suite</h3>
+                    <div class="mt-10 p-4 border-t border-emerald-500/30 w-fit">
+                        <p class="text-slate-400">DEFENSE SYSTEMS MODERNIZATION | LEVEL 4 AUTONOMY</p>
+                        <p class="text-slate-500 text-sm">CLASSIFICATION: UNCLASSIFIED // FOR OFFICIAL USE ONLY</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Executive Summary -->
+            <section>
+                <h2 class="text-emerald-500 mb-8">Executive Summary</h2>
+                <div class="grid grid-cols-2 gap-10">
+                    <div>
+                        <p class="text-xl leading-relaxed">
+                            Project <span class="text-emerald-400 font-bold">ARES-72</span> transforms the legacy T-72 main battle tank into a highly capable, <span class="text-white">autonomous combat vehicle</span>. 
+                        </p>
+                        <div class="highlight-box mt-6">
+                            <h4 class="text-emerald-400 mb-2">Primary Objective</h4>
+                            <p>To reduce crew risk and enhance battlefield lethality through Level 4 autonomous navigation and AI-driven fire control.</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900/50 p-6 rounded border border-slate-800">
+                        <h4 class="text-emerald-400 mb-4 uppercase">Core Capabilities</h4>
+                        <ul class="space-y-3 text-slate-300">
+                            <li>● Autonomous Navigation (GPS-Denied)</li>
+                            <li>● AI-Assisted Target Acquisition</li>
+                            <li>● Low-Latency Command & Control</li>
+                            <li>● Multi-Spectral Sensor Integration</li>
+                            <li>● Swarm Operational Capability</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Specifications -->
+            <section>
+                <h2 class="text-emerald-500 mb-8">System Specifications</h2>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">Primary Processor</div>
+                        <div class="spec-value text-emerald-400">NVIDIA Jetson AGX Orin</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Sensor Detection Range</div>
+                        <div class="spec-value">5,000 Meters (Detection) / 2,000 Meters (ID)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Control Latency</div>
+                        <div class="spec-value">Under 25ms (Encrypted Mesh Network)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Target Lock-On Time</div>
+                        <div class="spec-value text-orange-400">&lt; 0.8 Seconds</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Autonomy Level</div>
+                        <div class="spec-value">SAE Level 4 (High Automation)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Operational Framework</div>
+                        <div class="spec-value">ROS2 (Foxy/Humble) / SLAM</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Autonomous Navigation -->
+            <section data-background-image="https://images.unsplash.com/photo-1506466010722-395ee2bef877?auto=format&fit=crop&q=80&w=2000" data-background-opacity="0.1">
+                <h2 class="text-emerald-500 mb-8">Autonomous Mobility</h2>
+                <div class="highlight-box">
+                    <h3 class="text-xl text-white mb-4">SLAM & Terrain Analysis</h3>
+                    <p class="text-slate-300">ARES-72 utilizes <span class="text-emerald-400">Simultaneous Localization and Mapping</span> for high-speed navigation in environments without GPS. Real-time terrain analysis ensures safe movement across rugged terrain.</p>
+                </div>
+                <div class="grid grid-cols-3 gap-6 mt-10">
+                    <div class="p-4 bg-slate-900 border border-emerald-900/30">
+                        <h4 class="text-emerald-500 text-sm mb-2">PATHFINDING</h4>
+                        <p class="text-xs">Dynamic obstacle avoidance and route optimization.</p>
+                    </div>
+                    <div class="p-4 bg-slate-900 border border-emerald-900/30">
+                        <h4 class="text-emerald-500 text-sm mb-2">FORMATION</h4>
+                        <p class="text-xs">Leader-follower and "Follow-Me" autonomous modes.</p>
+                    </div>
+                    <div class="p-4 bg-slate-900 border border-emerald-900/30">
+                        <h4 class="text-emerald-500 text-sm mb-2">FAILSAFE</h4>
+                        <p class="text-xs">Autonomous Return-to-Base (RTB) on comms loss.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Fire Control -->
+            <section>
+                <div class="flex gap-10 items-center">
+                    <div class="w-1/2">
+                        <h2 class="text-emerald-500 mb-8">AI Fire Control</h2>
+                        <ul class="space-y-6 text-slate-200">
+                            <li>
+                                <span class="text-emerald-400 font-bold block">PRECISION TARGETING</span>
+                                Automated ballistic correction for wind, humidity, and range.
+                            </li>
+                            <li>
+                                <span class="text-emerald-400 font-bold block">THREAT PRIORITIZATION</span>
+                                AI-driven identification of high-value targets.
+                            </li>
+                            <li>
+                                <span class="text-red-500 font-bold block">HUMAN-IN-THE-LOOP</span>
+                                Semi-autonomous mode requiring operator "FIRE" confirmation.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-1/2 relative border-4 border-emerald-900/20 rounded-lg overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=1000" class="grayscale contrast-125 opacity-70">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-48 h-48 border-2 border-red-500 rounded-full flex items-center justify-center animate-pulse">
+                                <div class="w-1 h-12 bg-red-500 absolute top-0"></div>
+                                <div class="w-12 h-1 bg-red-500 left-0 absolute"></div>
+                                <div class="text-red-500 text-[10px] font-bold mt-20 bg-black/80 px-2 uppercase">LOCKED: TGT_001</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Operator Interface -->
+            <section>
+                <h2 class="text-emerald-500 mb-8">Command & Control (C2)</h2>
+                <p class="mb-10 text-slate-400 italic">"The Interface is the Weapon."</p>
+                <div class="grid grid-cols-2 gap-10">
+                    <div class="bg-slate-900 border border-slate-700 p-8">
+                        <h3 class="text-2xl text-white mb-6">Tactical Rugged Interface</h3>
+                        <p class="text-slate-300 mb-6">Designed for standard military tablets, providing full situational awareness and control.</p>
+                        <div class="text-emerald-400 font-bold text-sm tracking-widest uppercase mb-2 underline">Features</div>
+                        <ul class="text-xs space-y-2 text-slate-400">
+                            <li>● Live Augmented Reality Target Overlays</li>
+                            <li>● Real-time Telemetry & Health Monitoring</li>
+                            <li>● Multi-Vehicle Control Swarming</li>
+                            <li>● Low-Latency Video Feedback</li>
+                        </ul>
+                    </div>
+                    <div class="relative flex items-center justify-center bg-black border border-slate-800 rounded">
+                        <span class="text-slate-700 text-xs uppercase tracking-widest">[ Mockup Display Placeholder ]</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Strategic Roadmap -->
+            <section>
+                <h2 class="text-emerald-500 mb-10 text-center">Implementation Roadmap</h2>
+                <div class="flex items-start gap-1 justify-between">
+                    <div class="text-center w-1/4">
+                        <div class="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white mx-auto mb-4">01</div>
+                        <h4 class="text-emerald-400 text-sm mb-2 uppercase">PROTOTYPE</h4>
+                        <p class="text-[10px] text-slate-500 px-4">Remote control drive-by-wire trials and sensor integration.</p>
+                    </div>
+                    <div class="h-[2px] bg-slate-800 flex-1 mt-6"></div>
+                    <div class="text-center w-1/4">
+                        <div class="w-12 h-12 rounded-full bg-slate-800 border-2 border-emerald-600 flex items-center justify-center font-bold text-emerald-600 mx-auto mb-4">02</div>
+                        <h4 class="text-emerald-400 text-sm mb-2 uppercase">LEVEL 3</h4>
+                        <p class="text-[10px] text-slate-500 px-4">Semi-autonomous formation and tactical navigation trials.</p>
+                    </div>
+                    <div class="h-[2px] bg-slate-800 flex-1 mt-6"></div>
+                    <div class="text-center w-1/4">
+                        <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center font-bold text-slate-500 mx-auto mb-4">03</div>
+                        <h4 class="text-slate-500 text-sm mb-2 uppercase">SWARM</h4>
+                        <p class="text-[10px] text-slate-500 px-4">Full Level 4 autonomy with multi-unit swarm coordination.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion -->
+            <section data-background-color="#0a0c0a">
+                <div class="text-center">
+                    <h1 class="text-emerald-500 text-6xl mb-6">PROJECT ARES-72</h1>
+                    <p class="text-2xl text-slate-400 mb-20 tracking-widest uppercase underline">Evolve the Legacy. Command the Future.</p>
+                    <div class="grid grid-cols-2 gap-10 text-left max-w-4xl mx-auto">
+                        <div class="border-l-2 border-emerald-500 pl-6">
+                            <h4 class="text-white text-sm uppercase mb-2">Contact Details</h4>
+                            <p class="text-xs text-slate-500">Bhairav Robotics Defense Systems Division</p>
+                            <p class="text-xs text-slate-500">www.bhairavrobotics.com</p>
+                        </div>
+                        <div class="border-l-2 border-red-500 pl-6">
+                            <h4 class="text-white text-sm uppercase mb-2">Notice</h4>
+                            <p class="text-xs text-slate-600">This document is proprietary. Unauthorized distribution is strictly prohibited.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade'
+        });
+    </script>
+</body>
+</html>

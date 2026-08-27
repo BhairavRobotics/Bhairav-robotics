@@ -2,9 +2,7 @@ import { MapPin, Mail, Phone, Linkedin, Twitter, Youtube, Instagram } from "luci
 import { Link } from "react-router-dom";
 import logo from "../assets/header/brlogo.png";
 
-
 const quickLinks = [
-  { label: "Products", href: "/#products" },
   { label: "About Us", href: "/about-us" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
@@ -20,23 +18,23 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer id="contact" className="bg-card border-t border-border pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+    <footer id="contact" className="bg-card border-t border-border pt-16 pb-8 transition-colors duration-300">
+      <div className="responsive-container">
+        <div className="mb-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Link to="/" className="flex items-center">
-                <div className="h-30 w-40 flex items-center justify-center overflow-hidden">
+                <div className="logo-glow-wrapper relative flex items-center justify-center">
                   <img
                     src={logo}
                     alt="Bhairav Robotics logo"
-                    className="max-h-full max-w-full object-contain"
+                    className="h-10 lg:h-12 object-contain relative z-10"
                   />
                 </div>
               </Link>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Pioneering autonomous robotic systems for defense and industrial applications.
+            <p className="text-sm text-muted-foreground leading-relaxed font-body">
+              Pioneering autonomous robotic systems, combat unmanned ground vehicles, and precision defense technologies for mission-critical operations.
             </p>
           </div>
 
@@ -44,16 +42,16 @@ const Footer = () => {
             <h4 className="font-heading font-semibold text-foreground mb-4 text-sm tracking-wider uppercase">
               Contact Us
             </h4>
-            <div className="space-y-3">
-              <a href="mailto:info@bhairavrobotics.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                <Mail size={14} /> contact@bhairavrobotics.com
+            <div className="space-y-3 font-body">
+              <a href="mailto:contact@bhairavrobotics.com" className="safe-break flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary">
+                <Mail size={14} className="text-primary shrink-0" /> contact@bhairavrobotics.com
               </a>
-              <a href="tel:+911234567890" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                <Phone size={14} /> +91 8341082589
+              <a href="tel:+918341082589" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <Phone size={14} className="text-primary shrink-0" /> +91 8341082589
               </a>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin size={14} className="mt-0.5 shrink-0" />
-                <span>kakinada, Andhra Pradesh, India</span>
+                <MapPin size={14} className="mt-0.5 text-primary shrink-0" />
+                <span>Kakinada, Andhra Pradesh, India</span>
               </div>
             </div>
           </div>
@@ -62,7 +60,7 @@ const Footer = () => {
             <h4 className="font-heading font-semibold text-foreground mb-4 text-sm tracking-wider uppercase">
               Quick Links
             </h4>
-            <div className="space-y-2">
+            <div className="space-y-2 font-body">
               {quickLinks.map((link) => (
                 link.href.startsWith("/") ? (
                   <Link
@@ -98,7 +96,7 @@ const Footer = () => {
                   aria-label={name}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-sm border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                  className="w-10 h-10 rounded-sm border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors bg-secondary/30"
                 >
                   <Icon size={18} />
                 </a>
@@ -107,8 +105,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 text-center">
-          <p className="text-xs text-muted-foreground">
+        <div className="border-t border-border/60 pt-6 text-center">
+          <p className="text-xs text-muted-foreground font-body">
             © 2026 Bhairav Robotics Pvt Ltd. All rights reserved.
           </p>
         </div>

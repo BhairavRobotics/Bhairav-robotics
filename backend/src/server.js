@@ -1,29 +1,33 @@
-import { createServer } from "node:http";
-import env from "./config/env.js";
-import { handleHealthRoute } from "./routes/health.js";
-import { handleRootRoute } from "./routes/root.js";
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import dns from "node:dns";
+import applicationRoutes from "./routes/applicationRoutes.js";
+import errorHandler from "./middleware/errorHandler.js";
 
-const sendJson = (res, statusCode, payload) => {
-  res.writeHead(statusCode, { "Content-Type": "application/json" });
-  res.end(JSON.stringify(payload));
-};
+// Fix for Node.js 17+ DNS resolution (ECONNREFUSED)
+dns.setDefaultResultOrder("ipv4first");
 
-const routes = {
-  "GET /": handleRootRoute,
-  "GET /api/health": handleHealthRoute,
-};
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-const server = createServer((req, res) => {
-  const routeKey = `${req.method} ${req.url}`;
-  const routeHandler = routes[routeKey];
+// 1. Global Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-  if (!routeHandler) {
-    return sendJson(res, 404, { error: "Not Found" });
-  }
+// 2. API Routes
+app.use("/api", applicationRoutes);
 
-  return routeHandler(req, res, sendJson);
+// 3. Base Route
+app.get("/", (req, res) => {
+  res.json({ message: "Bhairav Robotics API is running..." });
 });
 
-server.listen(env.port, () => {
-  console.log(`Backend running on http://localhost:${env.port}`);
+// 4. Global Error Handler (Must be after routes)
+app.use(errorHandler);
+
+// 5. Start Server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
