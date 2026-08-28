@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 
-const FORM_INIT_ID = import.meta.env.VITE_FORM_INIT_ID || "";
+const FORM_INIT_ID = import.meta.env.VITE_FORM_INIT_CAREERS_ID || "";
 
 const Careers = () => {
   const { toast } = useToast();

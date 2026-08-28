@@ -31,14 +31,14 @@ Both forms deliver to: **`ravi.sarma@bhairavrobotics.in`**
 
 Create `frontend/.env`:
 ```
-VITE_FORM_INIT_ID=your_forminit_form_id
+VITE_FORM_INIT_CAREERS_ID=your_careers_form_id
 VITE_WEB3FORMS_CONTACT_KEY=your_contact_access_key
 ```
 
 **For Vercel deployment:**
 
 1. Go to Vercel dashboard → your project → **Settings** → **Environment Variables**
-2. Add `VITE_FORM_INIT_ID` and `VITE_WEB3FORMS_CONTACT_KEY`
+2. Add `VITE_FORM_INIT_CAREERS_ID` and `VITE_WEB3FORMS_CONTACT_KEY`
 3. **Redeploy** the project
 
 ### Step 4 — Update the recipient email
