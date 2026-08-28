@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "";
+const FORM_INIT_ID = import.meta.env.VITE_FORM_INIT_ID || "";
 
 const Careers = () => {
   const { toast } = useToast();
@@ -28,7 +28,7 @@ const Careers = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!WEB3FORMS_ACCESS_KEY) {
+    if (!FORM_INIT_ID) {
       toast({
         variant: "destructive",
         title: "Configuration Error",
@@ -50,25 +50,23 @@ const Careers = () => {
 
     try {
       const data = new FormData();
-      data.append("access_key", WEB3FORMS_ACCESS_KEY);
-      data.append("subject", `New Career Application — ${formData.fullName}`);
-      data.append("fullName", formData.fullName);
-      data.append("email", formData.email);
-      data.append("phone", formData.phone);
-      data.append("type", formData.type === "full-time" ? "Full-Time Role" : "Internship");
-      data.append("field", formData.field.charAt(0).toUpperCase() + formData.field.slice(1));
-      data.append("file", formData.resume);
-      data.append("botcheck", "");
+      data.append("fi-sender-fullName", formData.fullName);
+      data.append("fi-sender-email", formData.email);
+      data.append("fi-phone-phone", formData.phone);
+      data.append("fi-text-type", formData.type === "full-time" ? "Full-Time Role" : "Internship");
+      data.append("fi-text-field", formData.field.charAt(0).toUpperCase() + formData.field.slice(1));
+      data.append("fi-text-subject", `New Career Application — ${formData.fullName}`);
+      data.append("fi-file-resume", formData.resume);
 
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch(`https://forminit.com/f/${FORM_INIT_ID}`, {
         method: "POST",
         body: data,
       });
 
       const result = await response.json();
 
-      if (!result.success) {
-        throw new Error(result.message || "Submission failed");
+      if (!response.ok) {
+        throw new Error(result.message || result.error || "Submission failed");
       }
 
       toast({
@@ -246,7 +244,7 @@ const Careers = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="resume" className="text-xs uppercase tracking-widest text-muted-foreground">Upload Resume *</Label>
-                  <p className="text-[10px] text-muted-foreground mb-2">(only .pdf file supported)</p>
+                  <p className="text-[10px] text-muted-foreground mb-2">(only .pdf, .doc or .docx file supported, max 10 MB)</p>
                   <div className="flex flex-col gap-3 min-[390px]:flex-row min-[390px]:items-center min-[390px]:gap-4">
                     <Button type="button" variant="secondary" size="sm" className="touch-target w-full min-[390px]:w-auto" onClick={() => document.getElementById('resume').click()}>
                       Choose File
@@ -258,7 +256,7 @@ const Careers = () => {
                       id="resume" 
                       ref={fileInputRef}
                       type="file" 
-                      accept=".pdf" 
+                      accept=".pdf,.doc,.docx" 
                       onChange={(e) => setFormData({...formData, resume: e.target.files[0]})}
                       className="hidden" 
                     />
