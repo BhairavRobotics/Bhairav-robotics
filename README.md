@@ -37,6 +37,12 @@ npm run dev
 - `npm run lint` → Runs ESLint checks
 - `npm run test` → Runs frontend tests using Vitest
 
+## Deployment
+
+The live site is deployed on **Vercel** (production branch: `main`). Pushing to `main` auto-triggers a deployment.
+
+For more details on configuration (Web3Forms keys, team photos, text changes, etc.), see [`GUIDE.md`](GUIDE.md).
+
 ## JSX migration status
 
 - Frontend app files are JSX/JS based.
