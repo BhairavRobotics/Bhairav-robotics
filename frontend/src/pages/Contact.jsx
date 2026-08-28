@@ -8,15 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { apiUrl } from "@/lib/api";
 
-const getSubmitErrorMessage = (error) => {
-  if (error instanceof TypeError && error.message === "Failed to fetch") {
-    return "Cannot reach the backend email service. Please start the backend with npm start inside the backend folder, then submit again.";
-  }
-
-  return error.message || "There was an issue sending your message. Please try again later.";
-};
+const WEB3FORMS_CONTACT_KEY = import.meta.env.VITE_WEB3FORMS_CONTACT_KEY || "";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -30,20 +23,36 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!WEB3FORMS_CONTACT_KEY) {
+      toast({
+        variant: "destructive",
+        title: "Configuration Error",
+        description: "Message service is not configured. Please contact us at ravi.sarma@bhairavrobotics.in",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(apiUrl("/api/contact"), {
+      const data = new FormData();
+      data.append("access_key", WEB3FORMS_CONTACT_KEY);
+      data.append("subject", formData.subject || "New Contact Message");
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("message", formData.message);
+      data.append("botcheck", "");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: data,
       });
 
-      if (!response.ok) {
-        const result = await response.json().catch(() => ({}));
-        throw new Error(result.error || "Failed to send message");
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message || "Failed to send message");
       }
 
       toast({
@@ -61,7 +70,7 @@ const Contact = () => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: getSubmitErrorMessage(error),
+        description: error.message || "There was an issue sending your message. Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
