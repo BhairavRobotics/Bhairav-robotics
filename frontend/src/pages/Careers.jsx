@@ -60,6 +60,7 @@ const Careers = () => {
 
       const response = await fetch(`https://forminit.com/f/${FORM_INIT_ID}`, {
         method: "POST",
+        headers: { "Accept": "application/json" },
         body: data,
       });
 
