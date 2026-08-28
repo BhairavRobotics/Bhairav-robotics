@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
 import Header from "../components/Header";
 import Footer from "../sections/Footer";
 import { motion } from "framer-motion";
@@ -10,13 +9,12 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "";
 
 const Careers = () => {
   const { toast } = useToast();
   const formRef = useRef(null);
+  const fileInputRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -29,34 +27,49 @@ const Careers = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!WEB3FORMS_ACCESS_KEY) {
+      toast({
+        variant: "destructive",
+        title: "Configuration Error",
+        description: "Email service is not configured. Please contact HR at ravi.sarma@bhairavrobotics.in",
+      });
+      return;
+    }
+
+    if (!formData.resume) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please upload your resume.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const templateParams = {
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        type: formData.type === "full-time" ? "Full-Time Role" : "Internship",
-        field: formData.field.charAt(0).toUpperCase() + formData.field.slice(1),
-      };
+      const data = new FormData();
+      data.append("access_key", WEB3FORMS_ACCESS_KEY);
+      data.append("subject", `New Career Application — ${formData.fullName}`);
+      data.append("fullName", formData.fullName);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("type", formData.type === "full-time" ? "Full-Time Role" : "Internship");
+      data.append("field", formData.field.charAt(0).toUpperCase() + formData.field.slice(1));
+      data.append("file", formData.resume);
+      data.append("botcheck", "");
 
-      const attachments = [];
-      if (formData.resume) {
-        attachments.push({
-          name: formData.resume.name,
-          file: formData.resume,
-        });
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message || "Submission failed");
       }
-
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        {
-          publicKey: EMAILJS_PUBLIC_KEY,
-          attachments,
-        }
-      );
 
       toast({
         title: "Application Sent",
@@ -71,11 +84,12 @@ const Careers = () => {
         resume: null,
       });
       if (formRef.current) formRef.current.reset();
+      if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (error) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.text || "Submission failed. Please try again.",
+        description: error.message || "Submission failed. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -242,6 +256,7 @@ const Careers = () => {
                     </span>
                     <Input 
                       id="resume" 
+                      ref={fileInputRef}
                       type="file" 
                       accept=".pdf" 
                       onChange={(e) => setFormData({...formData, resume: e.target.files[0]})}

@@ -4,70 +4,60 @@ How-to reference for common site updates.
 
 ---
 
-## 1. Changing the Career Page Email (Where Resumes Are Sent)
+## 1. Changing the Career / Contact Page Email (Where Applications Are Sent)
 
-Resume submissions now use **EmailJS** (client-side email service) so the career form works without a backend server. This means it works on Vercel, Netlify, or any static host.
+Both the **Careers** and **Contact** forms use **Web3Forms** (client-side email service) so they work without a backend server on any static host (Vercel, Netlify, etc.). Web3Forms is free, unlimited, and supports **PDF resume attachments**.
 
-### Step 1 — Create an EmailJS account
+Both forms deliver to: **`ravi.sarma@bhairavrobotics.in`**
 
-1. Go to [emailjs.com](https://www.emailjs.com) and sign up (free: 200 emails/month)
-2. Add an **Email Service** — connect your Zoho or Gmail inbox (this is where applications will be received)
-3. Note the **Service ID** (e.g., `service_abc123`)
+### Step 1 — Create a Web3Forms account
 
-### Step 2 — Create an email template
+1. Go to [web3forms.com](https://www.web3forms.com) and sign up (free, unlimited emails)
+2. At signup you'll be asked for the email that should **receive** submissions — enter `ravi.sarma@bhairavrobotics.in`
+3. Web3Forms gives you an **Access Key** for the careers form
 
-1. In EmailJS dashboard → **Email Templates** → **Create New Template**
-2. Use these variables in the template:
+### Step 2 — Set up two separate forms
 
-```
-Subject: New Career Application — {{fullName}}
+Web3Forms gives one Access Key per form. You need **two keys** (both can deliver to the same inbox):
 
-Name: {{fullName}}
-Email: {{email}}
-Phone: {{phone}}
-Application Type: {{type}}
-Field: {{field}}
+| Form | Access Key env var | Recipient |
+|------|--------------------|-----------|
+| **Careers** | `VITE_WEB3FORMS_ACCESS_KEY` | `ravi.sarma@bhairavrobotics.in` |
+| **Contact** | `VITE_WEB3FORMS_CONTACT_KEY` | `ravi.sarma@bhairavrobotics.in` |
 
-Resume attached as PDF.
-```
+To create the contact form's key, go to Web3Forms → create/view your forms → manage each form's Access Key.
 
-3. Note the **Template ID** (e.g., `template_xyz789`)
-
-### Step 3 — Get your Public Key
-
-1. In EmailJS dashboard → **Account** → **API Keys**
-2. Copy your **Public Key**
-
-### Step 4 — Set environment variables
+### Step 3 — Set environment variables
 
 **For local development:**
 
 Create `frontend/.env`:
 ```
-VITE_EMAILJS_SERVICE_ID=service_abc123
-VITE_EMAILJS_TEMPLATE_ID=template_xyz789
-VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
+VITE_WEB3FORMS_ACCESS_KEY=your_careers_access_key
+VITE_WEB3FORMS_CONTACT_KEY=your_contact_access_key
 ```
 
 **For Vercel deployment:**
 
 1. Go to Vercel dashboard → your project → **Settings** → **Environment Variables**
-2. Add these three variables with the same names and your EmailJS values
+2. Add both variables with your Web3Forms keys
+3. **Redeploy** the project
 
-### Step 5 — Update the email recipient
+### Step 4 — Update the recipient email
 
-The recipient is determined by the **Email Service** you configured in Step 1. To change the recipient email:
+The recipient is determined by the email address you registered with Web3Forms when creating the form. To change it:
 
-1. Go to EmailJS dashboard → **Email Services**
-2. Edit your service → change the recipient email address
+1. Go to Web3Forms dashboard → your form settings
+2. Update the destination email address
 
 ### Key files involved
 
 | File | What it does |
 |------|-------------|
-| `frontend/.env` | EmailJS credentials (local dev) |
-| `frontend/src/pages/Careers.jsx` | Career form UI — sends via EmailJS |
-| `frontend/.env.example` | Template for environment variables |
+| `frontend/.env` | Web3Forms keys (local dev) |
+| `frontend/.env.example` | Template for the variables |
+| `frontend/src/pages/Careers.jsx` | Career form — sends resume + details via Web3Forms |
+| `frontend/src/pages/Contact.jsx` | Contact form — sends message via Web3Forms |
 
 ---
 
