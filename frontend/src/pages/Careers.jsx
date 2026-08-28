@@ -52,7 +52,7 @@ const Careers = () => {
       const data = new FormData();
       data.append("fi-sender-fullName", formData.fullName);
       data.append("fi-sender-email", formData.email);
-      data.append("fi-phone-phone", formData.phone);
+      data.append("fi-text-phone", formData.phone);
       data.append("fi-text-type", formData.type === "full-time" ? "Full-Time Role" : "Internship");
       data.append("fi-text-field", formData.field.charAt(0).toUpperCase() + formData.field.slice(1));
       data.append("fi-text-subject", `New Career Application — ${formData.fullName}`);
@@ -65,7 +65,7 @@ const Careers = () => {
 
       const result = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok || result.success === false) {
         throw new Error(result.message || result.error || "Submission failed");
       }
 
