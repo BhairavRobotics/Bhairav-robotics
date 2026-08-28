@@ -32,7 +32,7 @@ const Careers = () => {
       toast({
         variant: "destructive",
         title: "Configuration Error",
-        description: "Email service is not configured. Please contact HR at ravi.sarma@bhairavrobotics.in",
+        description: "Email service is not configured. Please contact us at contact@bhairavrobotics.com",
       });
       return;
     }

@@ -28,7 +28,7 @@ const Contact = () => {
       toast({
         variant: "destructive",
         title: "Configuration Error",
-        description: "Message service is not configured. Please contact us at ravi.sarma@bhairavrobotics.in",
+        description: "Message service is not configured. Please contact us at contact@bhairavrobotics.com",
       });
       return;
     }
