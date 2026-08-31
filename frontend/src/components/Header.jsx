@@ -20,7 +20,6 @@ const quickLinks = [
 
 const productLinks = products.map((product) => ({
   label: product.name,
-  subtitle: product.subCategory,
   to: { pathname: "/", hash: `#product-${product.id}` },
 }));
 
@@ -135,7 +134,7 @@ const Header = () => {
               />
             </div>
             <div className="mx-1 hidden h-8 border-l border-border/40 sm:block" />
-            <h1 className="hidden min-w-0 font-heading text-base font-bold uppercase tracking-tight text-foreground/90 sm:block md:text-lg lg:text-xl xl:text-2xl">
+            <h1 className="hidden min-w-0 translate-y-[7px] font-heading text-base font-bold uppercase tracking-tight text-foreground/90 sm:block md:text-lg lg:text-xl xl:text-2xl">
               Born to Defend
             </h1>
           </Link>
@@ -145,7 +144,7 @@ const Header = () => {
               <Link
                 key={link.label}
                 to={link.href}
-                className={`font-heading text-[13px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 ${
+                className={`font-heading text-[15px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 ${
                   isCurrentPath(link.href) ? "text-primary" : "text-foreground/75 hover:text-primary"
                 }`}
               >
@@ -162,7 +161,7 @@ const Header = () => {
                 aria-haspopup="true"
                 aria-expanded={productsOpen}
                 aria-controls="products-dropdown"
-                className={`touch-target inline-flex items-center gap-1.5 font-heading text-[13px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                className={`touch-target inline-flex items-center gap-1.5 font-heading text-[15px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   productsOpen || productLinks.some((link) => isProductHashActive(link.to.hash))
                     ? "text-primary"
                     : "text-foreground/75 hover:text-primary"
@@ -192,11 +191,6 @@ const Header = () => {
                       aria-label="Products"
                       className="w-64 overflow-hidden rounded-lg border border-border/70 bg-background/95 shadow-xl backdrop-blur-xl sm:w-72"
                     >
-                      <div className="border-b border-border/40 px-4 py-2.5">
-                        <p className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                          Product Details
-                        </p>
-                      </div>
                       <div className="max-h-[60vh] overflow-y-auto p-1.5">
                         {productLinks.map((link) => {
                           const isActive = isProductHashActive(link.to.hash);
@@ -221,9 +215,6 @@ const Header = () => {
                               >
                                 {link.label}
                               </span>
-                              <span className="safe-break mt-0.5 block text-xs text-muted-foreground">
-                                {link.subtitle}
-                              </span>
                             </Link>
                           );
                         })}
@@ -236,7 +227,7 @@ const Header = () => {
 
             <Link
               to="/contact"
-              className="touch-target inline-flex items-center rounded-sm bg-primary px-5 py-2 font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-glow transition-all hover:bg-primary/90 active:scale-95 xl:px-6"
+              className="touch-target inline-flex items-center rounded-sm bg-primary px-5 py-2 font-heading text-[12px] font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-glow transition-all hover:bg-primary/90 active:scale-95 xl:px-6"
             >
               Get in Touch
             </Link>
@@ -309,9 +300,6 @@ const Header = () => {
                     >
                       <span className="font-heading text-base font-bold uppercase tracking-[0.1em] sm:text-lg">
                         {link.label}
-                      </span>
-                      <span className="safe-break mt-1 text-sm text-muted-foreground">
-                        {link.subtitle}
                       </span>
                     </Link>
                   ))}

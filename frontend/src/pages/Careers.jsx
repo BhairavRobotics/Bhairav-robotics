@@ -107,9 +107,6 @@ const Careers = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-[11px] tracking-[0.3em] uppercase text-primary font-heading font-semibold mb-3 block">
-              Opportunities
-            </span>
             <h1 className="safe-break mb-5 font-heading text-4xl font-bold md:text-5xl lg:text-6xl">
               <span className="text-gradient">Careers</span>
             </h1>

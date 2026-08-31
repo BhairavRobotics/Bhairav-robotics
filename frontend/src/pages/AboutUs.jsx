@@ -47,14 +47,11 @@ const AboutUs = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-[11px] tracking-[0.3em] uppercase text-primary font-heading font-semibold mb-3 block">
-              Our Identity
-            </span>
             <h1 className="safe-break mb-5 font-heading text-4xl font-bold md:text-5xl lg:text-6xl">
               About <span className="text-gradient">Bhairav Robotics</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-body">
-              Leading the evolution of tactical robotics and autonomous systems for mission-critical operations.
+              Leading the evolution of autonomous systems for mission-critical operations.
             </p>
           </motion.div>
         </section>

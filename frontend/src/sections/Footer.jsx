@@ -6,7 +6,6 @@ const quickLinks = [
   { label: "About Us", href: "/about-us" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
-  { label: "Privacy Policy", href: "#" },
 ];
 
 const socialLinks = [

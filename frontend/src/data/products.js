@@ -11,11 +11,7 @@ import vrishabhSideImg from "@/assets/products/Vrishabh/SideView.png";
 import vrishabhTopImg from "@/assets/products/Vrishabh/TopView.png";
 import vrishabh4kImg from "@/assets/products/Vrishabh/Vrishabh_4k.png";
 
-import wheeledShvanaBrochure from "@/assets/brochures/Wheeled_Shvana_Brochure.pdf";
-import rakshakBrochure from "@/assets/brochures/Rakshak_Brochure.pdf";
-import vrishabhBrochure from "@/assets/Vrishabh_Combat_UGV_Flyer.pdf";
-
-export const categories = [
+import vrishabhBrochure from "@/assets/Vrishabh_Combat_UGV_Flyer.pdf";export const categories = [
   {
     id: "robotic-platforms",
     name: "Robotic Platforms",
@@ -65,72 +61,25 @@ export const products = [
     activeSpecTab: "performance",
     specTabs: {
       performance: [
-        { label: "Maximum Speed", value: "50 km/h" },
+        { label: "Maximum Speed", value: "Approximately 50 km/h" },
         { label: "Acceleration (0-50 km/h)", value: "4 Seconds" },
         { label: "Range", value: "~100 km" },
         { label: "Endurance", value: "6 hours" },
         { label: "Payload Capacity", value: "150 kg" },
-        { label: "Wheel Torque", value: "1000 Nm at wheels" },
         { label: "Towing Capacity", value: "300 kg (level ground)" },
+        { label: "Steering", value: "Dual Ackermann" },
       ],
       power: [
-        { label: "Power", value: "60 HP" },
-        { label: "Battery", value: "16 kWh" },
+        { label: "Power", value: "50 HP" },
+        { label: "Battery", value: "11/16 kWh" },
       ],
       dimensions: [
-        { label: "L x W x H", value: "2250 x 1250 x 1420 mm" },
-        { label: "Weight", value: "400 kg" },
+        { label: "L x W x H", value: "Approximately 2250 x 1250 x 1420 mm" },
+        { label: "Weight", value: "Approximately 400 kg" },
       ],
       weapons: [
-        { label: "Weapons Platform", value: "2 Axis Stabilization" },
+        { label: "Stabilization Platform", value: "2 Axis Stabilization" },
         { label: "Supported Weapons", value: "MMG, LMG, NSVT, AGS 30" },
-      ],
-    },
-  },
-  {
-    id: "wheeled-shvana",
-    name: "Shvana",
-    category: "robotic-platforms",
-    categoryName: "Robotic Platforms",
-    subCategory: "Advanced Quadruped Robot Platform",
-    tagline: "Bharat's first armed quadruped platform",
-    description:
-      "Bhairav Robotics unveils Bharat's first armed quadruped platform, Shvana. It is packed with a suite of sensors that act like eyes and ears, augmenting situational awareness for users. Vision-based detection and recognition, industrial-grade audio perception capabilities, and advanced DSP help measure, isolate, and identify sounds in real time. Reinforcement learning algorithms and onboard computational power help the platform quickly adapt to new surroundings.",
-    applications:
-      "Built for defence, homeland security, and industrial environments, the platform supports strategic area monitoring, border patrol and surveillance, tactical situations, explosive detection, search and rescue operations, and hazardous or confined-area inspection.",
-    features: [
-      {
-        title: "Vision-based Detection",
-        description: "Advanced recognition and classification systems",
-      },
-      {
-        title: "Industrial-grade Audio",
-        description: "Advanced DSP for real-time sound isolation and identification",
-      },
-      {
-        title: "Adaptive Intelligence",
-        description: "Reinforcement learning for rapid environmental adaptation",
-      },
-      {
-        title: "Modular Payloads",
-        description: "Supports EW payloads, munitions, RGB/thermal cameras, and robotic arms",
-      },
-    ],
-    video: wheeledShvanaVideo,
-    views: [
-      { label: "Front View", image: wheeledShvanaImg },
-    ],
-    brochure: wheeledShvanaBrochure,
-    brochureName: "Wheeled_Shvana_Brochure.pdf",
-    activeSpecTab: "performance",
-    specTabs: {
-      performance: [
-        { label: "Speed", value: "~2-5 m/sec" },
-        { label: "Payload", value: "10 kg" },
-        { label: "Weight", value: "25 kg (minus payload)" },
-        { label: "Range", value: "8-10 km" },
-        { label: "Communication", value: "LTE, RF" },
-        { label: "Endurance", value: "~120 mins" },
       ],
     },
   },
@@ -167,8 +116,6 @@ export const products = [
     views: [
       { label: "Front View", image: rakshakImg },
     ],
-    brochure: rakshakBrochure,
-    brochureName: "Rakshak_Brochure.pdf",
     activeSpecTab: "specifications",
     specTabs: {
       specifications: [
@@ -179,7 +126,51 @@ export const products = [
         { label: "Ballistic Correction", value: "In-built ballistic correction" },
         { label: "Target Engagement", value: "Tracks and engages moving targets" },
         { label: "Operation Modes", value: "Autonomous / Semi-autonomous / Manual" },
-        { label: "Slew Rate", value: "90 deg/sec" },
+      ],
+    },
+  },
+  {
+    id: "wheeled-shvana",
+    name: "Shvana",
+    category: "robotic-platforms",
+    categoryName: "Robotic Platforms",
+    subCategory: "Advanced Quadruped Robot Platform",
+    tagline: "Bharat's first armed quadruped platform",
+    description:
+      "It is packed with a suite of sensors that act like eyes and ears, augmenting situational awareness for users. Vision-based detection and recognition, industrial-grade audio perception capabilities, and advanced DSP help measure, isolate, and identify sounds in real time. Reinforcement learning algorithms and onboard computational power help the platform quickly adapt to new surroundings.",
+    applications:
+      "Built for defence, homeland security, and industrial environments, the platform supports strategic area monitoring, border patrol and surveillance, tactical situations, explosive detection, search and rescue operations, and hazardous or confined-area inspection.",
+    features: [
+      {
+        title: "Vision-based Detection",
+        description: "Advanced recognition and classification systems",
+      },
+      {
+        title: "Industrial-grade Audio",
+        description: "Advanced DSP for real-time sound isolation and identification",
+      },
+      {
+        title: "Adaptive Intelligence",
+        description: "Reinforcement learning for rapid environmental adaptation",
+      },
+      {
+        title: "Modular Payloads",
+        description: "Supports EW payloads, munitions, RGB/thermal cameras, and robotic arms",
+      },
+    ],
+    video: wheeledShvanaVideo,
+    views: [
+      { label: "Front View", image: wheeledShvanaImg },
+    ],
+    activeSpecTab: "performance",
+    specTabs: {
+      performance: [
+        { label: "Speed", value: "~2-5 m/sec" },
+        { label: "Payload", value: "10 kg" },
+        { label: "Weight", value: "25 kg (minus payload)" },
+        { label: "Range", value: "8-10 km" },
+        { label: "Communication", value: "LTE, RF" },
+        { label: "Endurance", value: "~120 mins" },
       ],
     },
   },

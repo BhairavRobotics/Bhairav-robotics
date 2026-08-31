@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, Download, PlayCircle } from "lucide-react";
+import { CheckCircle2, Download } from "lucide-react";
 import { products } from "@/data/products";
-import { smoothScrollToId } from "@/lib/utils";
-
-const scrollToProduct = (productId) => {
-  smoothScrollToId(`product-${productId}`);
-};
 
 const ProductSection = ({ product, index }) => {
   const specTabKeys = Object.keys(product.specTabs || {});
@@ -59,12 +54,6 @@ const ProductSection = ({ product, index }) => {
               />
             )}
             <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/45 to-transparent" />
-            {product.video && (
-              <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-                <PlayCircle size={14} className="text-primary" />
-                Product Video
-              </div>
-            )}
           </div>
 
           {!product.video && views.length > 1 && (
@@ -88,7 +77,7 @@ const ProductSection = ({ product, index }) => {
 
           {product.features && product.features.length > 0 && (
             <div className="rounded-lg border border-border/60 bg-card/70 p-4 shadow-sm sm:p-5">
-              <h4 className="mb-4 border-l-2 border-primary pl-3 font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-foreground">
+              <h4 className="mb-4 border-l-2 border-primary pl-3 font-heading text-sm font-bold uppercase tracking-[0.2em] text-foreground">
                 Key Capabilities
               </h4>
               <div className="grid gap-4">
@@ -99,7 +88,7 @@ const ProductSection = ({ product, index }) => {
                       <span className="text-xs font-heading font-bold text-foreground sm:text-sm">
                         {feature.title}
                       </span>
-                      <span className="block text-xs leading-snug text-muted-foreground sm:text-sm">
+                      <span className="block text-xs font-heading leading-snug text-muted-foreground sm:text-sm">
                         {feature.description}
                       </span>
                     </div>
@@ -113,9 +102,6 @@ const ProductSection = ({ product, index }) => {
         {/* ── Right: Info ── */}
         <div className="space-y-5 lg:col-span-7">
           <div>
-            <p className="mb-2 text-[11px] font-heading font-bold uppercase tracking-[0.28em] text-primary">
-              {product.subCategory}
-            </p>
             <h3 className="safe-break font-heading text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
               {product.name}
             </h3>
@@ -124,7 +110,7 @@ const ProductSection = ({ product, index }) => {
             </p>
           </div>
 
-          <div className="space-y-3 text-sm leading-relaxed text-foreground/82 sm:text-base">
+          <div className="space-y-3 font-heading text-sm leading-relaxed text-foreground/82 sm:text-base">
             <p>{product.description}</p>
             {product.applications && <p>{product.applications}</p>}
           </div>
@@ -152,7 +138,7 @@ const ProductSection = ({ product, index }) => {
               )}
 
               <div className="rounded-lg border border-border/60 bg-card/70 p-4 shadow-sm sm:p-5">
-                <h4 className="mb-4 border-l-2 border-primary pl-3 font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-foreground">
+                <h4 className="mb-4 border-l-2 border-primary pl-3 font-heading text-sm font-bold uppercase tracking-[0.2em] text-foreground">
                   Specifications
                 </h4>
                 <div className="overflow-hidden rounded-md border border-border/50 bg-background/50">
@@ -214,39 +200,10 @@ const TechSpecs = () => {
           viewport={{ once: true }}
           className="mx-auto mb-8 max-w-3xl text-center lg:mb-10"
         >
-          <p className="mb-3 font-heading text-[11px] font-semibold uppercase tracking-[0.3em] text-primary">
-            Product Systems
-          </p>
           <h2 className="font-heading text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
             Integrated <span className="text-gradient">Product Portfolio</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl font-body text-sm text-muted-foreground md:text-base">
-            Select a product to jump directly to its section with video,
-            overview, specifications, and brochures.
-          </p>
         </motion.div>
-
-        {/* ── Pill Tab Bar (frozen under the header on all screens) ── */}
-        <div
-          id="product-tab-bar"
-          className="sticky top-16 z-20 mb-6 rounded-lg border border-border/70 bg-background/90 p-2 shadow-lg backdrop-blur-xl lg:top-20"
-        >
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
-            {products.map((product, i) => (
-              <button
-                key={product.id}
-                type="button"
-                onClick={() => scrollToProduct(product.id)}
-                className="touch-target group min-w-0 rounded-full border border-border/60 bg-background/50 px-2.5 py-2.5 font-heading text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground transition-all hover:border-primary/50 hover:text-primary sm:px-3 sm:text-[11px] lg:px-5 lg:text-xs"
-              >
-                <span className="mr-1.5 text-[9px] text-muted-foreground/60 sm:mr-2 sm:text-[10px]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="safe-break align-middle">{product.name}</span>
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* ── Product Sections ── */}
         {products.map((product, index) => (
