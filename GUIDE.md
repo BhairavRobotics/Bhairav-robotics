@@ -57,7 +57,57 @@ VITE_WEB3FORMS_CONTACT_KEY=your_contact_access_key
 
 ---
 
-## 2. Changing Leader / Team Member Photos
+## 2. Product Brochures Sent by Email (Download Brochure)
+
+The **"Download Brochure"** button routes to a request form where visitors enter their email. On submit, our backend emails the product brochure **to the requester** (with the PDF attached) **and notifies the team** at `ravi.sarma@bhairavrobotics.in` who asked for which product.
+
+Because emailing with an attachment needs server-side code, this runs as a **Vercel serverless function** (`/api/brochure`) so it works on the static Vercel site with **no separate backend host**.
+
+### How it works
+
+1. `TechSpecs.jsx` shows the "Download Brochure" button only for products that have a `brochure` field in `frontend/src/data/products.js`.
+2. The button links to `/download-brochure?id=<product-id>` → `frontend/src/pages/BrochureRequest.jsx`.
+3. On submit, the page POSTs `{ name, email, productId }` to `/api/brochure` (same origin).
+4. The Vercel function `api/brochure.js` sends the PDF via SMTP to the requester, then sends a notification to `HR_EMAIL` (default `ravi.sarma@bhairavrobotics.in`).
+
+### Adding / changing a brochure
+
+- **Wired products** (have `brochure` + `brochureName`): Vrishabh, Rakshak, Wheeled Shvana.
+- Put the PDF under `frontend/src/assets/` (or `frontend/src/assets/brochures/`).
+- Import it in `frontend/src/data/products.js` and add `brochure` / `brochureName` to that product. Prabal has none (button hidden).
+- The Vercel function `api/brochure.js` has its own `BROCHURES` map — **keep it in sync**: add each productId → `{ file, name, productName }` so the email attaches the correct PDF.
+
+### SMTP (email) configuration
+
+The function reads these env vars (set in Vercel dashboard, then **redeploy**). Their values come from `backend/.env` (Zoho SMTP):
+
+| Variable | Example | Purpose |
+|----------|---------|---------|
+| `SMTP_HOST` | `smtp.zoho.in` | SMTP server |
+| `SMTP_PORT` | `465` | Port (465 = secure) |
+| `SMTP_SECURE` | `true` | Use TLS |
+| `EMAIL_USER` | `akhila.ganji@bhairavrobotics.in` | Sender / SMTP login |
+| `EMAIL_PASS` | (app password) | SMTP password — never commit |
+| `HR_EMAIL` | `ravi.sarma@bhairavrobotics.in` | Team notification recipient |
+
+If these are missing, the function returns a 500 "Email service is not configured".
+
+### Local development
+
+`frontend/vite.config.js` proxies `/api` → `http://localhost:3001`, and the route/controller in `backend/` (`POST /api/brochure`) handles it when you run the backend with `backend/.env`.
+
+| File | What it does |
+|------|-------------|
+| `api/brochure.js` | Vercel serverless function — emails brochure + team notification (production) |
+| `api/package.json` | Declares `nodemailer` for the function |
+| `backend/src/controllers/brochureController.js` | Same logic for local backend dev |
+| `frontend/src/pages/BrochureRequest.jsx` | Request form (collects name/email, posts to `/api/brochure`) |
+| `frontend/src/data/products.js` | Product → brochure PDF mapping |
+| `vercel.json` | Rewrites `/api/*` so the SPA catch-all doesn't swallow the function |
+
+---
+
+## 3. Changing Leader / Team Member Photos
 
 All team photos live in a single folder and are referenced in one file.
 
@@ -108,7 +158,7 @@ npm run dev
 
 ---
 
-## 3. Other Common Changes
+## 4. Other Common Changes
 
 ### Updating the website email shown on Contact page / Footer
 
