@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, Download } from "lucide-react";
+import { Link } from "react-router-dom";
 import { products } from "@/data/products";
 
 const ProductSection = ({ product, index }) => {
@@ -167,14 +168,13 @@ const ProductSection = ({ product, index }) => {
           {/* Brochure Button */}
           {product.brochure && (
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a
-                href={product.brochure}
-                download={product.brochureName}
+              <Link
+                to={`/download-brochure?id=${product.id}`}
                 className="touch-target inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-primary px-5 py-3 text-center font-heading text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-glow transition-opacity hover:opacity-90"
               >
                 <Download size={15} />
                 Download Brochure
-              </a>
+              </Link>
             </div>
           )}
         </div>

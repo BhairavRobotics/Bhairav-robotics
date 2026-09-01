@@ -1,7 +1,7 @@
 import wheeledShvanaVideo from "@/assets/ProductVideos/Shvana_Wheeled+Shoe.mp4";
 import rakshakVideo from "@/assets/ProductVideos/Rakshak_Stereo1.mp4";
 import prabalVideo from "@/assets/ProductVideos/DM90&DM70.mp4";
-import vrishabhVideo from "@/assets/ProductVideos/Vrishabh.mp4";
+import vrishabhVideo from "@/assets/Vrishabh_Video.mp4";
 
 import wheeledShvanaImg from "@/assets/products/wheeled-shvana.png";
 import rakshakImg from "@/assets/products/rakshak.png";
@@ -11,7 +11,11 @@ import vrishabhSideImg from "@/assets/products/Vrishabh/SideView.png";
 import vrishabhTopImg from "@/assets/products/Vrishabh/TopView.png";
 import vrishabh4kImg from "@/assets/products/Vrishabh/Vrishabh_4k.png";
 
-import vrishabhBrochure from "@/assets/Vrishabh_Combat_UGV_Flyer.pdf";export const categories = [
+import vrishabhBrochure from "@/assets/Vrishabh_Combat_UGV_Flyer.pdf";
+import rakshakBrochure from "@/assets/brochures/Rakshak_Brochure.pdf";
+import wheeledShvanaBrochure from "@/assets/brochures/Wheeled_Shvana_Brochure.pdf";
+
+export const categories = [
   {
     id: "robotic-platforms",
     name: "Robotic Platforms",
@@ -116,6 +120,8 @@ export const products = [
     views: [
       { label: "Front View", image: rakshakImg },
     ],
+    brochure: rakshakBrochure,
+    brochureName: "Rakshak_Brochure.pdf",
     activeSpecTab: "specifications",
     specTabs: {
       specifications: [
@@ -162,6 +168,8 @@ export const products = [
     views: [
       { label: "Front View", image: wheeledShvanaImg },
     ],
+    brochure: wheeledShvanaBrochure,
+    brochureName: "Wheeled_Shvana_Brochure.pdf",
     activeSpecTab: "performance",
     specTabs: {
       performance: [

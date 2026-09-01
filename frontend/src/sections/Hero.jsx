@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import heroBgVideo from "@/assets/ProductVideos/Vrishabh.mp4";
+import demoVideo from "@/assets/Watch_Demo_Video.mp4";
 import { stats } from "@/data/siteData";
 import { smoothScrollToId } from "@/lib/utils";
 
@@ -36,9 +37,37 @@ const AnimatedStatNumber = ({ value, duration = 1.2 }) => {
 };
 
 const Hero = () => {
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const demoVideoRef = useRef(null);
+
   const scrollToTechSpecs = () => {
     smoothScrollToId("tech-specs");
   };
+
+  useEffect(() => {
+    if (!isDemoOpen) return;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsDemoOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleEscape);
+
+    if (demoVideoRef.current) {
+      demoVideoRef.current.currentTime = 0;
+      demoVideoRef.current.play().catch(() => {
+        // Ignore autoplay policy interruptions.
+      });
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isDemoOpen]);
 
   return (
     <section className="relative flex min-h-[100svh] w-full flex-col justify-between overflow-hidden">
@@ -96,12 +125,39 @@ const Hero = () => {
           </button>
           <button
             type="button"
+            onClick={() => setIsDemoOpen(true)}
             className="touch-target rounded-sm border border-border/80 bg-background/30 px-6 py-3.5 font-heading text-sm font-semibold uppercase tracking-wider text-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-primary active:scale-95 sm:min-w-[190px] sm:px-8"
           >
             Watch Demo
           </button>
         </motion.div>
       </div>
+
+      {/* Demo Video Modal */}
+      {isDemoOpen && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="relative w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden border border-border shadow-2xl">
+            <video
+              ref={demoVideoRef}
+              autoPlay
+              loop
+              playsInline
+              controls
+              className="w-full h-full object-contain"
+            >
+              <source src={demoVideo} type="video/mp4" />
+            </video>
+            <button
+              type="button"
+              onClick={() => setIsDemoOpen(false)}
+              className="absolute right-4 top-4 z-10 rounded-full bg-background/80 p-2 text-foreground backdrop-blur-sm transition hover:bg-background"
+              aria-label="Close demo"
+            >
+              <X size={20} />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Floating stats strip over bottom of hero */}
       <div className="relative z-10 border-t border-border/20 bg-background/30 pb-6 pt-4 backdrop-blur-[4px] sm:pb-8">
