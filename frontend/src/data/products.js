@@ -12,8 +12,6 @@ import vrishabhTopImg from "@/assets/products/Vrishabh/TopView.png";
 import vrishabh4kImg from "@/assets/products/Vrishabh/Vrishabh_4k.png";
 
 import vrishabhBrochure from "@/assets/Vrishabh_Combat_UGV_Flyer.pdf";
-import rakshakBrochure from "@/assets/brochures/Rakshak_Brochure.pdf";
-import wheeledShvanaBrochure from "@/assets/brochures/Wheeled_Shvana_Brochure.pdf";
 
 export const categories = [
   {
@@ -120,8 +118,6 @@ export const products = [
     views: [
       { label: "Front View", image: rakshakImg },
     ],
-    brochure: rakshakBrochure,
-    brochureName: "Rakshak_Brochure.pdf",
     activeSpecTab: "specifications",
     specTabs: {
       specifications: [
@@ -168,8 +164,6 @@ export const products = [
     views: [
       { label: "Front View", image: wheeledShvanaImg },
     ],
-    brochure: wheeledShvanaBrochure,
-    brochureName: "Wheeled_Shvana_Brochure.pdf",
     activeSpecTab: "performance",
     specTabs: {
       performance: [

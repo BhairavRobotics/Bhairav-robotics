@@ -72,7 +72,7 @@ Because emailing with an attachment needs server-side code, this runs as a **Ver
 
 ### Adding / changing a brochure
 
-- **Wired products** (have `brochure` + `brochureName`): Vrishabh, Rakshak, Wheeled Shvana.
+- **Wired products** (have `brochure` + `brochureName`): Vrishabh only. Rakshak, Shvana, and Prabal have none (button hidden).
 - Put the PDF under `frontend/src/assets/` (or `frontend/src/assets/brochures/`).
 - Import it in `frontend/src/data/products.js` and add `brochure` / `brochureName` to that product. Prabal has none (button hidden).
 - The Vercel function `api/brochure.js` has its own `BROCHURES` map — **keep it in sync**: add each productId → `{ file, name, productName }` so the email attaches the correct PDF.

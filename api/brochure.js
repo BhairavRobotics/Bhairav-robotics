@@ -11,22 +11,6 @@ const BROCHURES = {
     name: "Vrishabh_Combat_UGV_Flyer.pdf",
     productName: "Vrishabh",
   },
-  rakshak: {
-    file: path.join(
-      process.cwd(),
-      "frontend/src/assets/brochures/Rakshak_Brochure.pdf"
-    ),
-    name: "Rakshak_Brochure.pdf",
-    productName: "Rakshak",
-  },
-  "wheeled-shvana": {
-    file: path.join(
-      process.cwd(),
-      "frontend/src/assets/brochures/Wheeled_Shvana_Brochure.pdf"
-    ),
-    name: "Wheeled_Shvana_Brochure.pdf",
-    productName: "Shvana",
-  },
 };
 
 const escapeHtml = (value = "") =>
