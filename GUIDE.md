@@ -86,7 +86,7 @@ The function reads these env vars (set in Vercel dashboard, then **redeploy**). 
 | `SMTP_HOST` | `smtp.zoho.in` | SMTP server |
 | `SMTP_PORT` | `465` | Port (465 = secure) |
 | `SMTP_SECURE` | `true` | Use TLS |
-| `EMAIL_USER` | `akhila.ganji@bhairavrobotics.in` | Sender / SMTP login |
+| `EMAIL_USER` | `ravi.sarma@bhairavrobotics.in` | Sender / SMTP login |
 | `EMAIL_PASS` | (app password) | SMTP password — never commit |
 | `HR_EMAIL` | `ravi.sarma@bhairavrobotics.in` | Team notification recipient |
 
