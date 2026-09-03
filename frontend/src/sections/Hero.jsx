@@ -5,6 +5,7 @@ import heroBgVideo from "@/assets/ProductVideos/Vrishabh.mp4";
 import demoVideo from "@/assets/Watch_Demo_Video.mp4";
 import { stats } from "@/data/siteData";
 import { smoothScrollToId } from "@/lib/utils";
+import VideoPlayer from "@/components/VideoPlayer";
 
 const AnimatedStatNumber = ({ value, duration = 1.2 }) => {
   const [displayValue, setDisplayValue] = useState(0);
@@ -137,16 +138,15 @@ const Hero = () => {
       {isDemoOpen && (
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
           <div className="relative w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden border border-border shadow-2xl">
-            <video
-              ref={demoVideoRef}
+            <VideoPlayer
+              src={demoVideo}
+              videoRef={demoVideoRef}
               autoPlay
               loop
               playsInline
-              controls
+              ariaLabel="Bhairav Robotics demo video"
               className="w-full h-full object-contain"
-            >
-              <source src={demoVideo} type="video/mp4" />
-            </video>
+            />
             <button
               type="button"
               onClick={() => setIsDemoOpen(false)}

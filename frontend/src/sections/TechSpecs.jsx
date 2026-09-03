@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { CheckCircle2, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { products } from "@/data/products";
+import VideoPlayer from "@/components/VideoPlayer";
 
 const ProductSection = ({ product, index }) => {
   const specTabKeys = Object.keys(product.specTabs || {});
@@ -34,18 +35,15 @@ const ProductSection = ({ product, index }) => {
         <div className="space-y-4 lg:col-span-5">
           <div className="relative aspect-video overflow-hidden rounded-lg border border-border/70 bg-black shadow-2xl">
             {product.video ? (
-              <video
-                key={product.video}
+              <VideoPlayer
+                src={product.video}
                 autoPlay
                 loop
                 muted
                 playsInline
-                controls
+                ariaLabel={`${product.name} product video`}
                 className="h-full w-full object-contain"
-                aria-label={`${product.name} product video`}
-              >
-                <source src={product.video} type="video/mp4" />
-              </video>
+              />
             ) : (
               <img
                 key={currentViewImage}
