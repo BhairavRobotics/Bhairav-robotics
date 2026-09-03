@@ -74,9 +74,9 @@ export default async function handler(req, res) {
 
   const pdf = fs.readFileSync(brochure.file);
   const contactEmail =
-    process.env.CONTACT_EMAIL || "ravi.sarma@bhairavrobotics.in";
+    process.env.CONTACT_EMAIL || "contact@bhairavrobotics.in";
   const teamEmail =
-    process.env.HR_EMAIL || "ravi.sarma@bhairavrobotics.in";
+    process.env.HR_EMAIL || "contact@bhairavrobotics.in";
   const fromEmail = EMAIL_USER;
 
   try {

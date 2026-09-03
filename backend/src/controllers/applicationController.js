@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const HR_EMAIL = process.env.HR_EMAIL || "ravi.sarma@bhairavrobotics.in";
+const HR_EMAIL = process.env.HR_EMAIL || "contact@bhairavrobotics.in";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,

@@ -29,7 +29,7 @@ const AdminDashboard = () => {
             </div>
             <h2 className="font-heading font-bold text-2xl mb-3">Email Delivery</h2>
             <p className="text-muted-foreground leading-relaxed">
-              New career applications are sent to ravi.sarma@bhairavrobotics.in immediately. Candidate details are included in the email body and the uploaded resume is attached directly.
+              New career applications are sent to contact@bhairavrobotics.in immediately. Candidate details are included in the email body and the uploaded resume is attached directly.
             </p>
           </div>
 

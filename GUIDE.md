@@ -11,18 +11,18 @@ Both forms are **client-side email services** so they work without a backend ser
 - **Careers** uses **Forminit** — free, supports **file uploads** (PDF/Word resumes stored + attached to the notification email).
 - **Contact** uses **Web3Forms** — free, text-only messages.
 
-Both forms deliver to: **`ravi.sarma@bhairavrobotics.in`**
+Both forms deliver to: **`contact@bhairavrobotics.in`**
 
 ### Step 1 — Create a Forminit account (Careers form)
 
 1. Go to [forminit.com](https://forminit.com) and sign up (free, 100 submissions/month, 100 MB file storage)
-2. Create a new form. Set the notification email recipient to `ravi.sarma@bhairavrobotics.in`
+2. Create a new form. Set the notification email recipient to `contact@bhairavrobotics.in`
 3. Forminit gives you a **form ID** (used in the public form endpoint `https://forminit.com/f/{formId}`)
 
 ### Step 2 — Create a Web3Forms account (Contact form)
 
 1. Go to [web3forms.com](https://www.web3forms.com) and sign up
-2. Create a form whose receiving email is `ravi.sarma@bhairavrobotics.in`
+2. Create a form whose receiving email is `contact@bhairavrobotics.in`
 3. Note the **Access Key** for the contact form
 
 ### Step 3 — Set environment variables
@@ -59,7 +59,7 @@ VITE_WEB3FORMS_CONTACT_KEY=your_contact_access_key
 
 ## 2. Product Brochures Sent by Email (Download Brochure)
 
-The **"Download Brochure"** button routes to a request form where visitors enter their email. On submit, our backend emails the product brochure **to the requester** (with the PDF attached) **and notifies the team** at `ravi.sarma@bhairavrobotics.in` who asked for which product.
+The **"Download Brochure"** button routes to a request form where visitors enter their email. On submit, our backend emails the product brochure **to the requester** (with the PDF attached) **and notifies the team** at `contact@bhairavrobotics.in` who asked for which product.
 
 Because emailing with an attachment needs server-side code, this runs as a **Vercel serverless function** (`/api/brochure`) so it works on the static Vercel site with **no separate backend host**.
 
@@ -68,7 +68,7 @@ Because emailing with an attachment needs server-side code, this runs as a **Ver
 1. `TechSpecs.jsx` shows the "Download Brochure" button only for products that have a `brochure` field in `frontend/src/data/products.js`.
 2. The button links to `/download-brochure?id=<product-id>` → `frontend/src/pages/BrochureRequest.jsx`.
 3. On submit, the page POSTs `{ name, email, productId }` to `/api/brochure` (same origin).
-4. The Vercel function `api/brochure.js` sends the PDF via SMTP to the requester, then sends a notification to `HR_EMAIL` (default `ravi.sarma@bhairavrobotics.in`).
+4. The Vercel function `api/brochure.js` sends the PDF via SMTP to the requester, then sends a notification to `HR_EMAIL` (default `contact@bhairavrobotics.in`).
 
 ### Adding / changing a brochure
 
@@ -86,9 +86,9 @@ The function reads these env vars (set in Vercel dashboard, then **redeploy**). 
 | `SMTP_HOST` | `smtp.zoho.in` | SMTP server |
 | `SMTP_PORT` | `465` | Port (465 = secure) |
 | `SMTP_SECURE` | `true` | Use TLS |
-| `EMAIL_USER` | `ravi.sarma@bhairavrobotics.in` | Sender / SMTP login |
+| `EMAIL_USER` | `contact@bhairavrobotics.in` | Sender / SMTP login |
 | `EMAIL_PASS` | (app password) | SMTP password — never commit |
-| `HR_EMAIL` | `ravi.sarma@bhairavrobotics.in` | Team notification recipient |
+| `HR_EMAIL` | `contact@bhairavrobotics.in` | Team notification recipient |
 
 If these are missing, the function returns a 500 "Email service is not configured".
 
