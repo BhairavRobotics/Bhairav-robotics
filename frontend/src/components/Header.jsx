@@ -134,8 +134,8 @@ const Header = () => {
               />
             </div>
             <div className="mx-1 hidden h-8 border-l border-border/40 sm:block" />
-            <h1 className="hidden min-w-0 translate-y-[7px] font-heading text-base font-bold uppercase tracking-tight text-foreground/90 sm:block md:text-lg lg:text-xl xl:text-2xl">
-              Born to Defend
+            <h1 className="hidden min-w-0 font-heading text-sm font-bold uppercase leading-tight tracking-tight text-foreground/90 sm:block md:text-base lg:text-lg xl:text-xl">
+              Where machines meet the mission
             </h1>
           </Link>
 

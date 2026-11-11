@@ -126,7 +126,7 @@ const AboutUs = () => {
         </section>
 
         {/* Team Section */}
-        <section className="responsive-container">
+        {/*<section className="responsive-container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -179,7 +179,7 @@ const AboutUs = () => {
               </motion.div>
             ))}
           </div>
-        </section>
+        </section>*/}
       </main>
 
       <Footer />
