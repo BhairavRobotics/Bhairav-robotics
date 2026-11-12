@@ -1,38 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../sections/Footer";
 import { motion } from "framer-motion";
-import { Users, Target, Eye, Cpu } from "lucide-react";
-import mohanRajImage from "../assets/team/MohanRaj Gangadharan.jpeg";
-import ramakrishnaImage from "../assets/team/Ramakrishna Commuri.jpeg";
-import raviKishoreImage from "../assets/team/Ravi Kishore.jpeg";
-import saiShravanthImage from "../assets/team/Sai Shravanth.jpeg";
-
-const team = [
-  {
-    name: "MohanRaj Gangadharan",
-    role: "Director - Lead Design and Manufacturing",
-    description: "Mohan has 25+ years of experience in design and manufacturing of numerous products for defense industry including hydraulic systems, launchers, small gas turbines.",
-    image: mohanRajImage
-  },
-  {
-    name: "Ramakrishna Commuri",
-    role: "Founder & Director - Technical",
-    description: "Rama has 25+ years of experience in various fields of engineering including commissioning, O&M, thermal modelling, data analysis of gas turbines and building drones for armed forces.",
-    image: ramakrishnaImage
-  },
-  {
-    name: "Ravi Kishore",
-    role: "Chief R&D Officer",
-    description: "Ravi Kishore has decades of experience in research and development of advanced robotic systems. He spearheads innovation and R&D strategy at Bhairav Robotics, driving technical excellence across all projects.",
-    image: raviKishoreImage
-  },
-  {
-    name: "Sai Shravanth O",
-    role: "Lead - Controls & Automation",
-    description: "Shravanth heads simulation, controls and automation team. He has hands on experience in Gazebo simulation, flight controls, Matlab, ROS and field testing.",
-    image: saiShravanthImage
-  }
-];
+import { Target, Eye, Cpu } from "lucide-react";
 
 const AboutUs = () => {
   return (
@@ -124,62 +93,6 @@ const AboutUs = () => {
             </div>
           </div>
         </section>
-
-        {/* Team Section */}
-        {/*<section className="responsive-container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
-              Meet Our <span className="text-gradient">Leadership</span>
-            </h2>
-            <p className="text-muted-foreground font-body max-w-xl mx-auto">
-              A collective of veterans and innovators driving the future of robotics.
-            </p>
-          </motion.div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-            {team.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-card border border-border/50 rounded-lg overflow-hidden group hover:border-primary/40 transition-colors"
-              >
-                <figure className="aspect-[4/5] bg-secondary overflow-hidden relative flex items-center justify-center">
-                  {member.image ? (
-                    <img
-                      src={member.image}
-                      alt={`${member.name}, ${member.role}`}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                    />
-                  ) : (
-                    <Users size={64} className="text-muted-foreground/30" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
-                  <figcaption className="sr-only">{member.name}</figcaption>
-                </figure>
-                <div className="p-6">
-                  <h3 className="font-heading font-bold text-xl text-foreground mb-1 group-hover:text-primary transition-colors">
-                    {member.name}
-                  </h3>
-                  <p className="text-xs tracking-[0.1em] uppercase text-primary font-semibold mb-4">
-                    {member.role}
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-body">
-                    {member.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>*/}
       </main>
 
       <Footer />
