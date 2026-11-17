@@ -137,16 +137,14 @@ const Header = () => {
                   />
                 </div>
               </Link>
-              {location.pathname === "/" && (
-                <div className="mt-2 inline-flex items-center gap-1 font-heading text-[8px] font-semibold uppercase tracking-[0.1em] text-[#00A0C0] sm:text-[9px] sm:tracking-[0.14em]">
-                  A Subsidiary of
-                  <img
-                    src={zenLogo}
-                    alt="Zen Technologies"
-                    className="h-2.5 w-auto sm:h-3"
-                  />
-                </div>
-              )}
+              <div className="mt-2 inline-flex items-center gap-1 font-heading text-[8px] font-semibold uppercase tracking-[0.1em] text-[#00A0C0] sm:text-[9px] sm:tracking-[0.14em]">
+                A Subsidiary of
+                <img
+                  src={zenLogo}
+                  alt="Zen Technologies"
+                  className="h-2.5 w-auto sm:h-3"
+                />
+              </div>
             </div>
             <div className="mx-1 hidden h-8 border-l border-border/40 sm:block" />
             <Link to="/" className="min-w-0">
