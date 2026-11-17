@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "../assets/header/brlogo.png";
+import zenLogo from "../assets/Zen-Logo-trimmed.png";
 import { products } from "@/data/products";
 import { smoothScrollToId } from "@/lib/utils";
 
@@ -125,19 +126,35 @@ const Header = () => {
       >
       <div className="responsive-container">
         <div className="flex h-16 items-center justify-between gap-3 lg:h-20">
-          <Link to="/" className="flex min-w-0 items-center gap-2 group sm:gap-3">
-            <div className="logo-glow-wrapper relative flex items-center justify-center">
-              <img
-                src={logo}
-                alt="Bhairav Robotics logo"
-                className="h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-105 sm:h-12 lg:h-[52px]"
-              />
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <div className="flex flex-col items-center">
+              <Link to="/" className="group flex items-center">
+                <div className="logo-glow-wrapper relative flex items-center justify-center">
+                  <img
+                    src={logo}
+                    alt="Bhairav Robotics logo"
+                    className="h-10 object-contain relative z-10 transition-transform duration-300 group-hover:scale-105 sm:h-12 lg:h-[52px]"
+                  />
+                </div>
+              </Link>
+              {location.pathname === "/" && (
+                <div className="mt-2 inline-flex items-center gap-1 font-heading text-[8px] font-semibold uppercase tracking-[0.1em] text-[#00A0C0] sm:text-[9px] sm:tracking-[0.14em]">
+                  A Subsidiary of
+                  <img
+                    src={zenLogo}
+                    alt="Zen Technologies"
+                    className="h-2.5 w-auto sm:h-3"
+                  />
+                </div>
+              )}
             </div>
             <div className="mx-1 hidden h-8 border-l border-border/40 sm:block" />
-            <h1 className="hidden min-w-0 font-heading text-sm font-bold uppercase leading-tight tracking-tight text-foreground/90 sm:block md:text-base lg:text-lg xl:text-xl">
-              Where machines meet the mission
-            </h1>
-          </Link>
+            <Link to="/" className="min-w-0">
+              <h1 className="hidden min-w-0 font-heading text-sm font-bold uppercase leading-tight tracking-tight text-foreground/90 sm:block md:text-base lg:text-lg xl:text-xl">
+                Where machines meet the mission
+              </h1>
+            </Link>
+          </div>
 
           <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
             {navLinks.map((link) => (

@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Footer from "../sections/Footer";
 import { motion } from "framer-motion";
 import { Target, Eye, Cpu } from "lucide-react";
+import zenLogo from "../assets/Zen-Logo-trimmed.png";
 
 const AboutUs = () => {
   return (
@@ -22,6 +23,22 @@ const AboutUs = () => {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-body">
               Leading the evolution of autonomous systems for mission-critical operations.
             </p>
+            <motion.a
+              href="https://www.zentechnologies.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-6 inline-flex items-center gap-2 font-heading text-[10px] font-semibold uppercase tracking-[0.2em] text-[#00A0C0] transition-opacity duration-300 hover:opacity-80 sm:text-xs"
+            >
+              A Subsidiary of
+              <img
+                src={zenLogo}
+                alt="Zen Technologies"
+                className="h-4 w-auto sm:h-5"
+              />
+            </motion.a>
           </motion.div>
         </section>
 
